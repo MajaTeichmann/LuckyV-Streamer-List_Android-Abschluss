@@ -60,20 +60,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_app_header">
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/activity_main"
+<!--                        <androidx.fragment.app.FragmentContainerView-->
+<!--                            android:id="@+id/activity_main"-->
+<!--                            android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="115dp"-->
+<!--                            app:defaultNavHost="true"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintHorizontal_bias="0.5"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"-->
+<!--                            app:navGraph="@navigation/nav_graph"-->
+<!--                            tools:context=".ui.HomeFragment"/>-->
+<!--            &lt;!&ndash;            android:name="androidx.navigation.fragment.NavHostFragment"&ndash;&gt;-->
+
+            <fragment
+                android:id="@+id/nav_host_fragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="115dp"
+                android:layout_height="match_parent"
                 app:defaultNavHost="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:navGraph="@navigation/nav_graph"
-                tools:context=".ui.HomeFragment"/>
-<!--            android:name="androidx.navigation.fragment.NavHostFragment"-->
+                app:navGraph="@navigation/nav_graph"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

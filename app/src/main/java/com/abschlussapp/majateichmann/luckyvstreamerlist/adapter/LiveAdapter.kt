@@ -1,5 +1,3 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.adapter
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

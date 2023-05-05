@@ -12,17 +12,19 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streame
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.local.getDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.LuckyV_StreamerApiService
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
+import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
 enum class ApiStatus {LOADING, ERROR, DONE}
 
 const val TAG = "MainViewModel"
 
-class MainViewModel(application: Application) : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // hier wird eine AppRepository Instanz erstellt, mit dem Parameter StreamerApi
     private val database = getDatabase(application)
     private val repository = AppRepository(StreamerApi, database)
+
 
     /**
      * Diese Funktion ruft die Repository-Funktion zum Laden der Streamer

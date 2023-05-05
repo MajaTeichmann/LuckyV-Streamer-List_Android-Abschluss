@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 class Streamer(
 
     @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+
     val name: String,
 
     //Datenklasse besteht aus 7 Eigenschaften, wovon 6 als Parameter für den Konstruktor definiert sind

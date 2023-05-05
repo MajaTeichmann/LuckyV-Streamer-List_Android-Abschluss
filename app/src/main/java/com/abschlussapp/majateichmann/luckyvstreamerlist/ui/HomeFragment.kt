@@ -1,31 +1,21 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.ui
 
-import android.app.AlertDialog
+import LiveAdapter
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
-import com.abschlussapp.majateichmann.luckyvstreamerlist.R
-import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.FilterAdapter
-import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.LiveAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OfflineAdapter
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.StreamerList
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 
 class HomeFragment : Fragment() {
 
     // Hier wird das ViewModel, in dem die Logik stattfindet, geholt
-    private val viewModel: MainViewModel by viewModels()
+//    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by activityViewModels()
 
     // Das binding für das QuizFragment wird deklariert
     private lateinit var binding: FragmentHomeBinding
@@ -71,8 +61,6 @@ class HomeFragment : Fragment() {
         ) {
             streamerListLive.adapter = LiveAdapter(it)
             streamerListOffline.adapter = OfflineAdapter(it)
-//            binding.rvStreamerOnline.adapter = LiveAdapter(it)
-//            binding.rvStreamerOffline.adapter = LiveAdapter(it)
         }
 
         // Verbesserte Performance bei fixer Listengröße
