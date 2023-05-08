@@ -8,4 +8,5 @@
     //background
     <color name="app_background_light">#FFFFFF</color>
     <color name="app_background_dark">#000000</color>
+    <color name="fraktion_button">#9A9790</color>
 </resources>

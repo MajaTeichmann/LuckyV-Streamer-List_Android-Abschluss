@@ -17,8 +17,7 @@ class Streamer(
     val logo_url: String,
     val live: Boolean,
     // weil fraktion in manchen fällen "null" ist
-    //todo
-//    val fraktion: Any,
+//    var fraktion: String?,
     val ic_name: String?
 )
 

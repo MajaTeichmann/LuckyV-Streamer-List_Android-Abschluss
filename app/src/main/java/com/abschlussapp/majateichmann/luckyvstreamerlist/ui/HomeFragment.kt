@@ -14,7 +14,6 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHom
 class HomeFragment : Fragment() {
 
     // Hier wird das ViewModel, in dem die Logik stattfindet, geholt
-//    private val viewModel: MainViewModel by viewModels()
     private val viewModel: MainViewModel by activityViewModels()
 
     // Das binding für das QuizFragment wird deklariert

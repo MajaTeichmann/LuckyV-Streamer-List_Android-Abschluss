@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.AppRepository
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
@@ -54,7 +55,9 @@ class LiveAdapter(
         var streamer = dataset[position]
 
         if (streamer.live) {
-            holder.ivStreamVorschau.setImageResource(streamer.logo_url.toInt())
+//            holder.tvFraktion.text = streamer.fraktion
+            //Logo-URL Laden
+            holder.ivStreamVorschau.load(streamer.logo_url)
             holder.tvStreamername.text = streamer.name
             holder.tvCharname.text = streamer.ic_name
         }
