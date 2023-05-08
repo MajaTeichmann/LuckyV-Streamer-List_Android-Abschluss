@@ -44,19 +44,4 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
             Log.d(TAG,"Failed to update StreamerDatabase: $e")
         }
     }
-
-    /////// NUR TEST DATEN ///////
-//    init{
-//        loadStreamers()
-//    }
-//
-//    fun loadStreamers(){
-//        val streamer = listOf<Streamer>(
-//            Streamer(
-//
-//            )
-//        )
-//        _streamer.value = streamerList
-//    }
-    //////////////////////////////
 }

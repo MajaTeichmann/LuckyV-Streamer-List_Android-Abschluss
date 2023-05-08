@@ -32,10 +32,6 @@ class HomeFragment : Fragment() {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-
-        // Hier wird der Informationsabruf gestartet
-        //todo: änderung 13:45
-//        viewModel.loadData()
     }
 
     /**
@@ -64,7 +60,7 @@ class HomeFragment : Fragment() {
         }
 
         // Verbesserte Performance bei fixer Listengröße
-        binding.rvStreamerOnline.setHasFixedSize(true)
-        binding.rvStreamerOffline.setHasFixedSize(true)
+        streamerListLive.setHasFixedSize(true)
+        streamerListOffline.setHasFixedSize(true)
     }
 }
