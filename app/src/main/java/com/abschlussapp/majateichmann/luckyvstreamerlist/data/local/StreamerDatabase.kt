@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.Converter.Converter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
 
-@Database(entities = [Streamer::class], version = 3)
+@Database(entities = [Streamer::class], version = 1)
 @TypeConverters(Converter::class)
 abstract class StreamerDatabase : RoomDatabase() {
 
@@ -21,11 +21,6 @@ private lateinit var INSTANCE: StreamerDatabase
 
 fun getDatabase(context: Context): StreamerDatabase {
     synchronized(StreamerDatabase::class.java) {
-        val migration2to3 = object : Migration(2,3) {
-            override fun migrate(database: SupportSQLiteDatabase) {
-                // Perform migration operations here
-            }
-        }
         // Wenn keine Datenbank gefunden wurde, wird automatisch eine neue erstellt
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(
@@ -33,7 +28,6 @@ fun getDatabase(context: Context): StreamerDatabase {
                 StreamerDatabase::class.java,
                 "streamer_database"
             )
-                .addMigrations(migration2to3)
                 .build()
         }
     }

@@ -54,6 +54,8 @@ class HomeFragment : Fragment() {
         viewModel.streamer.observe(
             viewLifecycleOwner
         ) {
+
+            // todo: listen aufteilen mit if
             streamerListLive.adapter = LiveAdapter(it)
             streamerListOffline.adapter = OfflineAdapter(it)
         }

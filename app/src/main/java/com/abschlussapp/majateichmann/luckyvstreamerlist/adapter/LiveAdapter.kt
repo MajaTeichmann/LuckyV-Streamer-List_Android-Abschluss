@@ -1,3 +1,4 @@
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ class LiveAdapter(
         val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
+        val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
     }
 
 
@@ -54,12 +56,15 @@ class LiveAdapter(
         //streamer aus dem dataset holen
         var streamer = dataset[position]
 
-        if (streamer.live) {
-//            holder.tvFraktion.text = streamer.fraktion
+        Log.e("test", streamer.live.toString())
+
+
+            holder.tvFraktion.text = streamer.fraktion
+
             //Logo-URL Laden
             holder.ivStreamVorschau.load(streamer.logo_url)
             holder.tvStreamername.text = streamer.name
             holder.tvCharname.text = streamer.ic_name
-        }
+
     }
 }

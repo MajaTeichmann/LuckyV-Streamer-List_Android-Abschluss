@@ -37,11 +37,14 @@
             tools:text="Streamername" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="wrap_content"
+            android:id="@+id/cl_charundfraktion"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_streamername">
+            app:layout_constraintTop_toBottomOf="@+id/tv_streamername"
+            app:layout_constraintVertical_bias="0.5">
 
             <TextView
                 android:id="@+id/tv_charname"
@@ -49,41 +52,36 @@
                 android:layout_height="wrap_content"
                 android:textSize="11sp"
                 android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
                 tools:text="Charname" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            app:layout_constraintEnd_toEndOf="@+id/iv_stream_vorschau"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-            app:layout_constraintTop_toBottomOf="@+id/tv_streamername">
 
             <TextView
                 android:id="@+id/tv_fraktion"
                 android:layout_width="55dp"
                 android:layout_height="18dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/rounded_corner"
+                android:backgroundTint="#A8A6A0"
+                android:ellipsize="start"
                 android:textAlignment="center"
                 android:textColor="@color/luckyv_white"
-                android:textSize="11sp"
+                android:textSize="10sp"
                 android:textStyle="normal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
+                app:layout_constraintTop_toBottomOf="@id/tv_charname"
                 tools:text="Fraktion" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--            <Space-->
+            <!--                android:id="@+id/space"-->
+            <!--                android:layout_width="1dp"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
