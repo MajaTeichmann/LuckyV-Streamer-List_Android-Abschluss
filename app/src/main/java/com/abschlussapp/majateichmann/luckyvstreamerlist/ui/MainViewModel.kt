@@ -47,7 +47,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             //gespeicherten Streamer aus Datenbank löschen, um alle Datensätze neue reinzuladen
             try{
-                repository.deleteAllStreamer()
+                repository.deleteAllStreamers()
             }catch(e: Exception){
                 Log.e(TAG,"Delete from Database failed: $e")
             }

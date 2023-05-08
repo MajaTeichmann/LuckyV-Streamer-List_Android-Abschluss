@@ -29,11 +29,11 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
         }
     }
 
-    suspend fun deleteAllStreamer(){
+    suspend fun deleteAllStreamers(){
         try{
             database.streamerDao.deleteAll()
         }catch(e: Exception){
-            Log.e(TAG,"Failed to delete all Streamer from Database: $e")
+            Log.e(TAG,"Failed to delete all Streamers from Database: $e")
         }
     }
 
@@ -44,4 +44,19 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
             Log.d(TAG,"Failed to update StreamerDatabase: $e")
         }
     }
+
+    /////// NUR TEST DATEN ///////
+//    init{
+//        loadStreamers()
+//    }
+//
+//    fun loadStreamers(){
+//        val streamer = listOf<Streamer>(
+//            Streamer(
+//
+//            )
+//        )
+//        _streamer.value = streamerList
+//    }
+    //////////////////////////////
 }

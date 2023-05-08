@@ -180,7 +180,8 @@
             android:src="@drawable/luckyv_logo"
             app:backgroundTint="@color/luckyv_yellow"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:focusable="true" />
 
         <TextView
             android:id="@+id/tv_streamers_offline"
