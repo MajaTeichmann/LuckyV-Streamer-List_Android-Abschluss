@@ -38,7 +38,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_charundfraktion"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,21 +56,38 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Charname" />
 
-            <TextView
-                android:id="@+id/tv_fraktion"
-                android:layout_width="55dp"
-                android:layout_height="18dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_fraktion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/rounded_corner"
-                android:backgroundTint="#A8A6A0"
-                android:ellipsize="start"
-                android:textAlignment="center"
-                android:textColor="@color/luckyv_white"
-                android:textSize="10sp"
-                android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_charname"
-                tools:text="Fraktion" />
+                app:layout_constraintTop_toBottomOf="@id/tv_charname">
+
+                <TextView
+                    android:id="@+id/tv_fraktion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corner"
+                    android:backgroundTint="#A8A6A0"
+                    android:ellipsize="start"
+                    android:paddingStart="5dp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:paddingEnd="5dp"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/luckyv_white"
+                    android:textSize="10sp"
+                    android:textStyle="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Fraktion" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <!--            <Space-->
             <!--                android:id="@+id/space"-->

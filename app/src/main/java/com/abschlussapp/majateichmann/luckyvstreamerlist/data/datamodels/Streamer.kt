@@ -18,7 +18,7 @@ class Streamer(
     val live: Boolean,
     // weil fraktion in manchen fällen "null" ist
     var fraktion: String?,
-    val ic_name: String?
+    var ic_name: String?
 )
 
 // Aufbau der API "LuckyV Streamer List"
