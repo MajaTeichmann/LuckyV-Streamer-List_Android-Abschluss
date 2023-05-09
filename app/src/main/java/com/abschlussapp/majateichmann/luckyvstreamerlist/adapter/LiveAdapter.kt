@@ -56,14 +56,14 @@ class LiveAdapter(
         //streamer aus dem dataset holen
         var streamer = dataset[position]
 
-//        if(streamer.fraktion==null){
-//            streamer.fraktion = "{nicht hinterlegt}"
-//        }
+        if(streamer.fraktion==null){
+            streamer.fraktion = "{nicht hinterlegt}"
+        }
         holder.tvFraktion.text = streamer.fraktion
-//
-//        if(streamer.ic_name==null){
-//            streamer.ic_name = "{nicht hinterlegt}"
-//        }
+
+        if(streamer.ic_name==null){
+            streamer.ic_name = "{nicht hinterlegt}"
+        }
         holder.tvCharname.text = streamer.ic_name
 
         Log.e("test", streamer.live.toString())
