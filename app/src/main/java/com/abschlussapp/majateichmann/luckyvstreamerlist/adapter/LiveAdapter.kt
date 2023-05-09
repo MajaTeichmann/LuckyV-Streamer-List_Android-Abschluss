@@ -56,24 +56,23 @@ class LiveAdapter(
         //streamer aus dem dataset holen
         var streamer = dataset[position]
 
-        if(streamer.fraktion==null){
-            streamer.fraktion = "{nicht hinterlegt}"
-        }else{
-            holder.tvFraktion.text = streamer.fraktion
-        }
-
-        if(streamer.ic_name==null){
-            streamer.ic_name = "{nicht hinterlegt}"
-        }
+//        if(streamer.fraktion==null){
+//            streamer.fraktion = "{nicht hinterlegt}"
+//        }
+        holder.tvFraktion.text = streamer.fraktion
+//
+//        if(streamer.ic_name==null){
+//            streamer.ic_name = "{nicht hinterlegt}"
+//        }
         holder.tvCharname.text = streamer.ic_name
 
         Log.e("test", streamer.live.toString())
 
 
-            //Logo-URL Laden
-            holder.ivStreamVorschau.load(streamer.logo_url)
+        //Logo-URL Laden
+        holder.ivStreamVorschau.load(streamer.logo_url)
 
-            holder.tvStreamername.text = streamer.name
+        holder.tvStreamername.text = streamer.name
 
     }
 }
