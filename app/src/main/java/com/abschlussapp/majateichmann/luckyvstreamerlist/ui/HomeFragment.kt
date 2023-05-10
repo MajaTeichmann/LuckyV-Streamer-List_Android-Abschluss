@@ -9,6 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OfflineAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.data.AppRepository
+import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.StreamerList
+import com.abschlussapp.majateichmann.luckyvstreamerlist.data.local.getDatabase
+import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -53,7 +58,7 @@ class HomeFragment : Fragment() {
         viewModel.streamersOnline.observe(
             viewLifecycleOwner
         ) {
-
+            binding.tvNumberPlayersOnline.text = it.size.toString()
             streamerListLive.adapter = LiveAdapter(it)
         }
 

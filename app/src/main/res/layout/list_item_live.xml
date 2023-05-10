@@ -2,8 +2,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="130dp"
+    android:layout_height="160dp"
     android:layout_margin="08dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="5dp"
@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_streamername"
-            app:layout_constraintVertical_bias="0.5">
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/tv_charname"
@@ -73,8 +73,8 @@
                     android:ellipsize="start"
                     android:paddingStart="5dp"
                     android:paddingTop="2dp"
-                    android:paddingBottom="2dp"
                     android:paddingEnd="5dp"
+                    android:paddingBottom="2dp"
                     android:textAlignment="gravity"
                     android:textColor="@color/luckyv_white"
                     android:textSize="10sp"
