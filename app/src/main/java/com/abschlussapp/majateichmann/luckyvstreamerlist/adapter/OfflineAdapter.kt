@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
 
@@ -21,6 +23,7 @@ class OfflineAdapter(
      * der ViewHolder umfasst die View und stellt einen Listeneintrag dar
      */
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
@@ -84,6 +87,8 @@ class OfflineAdapter(
 
         Log.e("Streamer is live", streamer.live.toString())
 
+        //Logo-URL Laden
+        holder.ivStreamVorschau.load(streamer.logo_url)
 
         val streamerName = holder.tvStreamername
         streamerName.text = streamer.name
