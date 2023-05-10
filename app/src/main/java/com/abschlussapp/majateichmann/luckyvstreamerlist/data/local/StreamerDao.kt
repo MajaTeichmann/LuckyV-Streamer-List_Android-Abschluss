@@ -23,10 +23,10 @@ interface StreamerDao {
     @Query("DELETE from Streamer")
     suspend fun deleteAll()
 
-//    // zeige mir alle Streamer an, die live sind
-//    @Query("SELECT * FROM STREAMER WHERE live = 1")
-//    suspend fun showLive()
-//
-//    @Query("SELECT * FROM STREAMER WHERE live = 0")
-//    suspend fun showOffline()
+    // zeige mir alle Streamer an, die live sind
+    @Query("SELECT * FROM STREAMER WHERE live = 1")
+    fun showLive() : LiveData<List<Streamer>>
+
+    @Query("SELECT * FROM STREAMER WHERE live = 0")
+    fun showOffline(): LiveData<List<Streamer>>
 }

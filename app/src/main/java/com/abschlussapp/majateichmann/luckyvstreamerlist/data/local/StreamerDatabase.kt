@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
-import retrofit2.Converter
 
 @Database(entities = [Streamer::class], version = 1)
 abstract class StreamerDatabase : RoomDatabase() {
