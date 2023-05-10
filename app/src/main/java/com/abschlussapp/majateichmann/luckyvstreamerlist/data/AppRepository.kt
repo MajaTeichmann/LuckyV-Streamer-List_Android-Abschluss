@@ -39,7 +39,7 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
         }
     }
 
-    suspend fun getOnlineStreamers(){
+    fun getOnlineStreamers(){
         try {
             database.streamerDao.showLive()
         }catch(e:Exception){
@@ -47,7 +47,7 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
         }
     }
 
-    suspend fun getOfflineStreamers(){
+    fun getOfflineStreamers(){
         try {
             database.streamerDao.showOffline()
         }catch(e:Exception){
