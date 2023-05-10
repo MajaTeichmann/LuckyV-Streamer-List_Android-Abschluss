@@ -72,14 +72,13 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/online_players_number"
+                android:text="0"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_text_players_online"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                tools:text="30" />
+                app:layout_constraintVertical_bias="0.5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -95,7 +94,7 @@
             <MultiAutoCompleteTextView
                 android:id="@+id/tv_autocomplete_search"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="36dp"
                 android:completionHint="Wonach suchst du?"
                 android:completionThreshold="1"
                 android:hint="@string/suchbegriff"
