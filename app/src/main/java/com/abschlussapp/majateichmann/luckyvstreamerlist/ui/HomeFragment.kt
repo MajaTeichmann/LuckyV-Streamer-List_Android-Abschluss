@@ -1,19 +1,16 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.ui
 
 import LiveAdapter
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OfflineAdapter
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.AppRepository
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.StreamerList
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.local.getDatabase
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
+import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OnSwipeTouchListener
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -32,7 +29,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,11 +40,18 @@ class HomeFragment : Fragment() {
      * Hier werden die Elemente eingerichtet und z.B. onClickListener gesetzt
      */
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val streamerListLive = binding.rvStreamerOnline
         val streamerListOffline = binding.rvStreamerOffline
+
+        // GridLayoutManger für die RecyclerViews erstellen
+        val gridLayoutManagerLive = GridLayoutManager(requireContext(), 3)
+        val gridLayoutManagerOffline = GridLayoutManager(requireContext(), 3)
+        streamerListLive.layoutManager = gridLayoutManagerLive
+        streamerListOffline.layoutManager = gridLayoutManagerOffline
 
         // Bei einem Klick auf btnRefresh sollen die Informationen erneut abgerufen werden
         binding.btnRefresh.setOnClickListener {
@@ -71,5 +75,34 @@ class HomeFragment : Fragment() {
         // Verbesserte Performance bei fixer Listengröße
         streamerListLive.setHasFixedSize(true)
         streamerListOffline.setHasFixedSize(true)
+
+        // Swipe-Logik festlegen
+        streamerListLive.setOnTouchListener(object : OnSwipeTouchListener(requireContext()) {
+            override fun onSwipeLeft() {
+                showRecyclerView2()
+            }
+        })
+
+        streamerListOffline.setOnTouchListener(object : OnSwipeTouchListener(requireContext()) {
+            override fun onSwipeRight() {
+                showRecyclerView1()
+            }
+        })
+    }
+
+    private fun showRecyclerView1() {
+        binding.rvStreamerOnline.visibility = View.VISIBLE
+        binding.tvStreamersOnline.visibility = View.VISIBLE
+
+        binding.rvStreamerOffline.visibility = View.GONE
+        binding.tvStreamersOffline.visibility = View.GONE
+    }
+
+    private fun showRecyclerView2() {
+        binding.rvStreamerOnline.visibility = View.GONE
+        binding.tvStreamersOnline.visibility = View.GONE
+
+        binding.rvStreamerOffline.visibility = View.VISIBLE
+        binding.tvStreamersOffline.visibility = View.VISIBLE
     }
 }
