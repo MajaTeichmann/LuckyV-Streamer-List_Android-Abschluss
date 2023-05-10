@@ -25,7 +25,7 @@ class LiveAdapter(
      * der ViewHolder umfasst die View und stellt einen Listeneintrag dar
      */
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//       todo: val tvNumberPlayersOnline: TextView = itemView.findViewById(R.id.tv_number_players_online)
+        // todo: val tvNumberPlayersOnline: TextView = itemView.findViewById(R.id.tv_number_players_online)
         val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)

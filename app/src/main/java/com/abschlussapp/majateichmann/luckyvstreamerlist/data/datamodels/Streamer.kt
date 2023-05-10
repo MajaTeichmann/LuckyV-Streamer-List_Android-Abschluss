@@ -16,12 +16,12 @@ class Streamer(
     val title: String,
     val logo_url: String,
     val live: Boolean,
-    // weil fraktion in manchen fällen "null" ist
+    // weil fraktion und ic_name in manchen fällen "NULL" ist
     var fraktion: String?,
     var ic_name: String?
 )
 
-// Aufbau der API "LuckyV Streamer List"
+//todo: Aufbau der API "LuckyV Streamer List"
 //{
 // "online":5,
 // "offline":182,

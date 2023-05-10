@@ -95,7 +95,6 @@
                 android:id="@+id/tv_autocomplete_search"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:completionHint="Wonach suchst du?"
                 android:completionThreshold="1"
                 android:hint="@string/suchbegriff"
                 android:inputType="text"
@@ -148,11 +147,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:columnCount="3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_streamers_online"
             tools:context=".ui.HomeFragment">
+<!--            todo: brauche ich das? android:columnCount="3"-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_streamer_online"

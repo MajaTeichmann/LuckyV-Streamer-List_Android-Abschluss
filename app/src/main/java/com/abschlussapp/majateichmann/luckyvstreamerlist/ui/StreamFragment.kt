@@ -11,6 +11,8 @@ import androidx.appcompat.widget.Toolbar
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 
+//TODO: MUSS NOCH ERSTELLT WERDEN
+
 class StreamFragment : Fragment() {
 
     override fun onCreateView(
