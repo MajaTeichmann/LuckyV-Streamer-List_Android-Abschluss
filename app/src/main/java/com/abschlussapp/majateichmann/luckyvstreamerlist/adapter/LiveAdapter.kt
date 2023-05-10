@@ -1,3 +1,4 @@
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +11,14 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.AppRepository
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.StreamerList
+import com.abschlussapp.majateichmann.luckyvstreamerlist.data.local.StreamerDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
 
 /**
  * Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling
  */
 class LiveAdapter(
+    // todo: private val playersOnline: List<StreamerList>,
     private val dataset: List<Streamer>
 ) : RecyclerView.Adapter<LiveAdapter.ItemViewHolder>() {
 
@@ -23,6 +26,7 @@ class LiveAdapter(
      * der ViewHolder umfasst die View und stellt einen Listeneintrag dar
      */
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // todo: val tvNumberPlayersOnline: TextView = itemView.findViewById(R.id.tv_number_players_online)
         val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
@@ -56,23 +60,42 @@ class LiveAdapter(
         //streamer aus dem dataset holen
         var streamer = dataset[position]
 
-        if(streamer.fraktion==null){
-            streamer.fraktion = "{nicht hinterlegt}"
+        // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
+        if (streamer.fraktion == null) {
+            streamer.fraktion = "    "
         }
-        holder.tvFraktion.text = streamer.fraktion
 
-        if(streamer.ic_name==null){
-            streamer.ic_name = "{nicht hinterlegt}"
+        // befülle textview mit wert aus übergebener variable (aus API)
+        val fraktion = holder.tvFraktion
+        fraktion.text = streamer.fraktion
+
+        // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
+        fraktion.ellipsize = TextUtils.TruncateAt.END
+        fraktion.maxLines = 1
+        fraktion.isSingleLine = true
+
+        if (streamer.ic_name == null) {
+            streamer.ic_name = "    "
         }
-        holder.tvCharname.text = streamer.ic_name
 
-        Log.e("test", streamer.live.toString())
+        val icName = holder.tvCharname
+        icName.text = streamer.ic_name
+
+        icName.ellipsize = TextUtils.TruncateAt.END
+        icName.maxLines = 1
+        icName.isSingleLine = true
+
+        Log.e("Streamer is live", streamer.live.toString())
 
 
         //Logo-URL Laden
         holder.ivStreamVorschau.load(streamer.logo_url)
 
-        holder.tvStreamername.text = streamer.name
+        val streamerName = holder.tvStreamername
+        streamerName.text = streamer.name
 
+        streamerName.ellipsize = TextUtils.TruncateAt.END
+        streamerName.maxLines = 1
+        streamerName.isSingleLine = true
     }
 }

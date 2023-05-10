@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
 
 /**
@@ -22,57 +25,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        // Set the visibility of the app header based on the apiLoading variable
-        if(apiLoading) {
+        //Wenn API noch nicht geladen: Header nicht sichtbar
+        if (apiLoading) {
             binding.clAppHeader.visibility = View.GONE
         } else {
+            //Header wird angezeigt, wenn Api fertig geladen
             binding.clAppHeader.visibility = View.VISIBLE
         }
-
-//        setupActionBarWithNavController(navController)
-    }
-    //    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//        //todo: binding = null
-//
-//        binding = ActivityMainBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        val navHostFragment = supportFragmentManager
-//            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-//        navController = navHostFragment.navController
-////        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-//
-//        //Wenn API noch nicht geladen: Header nicht sichtbar
-////    if(apiLoading) {
-////        binding?.clAppHeader?.visibility = View.GONE
-////    }else
-////    {
-////        //Header wird angezeigt, wenn Api fertig geladen
-////        binding?.clAppHeader?.visibility = View.VISIBLE
-////    }
-//
-//        if(apiLoading) {
-//            binding?.clAppHeader?.visibility = View.GONE
-//        }else
-//        {
-//            //Header wird angezeigt, wenn Api fertig geladen
-//            binding?.clAppHeader?.visibility = View.VISIBLE
-//        }
-//}
-    fun onApiLoading(){
-//            binding = ActivityMainBinding.inflate(layoutInflater)
-        //ApiLoading wird auf false gesetzt, wenn api fertig geladen
-        apiLoading = false
-        //Header wird angezeigt, wenn Api fertig geladen
-//        binding.clAppHeader.visibility = View.VISIBLE
-
-        //todo: Navigiere zu HomeFragment
-//        findNavController(View).navigate(R.id.action_startFragment_to_homeFragment)
-
     }
 }

@@ -34,8 +34,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val loading: LiveData<ApiStatus>
         get() = _loading
 
-    // hier werden die memes aus dem repository in einer eigenen Variablen gespeichert
-    val streamer = repository.streamerList
+    // hier werden die Streamer aus dem repository in einer eigenen Variablen gespeichert
+//   todo: testen val streamer = repository.streamerList
+    val streamersOnline = repository.streamersOnline
+    val streamersOffline = repository.streamersOffline
 
     // zuerst werden alle Einträge aus der Datenbank gelöscht und anschließend wird versucht,
     // den API-Call über das Repository zu starten
@@ -58,7 +60,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _loading.value = ApiStatus.DONE
             }catch(e: Exception){
                 Log.e(TAG,"Loading Data failed: $e")
-                if(streamer.value.isNullOrEmpty()){
+                if(streamersOnline.value.isNullOrEmpty() || streamersOffline.value.isNullOrEmpty()){
                     _loading.value = ApiStatus.ERROR
                 }else{
                     _loading.value = ApiStatus.DONE

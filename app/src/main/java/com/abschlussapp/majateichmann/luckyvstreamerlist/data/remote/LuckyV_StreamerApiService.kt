@@ -12,13 +12,11 @@ const val BASE_URL = "https://luckyv-streamer.frozenpenguin.media/"
 
 // Moshi konvertiert Daten im JSON-Format, die aus der API kommen, in etwas, das von meiner Kotlin-Anwendung verarbeitet werden kann)
 private val moshi = Moshi.Builder()
-    // Es wird dem Builder das KotlinJsonAdapterFactory hinzugefügt, um Moshi zu ermöglichen, Kotlin-spezifische Konstrukte wie Nullable- und Data-Klassen zu unterstützen.
     .add(KotlinJsonAdapterFactory())
     .build()
 
 // Retrofit wird von Moshi zum Konvertieren von JSON-Daten in Kotlin-Objekten verwendet
 private val retrofit = Retrofit.Builder()
-    // Es wird eine MoshiConverterFactory hinzugefügt, die Moshi mit Retrofit verbindet, sowie die Basis-URL der API.
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL)
     .build()
@@ -28,7 +26,6 @@ private val retrofit = Retrofit.Builder()
 // um Daten von der LuckyV-Streamer-API abzurufen. In diesem Fall gibt es nur "getStreamerList", die eine Liste von Streamern zurückgibt.
 interface LuckyV_StreamerApiService{
     @GET("api/")
-    // https://luckyv-streamer.frozenpenguin.media/api/
     // "suspend" bedeutet, dass Funktion asynchron arbeitet
     // (kann pausieren und später fortgesetzt werden, wenn sie auf Daten von der API wartet)
     suspend fun getStreamers(): StreamerList

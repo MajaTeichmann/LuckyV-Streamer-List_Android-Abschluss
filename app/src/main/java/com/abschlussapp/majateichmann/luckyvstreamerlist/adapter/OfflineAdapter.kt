@@ -12,6 +12,8 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streame
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.StreamerList
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
 
+//todo: an liveAdapter anpassen
+
 /**
  * Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling
  */

@@ -22,7 +22,7 @@ import kotlinx.coroutines.withContext
 
 class StartFragment : Fragment() {
 
-//    private val viewModel: MainViewModel by viewModels()
+    //    private val viewModel: MainViewModel by viewModels()
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var binding: FragmentStartBinding
 
@@ -69,10 +69,7 @@ class StartFragment : Fragment() {
                 Log.i("APISTREAMER", streamers.toString())
 
                 // Wenn der Abruf erfolgreich war, wird der Fortschrittsbalken ausgeblendet.
-                //todo
-//                progressBar.visibility = View.GONE
-
-                // TODO: Verarbeite die "streamers" Date
+                // todo: WIEDER EINKOMMENTIEREN: progressBar.visibility = View.GONE
 
                 val recyclerViewLive: RecyclerView? = view.findViewById(R.id.rv_streamer_online)
                 recyclerViewLive?.adapter = LiveAdapter(streamers.streamer)
@@ -82,7 +79,6 @@ class StartFragment : Fragment() {
                 //TODO: navigation von startfragment zu homefragment
                 val navController = view.findNavController()
                 if (progressBar.visibility == View.GONE) {
-                    val navController = view.findNavController()
                     navController.navigate(R.id.action_startFragment_to_homeFragment)
                 }
             } catch (e: Exception) {

@@ -19,6 +19,8 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
      * Variable memes. Falls der Call nicht funktioniert, wird die Fehlermeldung geloggt
      */
     val streamerList: LiveData<List<Streamer>> = database.streamerDao.getAll()
+    val streamersOnline: LiveData<List<Streamer>> = database.streamerDao.showLive()
+    val streamersOffline: LiveData<List<Streamer>> = database.streamerDao.showOffline()
 
     suspend fun getStreamer(){
         try{
@@ -37,11 +39,19 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
         }
     }
 
-    suspend fun updateStreamer(streamer: Streamer){
-        try{
-            database.streamerDao.update(streamer)
-        }catch(e: Exception){
-            Log.d(TAG,"Failed to update StreamerDatabase: $e")
+    suspend fun getOnlineStreamers(){
+        try {
+            database.streamerDao.showLive()
+        }catch(e:Exception){
+            Log.e(TAG,"Failed to load all Live Streamers from Database: $e")
+        }
+    }
+
+    suspend fun getOfflineStreamers(){
+        try {
+            database.streamerDao.showOffline()
+        }catch(e:Exception){
+            Log.e(TAG,"Failed to load all Offline Streamers from Database: $e")
         }
     }
 }

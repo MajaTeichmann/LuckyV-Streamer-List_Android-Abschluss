@@ -47,16 +47,19 @@ class HomeFragment : Fragment() {
         // Bei einem Klick auf btnRefresh sollen die Informationen erneut abgerufen werden
         binding.btnRefresh.setOnClickListener {
             viewModel.loadData()
-            MainActivity().onApiLoading()
         }
         // Die Variable streamer wird beobachtet und bei einer Änderung wird der LiveAdapter der
         // Recyclerview neu gesetzt.
-        viewModel.streamer.observe(
+        viewModel.streamersOnline.observe(
             viewLifecycleOwner
         ) {
 
-            // todo: listen aufteilen mit if
             streamerListLive.adapter = LiveAdapter(it)
+        }
+
+        viewModel.streamersOffline.observe(
+            viewLifecycleOwner
+        ) {
             streamerListOffline.adapter = OfflineAdapter(it)
         }
 

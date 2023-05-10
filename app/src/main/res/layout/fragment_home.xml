@@ -72,14 +72,13 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/online_players_number"
+                android:text="0"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_text_players_online"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                tools:text="30" />
+                app:layout_constraintVertical_bias="0.5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -95,8 +94,7 @@
             <MultiAutoCompleteTextView
                 android:id="@+id/tv_autocomplete_search"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:completionHint="Wonach suchst du?"
+                android:layout_height="36dp"
                 android:completionThreshold="1"
                 android:hint="@string/suchbegriff"
                 android:inputType="text"
@@ -149,11 +147,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:columnCount="3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_streamers_online"
             tools:context=".ui.HomeFragment">
+<!--            todo: brauche ich das? android:columnCount="3"-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_streamer_online"
