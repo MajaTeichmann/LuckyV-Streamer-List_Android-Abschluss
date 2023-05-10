@@ -1,18 +1,14 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.adapter
 
+import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.AppRepository
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.StreamerList
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
-
-//todo: an liveAdapter anpassen
 
 /**
  * Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling
@@ -27,6 +23,7 @@ class OfflineAdapter(
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
+        val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
     }
 
     /**
@@ -59,5 +56,40 @@ class OfflineAdapter(
             holder.tvStreamername.text = streamer.name
             holder.tvCharname.text = streamer.ic_name
         }
+
+        // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
+        if (streamer.fraktion == null) {
+            streamer.fraktion = "    "
+        }
+
+        // befülle textview mit wert aus übergebener variable (aus API)
+        val fraktion = holder.tvFraktion
+        fraktion.text = streamer.fraktion
+
+        // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
+        fraktion.ellipsize = TextUtils.TruncateAt.END
+        fraktion.maxLines = 1
+        fraktion.isSingleLine = true
+
+        if (streamer.ic_name == null) {
+            streamer.ic_name = "    "
+        }
+
+        val icName = holder.tvCharname
+        icName.text = streamer.ic_name
+
+        icName.ellipsize = TextUtils.TruncateAt.END
+        icName.maxLines = 1
+        icName.isSingleLine = true
+
+        Log.e("Streamer is live", streamer.live.toString())
+
+
+        val streamerName = holder.tvStreamername
+        streamerName.text = streamer.name
+
+        streamerName.ellipsize = TextUtils.TruncateAt.END
+        streamerName.maxLines = 1
+        streamerName.isSingleLine = true
     }
 }
