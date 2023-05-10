@@ -1,3 +1,4 @@
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -59,25 +60,30 @@ class LiveAdapter(
         //streamer aus dem dataset holen
         var streamer = dataset[position]
 
-//        todo: var online = 0
-//         for (i in dataset) {
-//            when (streamer.live.toString()) {
-//                "1" -> online++
-//            }
-//            }
-//
-//        todo: //Anzahl der liveDaten anzeigen
-//         holder.tvNumberPlayersOnline.text = online.toString()
-
+        // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
         if (streamer.fraktion == null) {
-            streamer.fraktion = "{nicht hinterlegt}"
+            streamer.fraktion = "    "
         }
-        holder.tvFraktion.text = streamer.fraktion
+
+        // befülle textview mit wert aus übergebener variable (aus API)
+        val fraktion = holder.tvFraktion
+        fraktion.text = streamer.fraktion
+
+        // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
+        fraktion.ellipsize = TextUtils.TruncateAt.END
+        fraktion.maxLines = 1
+        fraktion.isSingleLine = true
 
         if (streamer.ic_name == null) {
-            streamer.ic_name = "{nicht hinterlegt}"
+            streamer.ic_name = "    "
         }
-        holder.tvCharname.text = streamer.ic_name
+
+        val icName = holder.tvCharname
+        icName.text = streamer.ic_name
+
+        icName.ellipsize = TextUtils.TruncateAt.END
+        icName.maxLines = 1
+        icName.isSingleLine = true
 
         Log.e("Streamer is live", streamer.live.toString())
 
@@ -85,7 +91,11 @@ class LiveAdapter(
         //Logo-URL Laden
         holder.ivStreamVorschau.load(streamer.logo_url)
 
-        holder.tvStreamername.text = streamer.name
+        val streamerName = holder.tvStreamername
+        streamerName.text = streamer.name
 
+        streamerName.ellipsize = TextUtils.TruncateAt.END
+        streamerName.maxLines = 1
+        streamerName.isSingleLine = true
     }
 }
