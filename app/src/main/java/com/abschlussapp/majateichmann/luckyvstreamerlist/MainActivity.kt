@@ -1,14 +1,17 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
+import com.abschlussapp.majateichmann.luckyvstreamerlist.ui.StartFragment
 
 /**
  * Main Activity, dient als Einstiegspunkt für die App
@@ -16,10 +19,15 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMai
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    //apiLoading auf true setzen -> Progressbar noch sichtbar
-    private var apiLoading: Boolean = true
+    //damit Kopfbinde im StartFragemnt nicht zu sehen ist
+    private lateinit var mainLayout: ConstraintLayout
 
     private lateinit var navController: NavController
+
+    fun showMainLayout() {
+        binding.clAppHeader.visibility = View.VISIBLE
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -29,12 +37,19 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        //Wenn API noch nicht geladen: Header nicht sichtbar
-        if (apiLoading) {
-            binding.clAppHeader.visibility = View.GONE
-        } else {
-            //Header wird angezeigt, wenn Api fertig geladen
-            binding.clAppHeader.visibility = View.VISIBLE
-        }
+        mainLayout = binding.clAppHeader
+
+        // Zeige das ConstraintLayout standardmäßig an
+        binding.clAppHeader.visibility = View.VISIBLE
+    }
+
+    fun ausblenden() {
+        //binding.clAppHeader.visibility = View.INVISIBLE
+    }
+
+    @SuppressLint("ResourceAsColor")
+    fun einblenden() {
+        binding.tvHeader.setTextColor(R.color.black)
+        binding.ivLuckyvLogo.alpha = 1F
     }
 }

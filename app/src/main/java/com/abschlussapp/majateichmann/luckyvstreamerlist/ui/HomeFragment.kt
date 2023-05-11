@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OnSwipeTouchListener
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
@@ -137,6 +138,10 @@ class HomeFragment : Fragment() {
 
     // Setze den formatierten SpannableString als Text für die TextView
         binding.tvDescription1.text = spannableString
+
+        // Referenz zur MainActivity erhalten
+        val mainActivity = requireActivity() as MainActivity
+        mainActivity.einblenden()
     }
 
     private fun showRecyclerView1() {
