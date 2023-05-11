@@ -2,7 +2,15 @@ package com.abschlussapp.majateichmann.luckyvstreamerlist.ui
 
 import LiveAdapter
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,6 +96,47 @@ class HomeFragment : Fragment() {
                 showRecyclerView1()
             }
         })
+        //Link hinzufügen
+        val fullText =
+            "Bei dieser App handelt es sich um die App-Version einer bereits existierenden Internetseite, welche alle Spieler auflistet, die ihr LuckyV RP auf Twitch streamen."
+        val linkText = "Internetseite"
+        val spannableString = SpannableString(fullText)
+
+        //Klickbarer Bereich für Link festlegen
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(view: View) {
+                //URL meiner Zieladresse
+                val url = "https://luckyv-streamer.frozenpenguin.media/"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            }
+        }
+        // Position des Links im Text festlegen
+        val startIndex = fullText.indexOf(linkText)
+        val endIndex = startIndex + linkText.length
+
+        // Link zum SpannableString hinzufügen
+        spannableString.setSpan(
+            clickableSpan,
+            startIndex,
+            endIndex,
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.tvDescription1.text = spannableString
+        binding.tvDescription1.movementMethod = LinkMovementMethod.getInstance()
+
+        // Erstelle eine Instanz der StyleSpan-Klasse für den fettgedruckten Textstil
+        val boldSpan = StyleSpan(Typeface.BOLD)
+
+    // Position des zu fettgedruckenden Textabschnitts im Text festlegen
+        val stringAbschnittStartIndex = fullText.indexOf("bereits existierenden")
+        val stringAbschnittEndIndex = stringAbschnittStartIndex + "bereits existierenden".length
+
+    // Füge den StyleSpan zum SpannableString hinzu, um den Text fettgedruckt darzustellen
+        spannableString.setSpan(boldSpan, stringAbschnittStartIndex, stringAbschnittEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+    // Setze den formatierten SpannableString als Text für die TextView
+        binding.tvDescription1.text = spannableString
     }
 
     private fun showRecyclerView1() {
@@ -105,4 +154,5 @@ class HomeFragment : Fragment() {
         binding.rvStreamerOffline.visibility = View.VISIBLE
         binding.tvStreamersOffline.visibility = View.VISIBLE
     }
+
 }

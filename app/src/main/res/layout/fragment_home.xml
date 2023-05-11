@@ -7,7 +7,7 @@
 
     </data>
 
-<!--    todo: für "streamers live" grünen fleck & für "streamers offline" roten fleck-->
+    <!--    todo: für "streamers live" grünen fleck & für "streamers offline" roten fleck-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/homeFragment"
@@ -19,28 +19,60 @@
             android:id="@+id/cl_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tv_description"
+                android:id="@+id/tv_description1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/app_description"
+                android:text="@string/app_description_line1"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0"
-                tools:text="@string/platzhalter" />
+                tools:text="@string/app_description_line1" />
+
+            <TextView
+                android:id="@+id/tv_description2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_description_line2"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description1"
+                tools:text="@string/app_description_line2" />
+
+            <TextView
+                android:id="@+id/tv_description3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/app_description_line3"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description2"
+                tools:text="@string/app_description_line3" />
+
+            <TextView
+                android:id="@+id/tv_description4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/app_description_line4"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description3"
+                tools:text="@string/app_description_line4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -48,7 +80,7 @@
             android:id="@+id/cl_players_online"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/cl_filter"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/cl_filter">
@@ -111,7 +143,7 @@
             android:id="@+id/cl_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
+            android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_description">
 
@@ -145,7 +177,7 @@
                 android:id="@+id/tv_streamers_online"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/streamers_live"
                 android:textSize="15sp"
