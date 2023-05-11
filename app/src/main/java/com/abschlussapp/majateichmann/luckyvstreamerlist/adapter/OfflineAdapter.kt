@@ -62,7 +62,7 @@ class OfflineAdapter(
 
         // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
         if (streamer.fraktion == null) {
-            streamer.fraktion = "    "
+            holder.tvFraktion.visibility = View.GONE
         }
 
         // befülle textview mit wert aus übergebener variable (aus API)
@@ -75,7 +75,7 @@ class OfflineAdapter(
         fraktion.isSingleLine = true
 
         if (streamer.ic_name == null) {
-            streamer.ic_name = "    "
+            holder.tvCharname.visibility = View.GONE
         }
 
         val icName = holder.tvCharname

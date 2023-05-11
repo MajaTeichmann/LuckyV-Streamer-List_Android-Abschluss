@@ -18,7 +18,6 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
  * Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling
  */
 class LiveAdapter(
-    // todo: private val playersOnline: List<StreamerList>,
     private val dataset: List<Streamer>
 ) : RecyclerView.Adapter<LiveAdapter.ItemViewHolder>() {
 
