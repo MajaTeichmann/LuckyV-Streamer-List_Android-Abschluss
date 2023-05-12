@@ -46,10 +46,12 @@ class MainActivity : AppCompatActivity() {
     fun ausblenden() {
         binding.tvHeader.visibility = View.INVISIBLE
         binding.ivLuckyvLogo.alpha = 0F
+        binding.clNavBar.visibility = View.INVISIBLE
     }
 
     fun einblenden() {
         binding.tvHeader.visibility = View.VISIBLE
         binding.ivLuckyvLogo.alpha = 1F
+        binding.clNavBar.visibility = View.VISIBLE
     }
 }

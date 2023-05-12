@@ -16,6 +16,7 @@
             android:id="@+id/cl_app_header"
             android:layout_width="match_parent"
             android:layout_height="74dp"
+            app:layout_constraintBottom_toTopOf="@+id/cl_home_fragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -30,23 +31,23 @@
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                android:visibility="invisible"/>
+                app:layout_constraintVertical_bias="0.5" />
 
             <ImageView
-                android:contentDescription="@string/app_name"
                 android:id="@+id/iv_luckyv_logo"
                 android:layout_width="72dp"
                 android:layout_height="64dp"
                 android:layout_marginTop="5dp"
-                android:alpha="0"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:alpha="0"
+                android:contentDescription="@string/app_name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -73,6 +74,76 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:navGraph="@navigation/nav_graph" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_navBar"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_home_fragment"
+            app:layout_constraintVertical_bias="1.0">
+
+            <!--            android:visibility="invisible"-->
+
+            <!--            <TextView-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:text="NAVIGATION BAR"-->
+            <!--                android:textAlignment="center"-->
+            <!--                android:textSize="38sp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintHorizontal_bias="0.5"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                app:layout_constraintVertical_bias="0.5" />-->
+
+
+            <ImageButton
+                android:id="@+id/btn_home"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:src="@drawable/luckyv_logo"
+                android:textColor="@color/luckyv_white"
+                android:backgroundTint="@color/luckyv_yellow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/btn_favorites"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:textColor="@color/luckyv_white"
+                android:backgroundTint="@color/luckyv_yellow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <ImageButton
+                android:id="@+id/btn_settings"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="13dp"
+                android:textColor="@color/luckyv_white"
+                android:backgroundTint="@color/luckyv_yellow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

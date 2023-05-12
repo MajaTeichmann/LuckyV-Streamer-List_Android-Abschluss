@@ -31,9 +31,9 @@
             android:layout_width="200dp"
             android:layout_height="20dp"
             android:layout_marginTop="30dp"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/iv_luckyv_logo"
             app:layout_constraintStart_toStartOf="@+id/iv_luckyv_logo"
-            app:layout_constraintTop_toBottomOf="@+id/iv_luckyv_logo"
-            android:visibility="visible"/>
+            app:layout_constraintTop_toBottomOf="@+id/iv_luckyv_logo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
