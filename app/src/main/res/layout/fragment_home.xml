@@ -62,18 +62,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_description2"
                 tools:text="@string/app_description_line3" />
 
-            <TextView
-                android:id="@+id/tv_description4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/app_description_line4"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description3"
-                tools:text="@string/app_description_line4" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
