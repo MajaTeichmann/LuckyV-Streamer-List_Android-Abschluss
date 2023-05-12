@@ -44,12 +44,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun ausblenden() {
-        //binding.clAppHeader.visibility = View.INVISIBLE
+        binding.tvHeader.visibility = View.INVISIBLE
+        binding.ivLuckyvLogo.alpha = 0F
     }
 
-    @SuppressLint("ResourceAsColor")
     fun einblenden() {
-        binding.tvHeader.setTextColor(R.color.black)
+        binding.tvHeader.visibility = View.VISIBLE
         binding.ivLuckyvLogo.alpha = 1F
     }
 }
