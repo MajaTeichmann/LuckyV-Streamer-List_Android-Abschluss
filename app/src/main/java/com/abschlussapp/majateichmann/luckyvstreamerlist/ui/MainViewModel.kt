@@ -30,17 +30,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Diese Funktion ruft die Repository-Funktion zum Laden der Streamer
      * innerhalb einer Coroutine auf
      */
+
+    //Alle Streamer
     private val _loading = MutableLiveData<ApiStatus>()
     val loading: LiveData<ApiStatus>
         get() = _loading
+
+    //AutoCompleteTextView
+    private val _streamerSuche = MutableLiveData<List<Streamer>>()
+    val streamerSuche: LiveData<List<Streamer>>
+        get() = _streamerSuche
 
     // hier werden die Streamer aus dem repository in einer eigenen Variablen gespeichert
     val streamer = repository.streamerList
     val streamersOnline = repository.streamersOnline
     val streamersOffline = repository.streamersOffline
-
-    // zuerst werden alle Einträge aus der Datenbank gelöscht und anschließend wird versucht,
-    // den API-Call über das Repository zu starten
 
     init {
         loadData()
@@ -68,5 +72,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
+        _streamerSuche.value
     }
 }

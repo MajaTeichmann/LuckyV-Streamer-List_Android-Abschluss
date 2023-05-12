@@ -6,21 +6,31 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OnSwipeTouchListener
+import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.SearchAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.data.AppRepository
+import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.StreamerList
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
+
 
 class HomeFragment : Fragment() {
 
@@ -150,6 +160,33 @@ class HomeFragment : Fragment() {
 
         //Wenn HomeFragment & StreamFragment sichtbar
         mainActivity.changeHomeColor()
+
+        val autoCompleteTextView: AutoCompleteTextView = binding.tvAutocompleteSearch
+
+        viewModel.streamer.observe(viewLifecycleOwner) {streamer ->
+            val adapter = SearchAdapter(requireContext(), streamer)
+            autoCompleteTextView.setAdapter(adapter)
+        }
+
+        autoCompleteTextView.setOnItemClickListener { parent, view, position, id ->
+            // Aktion ausführen, wenn ein Element ausgewählt wurde
+            val selectedValue = parent.getItemAtPosition(position) as String
+            // Weitere Verarbeitung...
+        }
+
+        autoCompleteTextView.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Vor der Textänderung ausführen
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Während der Textänderung ausführen
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Nach der Textänderung ausführen
+            }
+        })
     }
 
     private fun showRecyclerView1() {
