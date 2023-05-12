@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">LuckyV Streamer List</string>
+    <string name="header_favo">Favoriten</string>
+    <string name="header_settings">Einstellungen</string>
 
     <string name="app_description_line1">Bei dieser App handelt es sich um die App-Version einer <b>bereits existierenden Internetseite</b> https://luckyv-streamer.frozenpenguin.media/ (link), welche alle Spieler auflistet, die ihr LuckyV RP auf Twitch streamen. Erstellt wurde diese Internetseite, weil die Suchfunktion auf Twitch in 99% der Fälle nicht hilfreich ist, Streamer, die aktuell Content auf LuckyV streamen, zu finden.</string>
     <string name="app_description_line2"><b><u>Warum dann noch eine App bauen, die genau das gleiche macht?</u></b></string>
