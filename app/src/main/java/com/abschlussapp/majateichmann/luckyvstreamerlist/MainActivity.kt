@@ -3,11 +3,12 @@ package com.abschlussapp.majateichmann.luckyvstreamerlist
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
+
 
 /**
  * Main Activity, dient als Einstiegspunkt für die App
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Wenn HomeFragment & StreamFragment sichtbar
-    fun changeHomeColor(){
+    fun changeHomeColor() {
         val btnHome: ImageButton = findViewById(R.id.btn_home)
         btnHome.setImageResource(R.drawable.baseline_home_black_20)
 
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Wenn FavoritesFragment sichtbar
-    fun changeFavoritesColor(){
+    fun changeFavoritesColor() {
         val btnHome: ImageButton = findViewById(R.id.btn_home)
         btnHome.setImageResource(R.drawable.baseline_home_white_20)
 
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Wenn SettingsFragment sichtbar
-    fun changeSettingsColor(){
+    fun changeSettingsColor() {
         val btnHome: ImageButton = findViewById(R.id.btn_home)
         btnHome.setImageResource(R.drawable.baseline_home_white_20)
 
