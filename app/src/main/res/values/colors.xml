@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     //for text
-    <color name="luckyv_yellow">#FFC107</color>
-    <color name="black">#000000</color>
+    <color name="txt_luckyv_yellow">#FFC107</color>
+    <color name="txt_luckyv_black">#000000</color>
+
     //for buttons
-    <color name="luckyv_white">#FFFFFF</color>
+    <color name="btn_luckyv_white">#FFFFFF</color>
+    <color name="btn_luckyv_yellow">#FFC107</color>
+    <color name="btn_luckyv_green">#89C31D</color>
+
     //background
     <color name="app_background_light">#FFFFFF</color>
     <color name="app_background_dark">#000000</color>
-    <color name="fraktion_button">#9A9790</color>
+
+    <color name="fraktion">#9A9790</color>
+
+    //themes
+    <color name="luckyv_yellow">#FFC107</color>
+    <color name="luckyv_white">#FFFFFF</color>
+    <color name="luckyv_black">#000000</color>
 </resources>

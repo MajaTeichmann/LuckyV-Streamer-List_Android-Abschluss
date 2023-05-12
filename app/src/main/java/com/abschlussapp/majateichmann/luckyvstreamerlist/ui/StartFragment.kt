@@ -83,6 +83,11 @@ class StartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.loading.observe(viewLifecycleOwner) {
+
+            // Referenz zur MainActivity erhalten
+            val mainActivity = requireActivity() as MainActivity
+            mainActivity.ausblenden()
+
             when (it) {
                 ApiStatus.LOADING -> {
                     progressBar.visibility = View.VISIBLE
@@ -114,6 +119,7 @@ class StartFragment : Fragment() {
 
                             // Zeige einen Fehler-Dialog oder eine Fehlermeldung an.
                             Log.e(TAG, "Fehler beim Abrufen der Streamer-Daten: ${e.message}")
+
                         } finally {
                             // Fortschrittsbalken ausblenden, unabhängig davon, ob ein Fehler aufgetreten ist oder nicht
                             progressBar.visibility = View.GONE
@@ -122,12 +128,7 @@ class StartFragment : Fragment() {
                             val navController: NavController = findNavController(requireView())
                             navController.navigate(R.id.action_startFragment_to_homeFragment)
                         }
-
-                        // Referenz zur MainActivity erhalten
-                        val mainActivity = requireActivity() as MainActivity
-                        mainActivity.ausblenden()
                     }
-
                     //entferne den handler der ProgressBar
                     handler.removeCallbacks(progressRunnable)
                 }

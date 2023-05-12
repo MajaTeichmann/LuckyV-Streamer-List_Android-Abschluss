@@ -41,7 +41,7 @@
             android:backgroundTint="@color/luckyv_yellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/luckyv_black"
             android:text="speichern" />
     </LinearLayout>
 

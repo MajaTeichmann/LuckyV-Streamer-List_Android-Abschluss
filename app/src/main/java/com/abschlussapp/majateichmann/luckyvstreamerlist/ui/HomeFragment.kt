@@ -129,19 +129,27 @@ class HomeFragment : Fragment() {
         // Erstelle eine Instanz der StyleSpan-Klasse für den fettgedruckten Textstil
         val boldSpan = StyleSpan(Typeface.BOLD)
 
-    // Position des zu fettgedruckenden Textabschnitts im Text festlegen
+        // Position des zu fettgedruckenden Textabschnitts im Text festlegen
         val stringAbschnittStartIndex = fullText.indexOf("bereits existierenden")
         val stringAbschnittEndIndex = stringAbschnittStartIndex + "bereits existierenden".length
 
-    // Füge den StyleSpan zum SpannableString hinzu, um den Text fettgedruckt darzustellen
-        spannableString.setSpan(boldSpan, stringAbschnittStartIndex, stringAbschnittEndIndex, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        // Füge den StyleSpan zum SpannableString hinzu, um den Text fettgedruckt darzustellen
+        spannableString.setSpan(
+            boldSpan,
+            stringAbschnittStartIndex,
+            stringAbschnittEndIndex,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
-    // Setze den formatierten SpannableString als Text für die TextView
+        // Setze den formatierten SpannableString als Text für die TextView
         binding.tvDescription1.text = spannableString
 
         // Referenz zur MainActivity erhalten
         val mainActivity = requireActivity() as MainActivity
         mainActivity.einblenden()
+
+        //Wenn HomeFragment & StreamFragment sichtbar
+        mainActivity.changeHomeColor()
     }
 
     private fun showRecyclerView1() {

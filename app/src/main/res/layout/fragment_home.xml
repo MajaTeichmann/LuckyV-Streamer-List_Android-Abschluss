@@ -141,7 +141,7 @@
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/luckyv_yellow"
                 android:text="@string/filtern_button"
-                android:textColor="@color/black"
+                android:textColor="@color/luckyv_black"
                 android:textSize="10sp"
                 app:cornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
