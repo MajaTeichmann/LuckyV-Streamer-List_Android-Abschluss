@@ -1,4 +1,4 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
 
 import androidx.fragment.app.Fragment
 

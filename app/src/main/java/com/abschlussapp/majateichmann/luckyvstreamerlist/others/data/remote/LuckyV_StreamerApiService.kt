@@ -1,6 +1,6 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.remote
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote
 
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.StreamerList
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.StreamerList
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit

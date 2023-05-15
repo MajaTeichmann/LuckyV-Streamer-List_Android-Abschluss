@@ -1,6 +1,6 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
 
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Live.LiveAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
@@ -18,8 +18,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Offline.OfflineAdapter
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.adapter.OnSwipeTouchListener
+import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.OnSwipeTouchListener
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 
 
@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
     // Hier wird das ViewModel, in dem die Logik stattfindet, geholt
     private val viewModel: MainViewModel by activityViewModels()
 
-    // Das binding für das QuizFragment wird deklariert
+    // Das binding für das HomeFragment wird deklariert
     private lateinit var binding: FragmentHomeBinding
 
     /**
@@ -67,7 +67,8 @@ class HomeFragment : Fragment() {
         binding.btnRefresh.setOnClickListener {
             viewModel.loadData()
         }
-        // Die Variable streamer wird beobachtet und bei einer Änderung wird der com.abschlussapp.majateichmann.luckyvstreamerlist.Live.LiveAdapter der
+
+        // Die Variable streamer wird beobachtet und bei einer Änderung wird der com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter der
         // Recyclerview neu gesetzt.
         viewModel.streamersOnline.observe(
             viewLifecycleOwner

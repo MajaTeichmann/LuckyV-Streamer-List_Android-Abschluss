@@ -1,6 +1,5 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Live
+package com.abschlussapp.majateichmann.luckyvstreamerlist.live
 
-import android.app.Activity
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,11 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
 /**
  * Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling
@@ -97,13 +95,5 @@ class LiveAdapter(
         streamerName.ellipsize = TextUtils.TruncateAt.END
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
-
-        holder.streamerLayout.setOnClickListener {
-            // Navigation zum StreamFragment durchführen
-            Navigation.findNavController(
-                Activity(),
-                R.id.action_homeFragment_to_streamFragment
-            )
-        }
     }
 }

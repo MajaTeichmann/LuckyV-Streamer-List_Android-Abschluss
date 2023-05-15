@@ -1,4 +1,4 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.adapter
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
 class SearchAdapter(
     context: Context,

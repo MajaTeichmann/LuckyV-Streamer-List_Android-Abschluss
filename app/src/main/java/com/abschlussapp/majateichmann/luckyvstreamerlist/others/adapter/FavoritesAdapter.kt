@@ -1,10 +1,10 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.adapter
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 
 class FavoritesAdapter(

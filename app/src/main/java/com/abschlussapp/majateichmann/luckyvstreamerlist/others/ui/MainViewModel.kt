@@ -1,4 +1,4 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
 
 import android.app.Application
 import android.util.Log
@@ -6,10 +6,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.AppRepository
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.Streamer
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.local.getDatabase
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.remote.StreamerApi
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.AppRepository
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.getDatabase
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
 import kotlinx.coroutines.launch
 
 enum class ApiStatus { LOADING, ERROR, DONE }

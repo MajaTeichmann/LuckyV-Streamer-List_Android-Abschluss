@@ -1,15 +1,15 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.Streamer
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.local.StreamerDatabase
-import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.remote.StreamerApi
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.StreamerDatabase
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
 
 const val TAG = "AppRepository"
 
 /**
- * Diese Klasse holt die Informationen und stellt sie mithilfe von Live Data dem Rest
+ * Diese Klasse holt die Informationen und stellt sie mithilfe von live Data dem Rest
  * der App zur Verfügung
  */
 class AppRepository(private val api: StreamerApi, private val database: StreamerDatabase) {
@@ -43,7 +43,7 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
         try {
             database.streamerDao.showLive()
         }catch(e:Exception){
-            Log.e(TAG,"Failed to load all Live Streamers from Database: $e")
+            Log.e(TAG,"Failed to load all live Streamers from Database: $e")
         }
     }
 
@@ -51,7 +51,7 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
         try {
             database.streamerDao.showOffline()
         }catch(e:Exception){
-            Log.e(TAG,"Failed to load all Offline Streamers from Database: $e")
+            Log.e(TAG,"Failed to load all offline Streamers from Database: $e")
         }
     }
 }

@@ -34,6 +34,52 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
+        val btnHome = binding.btnHome
+        val btnFavorites = binding.btnFavorites
+        val btnSettings = binding.btnSettings
+        val currentDestination = navController.currentDestination?.id
+
+        when (currentDestination) {
+            R.id.homeFragment -> {
+                btnHome.isEnabled = false
+                btnFavorites.isEnabled = true
+                btnSettings.isEnabled = true
+                btnFavorites.setOnClickListener {
+                    navController.navigate(R.id.action_homeFragment_to_favoritesFragment)
+                }
+
+                btnSettings.setOnClickListener {
+                    navController.navigate(R.id.action_homeFragment_to_settingsFragment)
+                }
+            }
+
+            R.id.favoritesFragment -> {
+                btnHome.isEnabled = true
+                btnFavorites.isEnabled = false
+                btnSettings.isEnabled = true
+                btnHome.setOnClickListener {
+                    navController.navigate(R.id.action_favoritesFragment_to_homeFragment)
+                }
+
+                btnSettings.setOnClickListener {
+                    navController.navigate(R.id.action_favoritesFragment_to_settingsFragment)
+                }
+            }
+
+            R.id.settingsFragment -> {
+                btnHome.isEnabled = true
+                btnFavorites.isEnabled = true
+                btnSettings.isEnabled = false
+                btnHome.setOnClickListener {
+                    navController.navigate(R.id.action_settingsFragment_to_homeFragment)
+                }
+
+                btnFavorites.setOnClickListener {
+                    navController.navigate(R.id.action_settingsFragment_to_favoritesFragment)
+                }
+            }
+        }
+
         mainLayout = binding.clAppHeader
 
         // Zeige das ConstraintLayout standardmäßig an

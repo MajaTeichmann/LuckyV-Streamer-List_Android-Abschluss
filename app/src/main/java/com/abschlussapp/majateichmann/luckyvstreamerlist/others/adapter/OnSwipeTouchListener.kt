@@ -1,4 +1,4 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.adapter
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter
 
 import android.content.Context
 import android.view.GestureDetector
@@ -15,7 +15,7 @@ open class OnSwipeTouchListener(context: Context) : View.OnTouchListener {
     }
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
-        return gestureDetector.onTouchEvent(event)
+        return gestureDetector!!.onTouchEvent(event)
     }
 
     private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {

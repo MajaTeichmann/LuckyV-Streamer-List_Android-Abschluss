@@ -1,4 +1,4 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.remote
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote
 
 //todo: muss noch erstellt werden (BONUS THEMA)
 class Twitch_StreamApiService {
