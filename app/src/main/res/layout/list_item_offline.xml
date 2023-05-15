@@ -10,6 +10,7 @@
     app:contentPadding="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_offline_streamer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -35,6 +36,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_stream_vorschau"
             tools:text="Streamername" />
+
+        <ImageView
+            android:id="@+id/iv_red_dot"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/red_dot"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_streamername"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_streamername" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_charundfraktion"

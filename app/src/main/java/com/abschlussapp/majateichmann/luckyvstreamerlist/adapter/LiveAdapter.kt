@@ -1,3 +1,4 @@
+import android.app.Activity
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -5,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.AppRepository
 import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.StreamerList
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.local.StreamerDatabase
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
 
 /**
  * Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling
@@ -29,6 +29,7 @@ class LiveAdapter(
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
+        val streamerLayout: ConstraintLayout = itemView.findViewById(R.id.cl_online_streamer)
     }
 
 
@@ -95,5 +96,13 @@ class LiveAdapter(
         streamerName.ellipsize = TextUtils.TruncateAt.END
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
+
+        holder.streamerLayout.setOnClickListener {
+            // Navigation zum StreamFragment durchführen
+            Navigation.findNavController(
+                Activity(),
+                R.id.action_homeFragment_to_streamFragment
+            )
+        }
     }
 }
