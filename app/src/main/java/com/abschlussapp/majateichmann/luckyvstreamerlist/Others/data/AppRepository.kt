@@ -1,10 +1,10 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.data
+package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.local.StreamerDatabase
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.local.StreamerDatabase
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.remote.StreamerApi
 
 const val TAG = "AppRepository"
 

@@ -1,4 +1,4 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.adapter
+package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.adapter
 
 import android.content.Context
 import android.view.GestureDetector

@@ -1,4 +1,4 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.ui
+package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

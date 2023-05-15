@@ -1,6 +1,6 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote
+package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.remote
 
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.StreamerList
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.StreamerList
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -34,5 +34,6 @@ interface LuckyV_StreamerApiService{
 object StreamerApi{
     // "by lazy" sorgt dafür, dass die Instanz erst bei Bedarf initialisiert wird(verbessert Leistung)
     // "retrofit.create" wird verwendet, um Implementierung von "LuckyV_StreamerApiService" zu erstellen, die von "StreamerApi" Instanz verwendet wird
-    val retrofitService: LuckyV_StreamerApiService by lazy{ retrofit.create(LuckyV_StreamerApiService::class.java)}
+    val retrofitService: LuckyV_StreamerApiService by lazy{ retrofit.create(
+        LuckyV_StreamerApiService::class.java)}
 }

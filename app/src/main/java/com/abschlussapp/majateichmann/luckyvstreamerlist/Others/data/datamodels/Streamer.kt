@@ -1,4 +1,4 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels
+package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

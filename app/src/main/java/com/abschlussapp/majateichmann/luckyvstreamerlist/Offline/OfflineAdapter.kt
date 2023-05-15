@@ -1,4 +1,4 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.adapter
+package com.abschlussapp.majateichmann.luckyvstreamerlist.Offline
 
 import android.app.Activity
 import android.text.TextUtils
@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.Streamer
 
 /**
  * Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling

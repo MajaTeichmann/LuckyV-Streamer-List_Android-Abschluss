@@ -1,10 +1,10 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.data.local
+package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.datamodels.Streamer
 
 @Database(entities = [Streamer::class], version = 1)
 abstract class StreamerDatabase : RoomDatabase() {

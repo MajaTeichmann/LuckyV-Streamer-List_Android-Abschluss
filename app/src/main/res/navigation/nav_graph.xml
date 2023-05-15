@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.ui.StartFragment"
+        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.ui.HomeFragment"
+        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.ui.FavoritesFragment"
+        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.ui.SettingsFragment"
+        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" >
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/streamFragment"
-        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.ui.StreamFragment"
+        android:name="com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui.StreamFragment"
         android:label="fragment_stream"
         tools:layout="@layout/fragment_stream" >
         <action

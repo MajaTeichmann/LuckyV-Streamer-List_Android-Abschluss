@@ -1,6 +1,6 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.ui
+package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui
 
-import LiveAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Live.LiveAdapter
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -17,15 +17,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
-import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OfflineAdapter
-import com.abschlussapp.majateichmann.luckyvstreamerlist.data.remote.StreamerApi
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Offline.OfflineAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.data.remote.StreamerApi
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui.ApiStatus
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui.MainViewModel
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui.TAG
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentStartBinding
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 

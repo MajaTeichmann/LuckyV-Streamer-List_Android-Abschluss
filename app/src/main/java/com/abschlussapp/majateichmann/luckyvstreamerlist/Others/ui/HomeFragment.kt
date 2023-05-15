@@ -1,6 +1,6 @@
-package com.abschlussapp.majateichmann.luckyvstreamerlist.ui
+package com.abschlussapp.majateichmann.luckyvstreamerlist.Others.ui
 
-import LiveAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Live.LiveAdapter
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
@@ -18,8 +18,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
-import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OfflineAdapter
-import com.abschlussapp.majateichmann.luckyvstreamerlist.adapter.OnSwipeTouchListener
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Offline.OfflineAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.Others.adapter.OnSwipeTouchListener
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 
 
@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
         binding.btnRefresh.setOnClickListener {
             viewModel.loadData()
         }
-        // Die Variable streamer wird beobachtet und bei einer Änderung wird der LiveAdapter der
+        // Die Variable streamer wird beobachtet und bei einer Änderung wird der com.abschlussapp.majateichmann.luckyvstreamerlist.Live.LiveAdapter der
         // Recyclerview neu gesetzt.
         viewModel.streamersOnline.observe(
             viewLifecycleOwner
