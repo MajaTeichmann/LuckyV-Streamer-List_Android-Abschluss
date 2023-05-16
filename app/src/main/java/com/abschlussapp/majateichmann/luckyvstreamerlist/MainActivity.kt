@@ -73,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.homeFragment -> {
+                    changeHomeColor()
                     btnHome.isEnabled = false
                     btnFavorites.isEnabled = true
                     btnSettings.isEnabled = true
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.favoritesFragment -> {
+                    changeFavoritesColor()
                     btnHome.isEnabled = true
                     btnFavorites.isEnabled = false
                     btnSettings.isEnabled = true
@@ -115,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.settingsFragment -> {
+                    changeSettingsColor()
                     btnHome.isEnabled = true
                     btnFavorites.isEnabled = true
                     btnSettings.isEnabled = false

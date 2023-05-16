@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/btn_luckyv_yellow">
+        android:background="@color/btn_luckyv_yellow"
+        tools:context =".others.ui.SettingsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_app_header"
@@ -26,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/header_settings"
                 android:textColor="@color/txt_luckyv_black"
-                android:textSize="28sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

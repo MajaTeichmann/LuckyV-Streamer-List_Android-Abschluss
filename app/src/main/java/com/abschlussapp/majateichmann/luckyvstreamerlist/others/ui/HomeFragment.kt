@@ -150,9 +150,6 @@ class HomeFragment : Fragment() {
         // Referenz zur MainActivity erhalten
         val mainActivity = requireActivity() as MainActivity
         mainActivity.einblenden()
-
-        //Wenn HomeFragment & StreamFragment sichtbar
-        mainActivity.changeHomeColor()
     }
 
     private fun showRecyclerView1() {

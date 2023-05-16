@@ -17,24 +17,16 @@
             android:id="@+id/tv_fragment_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/favorites"
+            android:text="StreamFragment"
             android:textColor="@color/txt_luckyv_black"
             android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_favorite_streamers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_header"
-            app:spanCount="3"
-            tools:layout_editor_absoluteX="0dp"
-            tools:listitem="@layout/list_item_live" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

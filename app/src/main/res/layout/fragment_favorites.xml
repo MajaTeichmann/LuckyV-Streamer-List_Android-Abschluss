@@ -13,29 +13,26 @@
         tools:context=".others.ui.FavoritesFragment">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_fragment_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/favorites"
+            android:layout_marginTop="10dp"
+            android:text="Favorites"
             android:textColor="@color/txt_luckyv_black"
-            android:textSize="15sp"
+            android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_streamer_online"
+            android:id="@+id/rv_favorites"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:spanCount="3"
-            tools:listitem="@layout/list_item_live" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_header"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
