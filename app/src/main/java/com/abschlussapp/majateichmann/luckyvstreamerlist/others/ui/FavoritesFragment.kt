@@ -13,9 +13,6 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.FavoritesAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
-
-// TODO: MUSS NOCH ERSTELLT WERDEN (BONUS THEMA)
-
 class FavoritesFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
