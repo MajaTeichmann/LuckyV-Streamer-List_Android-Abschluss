@@ -46,20 +46,4 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
             Log.e(TAG,"Failed to delete all Streamers from Database: $e")
         }
     }
-
-    fun getOnlineStreamers(){
-        try {
-            database.streamerDao.showLive()
-        }catch(e:Exception){
-            Log.e(TAG,"Failed to load all live Streamers from Database: $e")
-        }
-    }
-
-    fun getOfflineStreamers(){
-        try {
-            database.streamerDao.showOffline()
-        }catch(e:Exception){
-            Log.e(TAG,"Failed to load all offline Streamers from Database: $e")
-        }
-    }
 }

@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentFavoritesBinding
+import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.FavoritesAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
@@ -17,31 +18,38 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.
 class FavoritesFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: FavoritesAdapter
-    private lateinit var itemList: List<Streamer>
+    private lateinit var favoritesAdapter: FavoritesAdapter
 
-    private lateinit var binding: FragmentFavoritesBinding
+    // Hier wird das ViewModel, in dem die Logik stattfindet, geholt
+    private val viewModel: MainViewModel by activityViewModels()
+
+    // Hier wird die Liste der Streamer initialisiert
+    private lateinit var streamerList: List<Streamer>
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentFavoritesBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    ): View? {
+        // Inflate the layout for this fragment
+        val view = inflater.inflate(R.layout.fragment_favorites, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        viewModel.streamersOnline.observe(viewLifecycleOwner) { streamers ->
+            streamerList = streamers
+            // Initialize the RecyclerView
+            recyclerView = view.findViewById(R.id.rv_favorites)
+            recyclerView.layoutManager = GridLayoutManager(context, 3)
 
-        // RecyclerView initialisieren
-        recyclerView = binding.rvFavorites
+            // Prüfen Sie, ob die streamerList bereits initialisiert wurde und filtern Sie sie
+            if (::streamerList.isInitialized) {
+                val filteredList = streamerList.filter { it.live && it.favorisiert }
 
-        // LayoutManager setzen (z. B. LinearLayoutManager, GridLayoutManager)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        // Adapter initialisieren und setzen
-        adapter = FavoritesAdapter(itemList)
-        recyclerView.adapter = adapter
+                // Initialize the favoritesAdapter with the filtered list
+                favoritesAdapter = FavoritesAdapter(filteredList)
+                recyclerView.adapter = favoritesAdapter
+            }
+        }
+        return view
     }
 }

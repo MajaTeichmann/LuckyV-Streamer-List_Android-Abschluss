@@ -19,9 +19,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
-    //damit Kopfbinde im StartFragemnt nicht zu sehen ist
-    private lateinit var mainLayout: ConstraintLayout
-
     fun changeHomeColor() {
         val btnHome: ImageButton = findViewById(R.id.btn_home)
         btnHome.setImageResource(R.drawable.baseline_home_black_20)

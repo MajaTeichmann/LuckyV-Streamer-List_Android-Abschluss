@@ -35,8 +35,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     //AutoCompleteTextView
     private val _streamerSuche = MutableLiveData<List<Streamer>>()
-    val streamerSuche: LiveData<List<Streamer>>
-        get() = _streamerSuche
 
     // hier werden die Streamer aus dem repository in einer eigenen Variablen gespeichert
     val streamer = repository.streamerList

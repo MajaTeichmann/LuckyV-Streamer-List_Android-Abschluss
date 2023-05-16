@@ -28,7 +28,6 @@ class LiveAdapter(
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
-        val streamerLayout: ConstraintLayout = itemView.findViewById(R.id.cl_online_streamer)
     }
 
 

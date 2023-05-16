@@ -10,10 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.Toolbar
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
+import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentStreamBinding
 
 //TODO: MUSS NOCH ERSTELLT WERDEN
 
 class StreamFragment : Fragment() {
+
+    private lateinit var binding: FragmentStreamBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
