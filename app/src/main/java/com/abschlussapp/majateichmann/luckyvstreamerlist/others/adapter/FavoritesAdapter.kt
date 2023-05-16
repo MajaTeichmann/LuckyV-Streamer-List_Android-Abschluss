@@ -64,12 +64,12 @@ class FavoritesAdapter(private val itemList: List<Streamer>) :
         val itemType = getItemViewType(position)
         when (itemType) {
             liveItem -> {
-                val item = itemList[position] as LiveItem
+                val itemLive = itemList[position]
                 val viewHolder = holder as ViewHolderLiveItem
             }
 
             offlineItem -> {
-                val item = itemList[position] as OfflineItem
+                val itemOffline = itemList[position]
                 val viewHolder = holder as ViewHolderOfflineItem
             }
         }
