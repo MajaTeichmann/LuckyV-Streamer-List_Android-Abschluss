@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
@@ -21,7 +22,7 @@ class FavoritesFragment : Fragment() {
     private lateinit var favoritesAdapter: FavoritesAdapter
 
     // Hier wird das ViewModel, in dem die Logik stattfindet, geholt
-    private val viewModel: MainViewModel by activityViewModels()
+    private lateinit var viewModel: MainViewModel
 
     // Hier wird die Liste der Streamer initialisiert
     private lateinit var streamerList: List<Streamer>
@@ -35,6 +36,10 @@ class FavoritesFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
 
+        // ViewModel initialisieren
+        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+
+
         viewModel.streamersOnline.observe(viewLifecycleOwner) { streamers ->
             streamerList = streamers
             // Initialize the RecyclerView
@@ -46,10 +51,19 @@ class FavoritesFragment : Fragment() {
                 val filteredList = streamerList.filter { it.live && it.favorisiert }
 
                 // Initialize the favoritesAdapter with the filtered list
-                favoritesAdapter = FavoritesAdapter(filteredList)
+                favoritesAdapter = FavoritesAdapter(filteredList, ::updateStreamer)
                 recyclerView.adapter = favoritesAdapter
             }
         }
         return view
+    }
+
+    fun updateStreamer(streamer: Streamer) {
+        streamer.favorisiert = true
+
+        val position = streamerList.indexOf(streamer)
+        if(position != -1){
+            favoritesAdapter.notifyItemChanged(position)
+        }
     }
 }
