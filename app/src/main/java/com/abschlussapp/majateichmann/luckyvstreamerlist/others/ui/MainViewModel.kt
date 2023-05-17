@@ -17,6 +17,35 @@ enum class ApiStatus { LOADING, ERROR, DONE }
 const val TAG = "MainViewModel"
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> = _isFavorite
+
+    fun toggleFavoriteStatus(): Boolean {
+        val isCurrentlyFavorite = _isFavorite.value ?: false
+        val newFavoriteStatus = !isCurrentlyFavorite
+        _isFavorite.value = newFavoriteStatus
+        return newFavoriteStatus
+    }
+
+    private val _favoriteItems = MutableLiveData<List<Streamer>>()
+    val favoriteItems: LiveData<List<Streamer>> = _favoriteItems
+
+    fun addFavoriteItem(streamer: Streamer) {
+        val updatedList = (_favoriteItems.value ?: emptyList()) + streamer
+        _favoriteItems.value = updatedList
+    }
+
+    fun removeFavoriteItem(streamer: Streamer) {
+        val updatedList = (_favoriteItems.value ?: emptyList()).filterNot { it == streamer }
+        _favoriteItems.value = updatedList
+    }
+
+    fun updateStreamer(streamer: Streamer) {
+        viewModelScope.launch {
+            repository.updateStreamer(streamer)
+        }
+    }
+
 
     // hier wird eine AppRepository Instanz erstellt, mit dem Parameter StreamerApi
     private val database = getDatabase(application)

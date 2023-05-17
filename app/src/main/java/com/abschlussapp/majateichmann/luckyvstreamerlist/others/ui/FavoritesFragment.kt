@@ -1,11 +1,12 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.Favorite
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
 
-// TODO: MUSS NOCH ERSTELLT WERDEN (BONUS THEMA)
+// TODO: BONUS THEMA
 
 class FavoritesFragment : Fragment() {
 
@@ -28,6 +29,8 @@ class FavoritesFragment : Fragment() {
     private lateinit var streamerList: List<Streamer>
 
 
+
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,31 +42,25 @@ class FavoritesFragment : Fragment() {
         // ViewModel initialisieren
         viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
+        // RecyclerView initialisieren
+        recyclerView = view.findViewById(R.id.rv_favorites)
+        recyclerView.layoutManager = GridLayoutManager(context, 3)
 
+        // Adapter initialisieren und RecyclerView setzen
+        favoritesAdapter = FavoritesAdapter(emptyList(), ::updateStreamer)
+        recyclerView.adapter = favoritesAdapter
+
+        // Daten aus dem ViewModel beobachten und bei Änderungen den Adapter aktualisieren
         viewModel.streamersOnline.observe(viewLifecycleOwner) { streamers ->
-            streamerList = streamers
-            // Initialize the RecyclerView
-            recyclerView = view.findViewById(R.id.rv_favorites)
-            recyclerView.layoutManager = GridLayoutManager(context, 3)
-
-            // Prüfen Sie, ob die streamerList bereits initialisiert wurde und filtern Sie sie
-            if (::streamerList.isInitialized) {
-                val filteredList = streamerList.filter { it.live && it.favorisiert }
-
-                // Initialize the favoritesAdapter with the filtered list
-                favoritesAdapter = FavoritesAdapter(filteredList, ::updateStreamer)
-                recyclerView.adapter = favoritesAdapter
-            }
+            favoritesAdapter.itemList = streamers.filter { it.favorisiert }
+            favoritesAdapter.notifyDataSetChanged()
         }
+
         return view
     }
 
-    fun updateStreamer(streamer: Streamer) {
-        streamer.favorisiert = true
-
-        val position = streamerList.indexOf(streamer)
-        if(position != -1){
-            favoritesAdapter.notifyItemChanged(position)
-        }
+    private fun updateStreamer(streamer: Streamer) {
+        viewModel.updateStreamer(streamer)
     }
+
 }

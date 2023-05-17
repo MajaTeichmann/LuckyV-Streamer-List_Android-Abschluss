@@ -14,13 +14,16 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
+import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.OnSwipeTouchListener
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
 
 class HomeFragment : Fragment() {
@@ -30,6 +33,8 @@ class HomeFragment : Fragment() {
 
     // Das binding für das HomeFragment wird deklariert
     private lateinit var binding: FragmentHomeBinding
+
+    private var dataset: List<Streamer> = emptyList()
 
     /**
      * Lifecycle Funktion onCreateView
@@ -72,9 +77,10 @@ class HomeFragment : Fragment() {
         // Recyclerview neu gesetzt.
         viewModel.streamersOnline.observe(
             viewLifecycleOwner
-        ) {
-            binding.tvNumberPlayersOnline.text = it.size.toString()
-            streamerListLive.adapter = LiveAdapter(it)
+        ) {streamers ->
+            dataset = streamers
+            binding.tvNumberPlayersOnline.text = streamers.size.toString()
+            streamerListLive.adapter = LiveAdapter(streamers)
         }
 
         viewModel.streamersOffline.observe(
@@ -150,6 +156,16 @@ class HomeFragment : Fragment() {
         // Referenz zur MainActivity erhalten
         val mainActivity = requireActivity() as MainActivity
         mainActivity.einblenden()
+
+        val adapter = LiveAdapter(dataset)
+
+        adapter.setOnItemClickListener(object : LiveAdapter.OnItemClickListener {
+            override fun onButtonClick(position: Int) {
+                viewModel.addFavoriteItem(dataset[position])
+                viewModel.toggleFavoriteStatus()
+                viewModel.updateStreamer(dataset[position])
+            }
+        })
     }
 
     private fun showRecyclerView1() {

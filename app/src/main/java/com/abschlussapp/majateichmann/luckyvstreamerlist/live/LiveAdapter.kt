@@ -1,10 +1,12 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.live
 
+import android.annotation.SuppressLint
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -28,6 +30,16 @@ class LiveAdapter(
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
+        val like: ImageButton = itemView.findViewById(R.id.btn_favorites)
+    }
+
+    interface OnItemClickListener {
+        fun onButtonClick(position: Int)
+    }
+
+    private var onItemClickListener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
     }
 
 
@@ -94,5 +106,17 @@ class LiveAdapter(
         streamerName.ellipsize = TextUtils.TruncateAt.END
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
+
+        // Button-Click-Listener
+        holder.like.setOnClickListener {
+            onItemClickListener?.onButtonClick(position)
+            streamer.favorisiert = !streamer.favorisiert
+            /** if(streamer.favorisiert){
+                streamer.favorisiert = false
+            }else{
+                streamer.favorisiert = true
+            } **/
+
+        }
     }
 }

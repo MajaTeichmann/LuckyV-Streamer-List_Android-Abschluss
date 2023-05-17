@@ -46,4 +46,10 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
             Log.e(TAG,"Failed to delete all Streamers from Database: $e")
         }
     }
+
+    suspend fun updateStreamer(streamer: Streamer) {
+        // Aktualisieren Sie den Streamer in der Datenbank
+        database.streamerDao.update(streamer)
+    }
+
 }
