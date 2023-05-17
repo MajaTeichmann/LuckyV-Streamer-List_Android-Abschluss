@@ -106,11 +106,11 @@
             android:layout_width="20sp"
             android:layout_height="20sp"
             android:layout_marginStart="100dp"
-            android:background="@drawable/baseline_favorite_black_20"
             android:clickable="true"
             android:text="Favorisieren"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/grey_heart" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

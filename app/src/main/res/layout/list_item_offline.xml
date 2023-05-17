@@ -106,7 +106,7 @@
             android:layout_width="20sp"
             android:layout_height="20sp"
             android:layout_marginStart="100dp"
-            android:background="@drawable/baseline_favorite_black_20"
+            app:srcCompat="@drawable/grey_heart"
             android:clickable="true"
             android:text="Favorisieren"
             app:layout_constraintStart_toStartOf="parent"
