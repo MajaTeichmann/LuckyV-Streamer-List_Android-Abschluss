@@ -101,14 +101,12 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageButton
+        <Button
             android:id="@+id/btn_favorites"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="80dp"
             android:background="@drawable/grey_heart"
-            android:clickable="true"
-            android:focusable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

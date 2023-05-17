@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.TAG
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
 
 /**
@@ -18,46 +21,32 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.TAG
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-
-    fun changeHomeColor() {
-        val btnHome: ImageButton = findViewById(R.id.btn_home)
-        btnHome.setImageResource(R.drawable.baseline_home_black_20)
-
-        val btnFavorites: ImageButton = findViewById(R.id.btn_favorites)
-        btnFavorites.setImageResource(R.drawable.baseline_favorite_white_20)
-
-        val btnSettings: ImageButton = findViewById(R.id.btn_settings)
-        btnSettings.setImageResource(R.drawable.baseline_settings_white_20)
-    }
-
-    //Wenn FavoritesFragment sichtbar
-    fun changeFavoritesColor() {
-        val btnHome: ImageButton = findViewById(R.id.btn_home)
-        btnHome.setImageResource(R.drawable.baseline_home_white_20)
-
-        val btnFavorites: ImageButton = findViewById(R.id.btn_favorites)
-        btnFavorites.setImageResource(R.drawable.baseline_favorite_black_20)
-
-        val btnSettings: ImageButton = findViewById(R.id.btn_settings)
-        btnSettings.setImageResource(R.drawable.baseline_settings_white_20)
-    }
-
-    //Wenn SettingsFragment sichtbar
-    fun changeSettingsColor() {
-        val btnHome: ImageButton = findViewById(R.id.btn_home)
-        btnHome.setImageResource(R.drawable.baseline_home_white_20)
-
-        val btnFavorites: ImageButton = findViewById(R.id.btn_favorites)
-        btnFavorites.setImageResource(R.drawable.baseline_favorite_white_20)
-
-        val btnSettings: ImageButton = findViewById(R.id.btn_settings)
-        btnSettings.setImageResource(R.drawable.baseline_settings_black_20)
-    }
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // ViewModel initialisieren
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        var streamerList = MutableLiveData<List<Streamer>>()
+
+        // Schleife durch die Liste der Streamer
+            for (streamer in streamerList.value?: emptyList()) {
+                if (streamer.favorisiert) {
+                    // toggleFavoriteStatus() im ViewModel aufrufen
+                    viewModel.toggleFavoriteStatus()
+                    activateFavoritesHeart()
+                    // Weitere Aktionen für favorisierte Streamer ausführen
+                } else {
+                    // addFavoriteItem() im ViewModel aufrufen
+                    viewModel.addFavoriteItem(streamer)
+                    // Weitere Aktionen für nicht-favorisierte Streamer ausführen
+                    disableFavoritesHeart()
+                }
+            }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -140,6 +129,40 @@ class MainActivity : AppCompatActivity() {
         binding.clAppHeader.visibility = View.VISIBLE
     }
 
+    fun changeHomeColor() {
+        val btnHome: ImageButton = findViewById(R.id.btn_home)
+        btnHome.setImageResource(R.drawable.baseline_home_black_20)
+
+        val btnFavorites: ImageButton = findViewById(R.id.btn_favorites)
+        btnFavorites.setImageResource(R.drawable.baseline_favorite_white_20)
+
+        val btnSettings: ImageButton = findViewById(R.id.btn_settings)
+        btnSettings.setImageResource(R.drawable.baseline_settings_white_20)
+    }
+
+    //Wenn FavoritesFragment sichtbar
+    fun changeFavoritesColor() {
+        val btnHome: ImageButton = findViewById(R.id.btn_home)
+        btnHome.setImageResource(R.drawable.baseline_home_white_20)
+
+        val btnFavorites: ImageButton = findViewById(R.id.btn_favorites)
+        btnFavorites.setImageResource(R.drawable.baseline_favorite_black_20)
+
+        val btnSettings: ImageButton = findViewById(R.id.btn_settings)
+        btnSettings.setImageResource(R.drawable.baseline_settings_white_20)
+    }
+
+    //Wenn SettingsFragment sichtbar
+    fun changeSettingsColor() {
+        val btnHome: ImageButton = findViewById(R.id.btn_home)
+        btnHome.setImageResource(R.drawable.baseline_home_white_20)
+
+        val btnFavorites: ImageButton = findViewById(R.id.btn_favorites)
+        btnFavorites.setImageResource(R.drawable.baseline_favorite_white_20)
+
+        val btnSettings: ImageButton = findViewById(R.id.btn_settings)
+        btnSettings.setImageResource(R.drawable.baseline_settings_black_20)
+    }
 
     fun ausblenden() {
         binding.tvHeader.visibility = View.INVISIBLE
@@ -159,5 +182,17 @@ class MainActivity : AppCompatActivity() {
         binding.btnHome.visibility = View.VISIBLE
         binding.btnFavorites.visibility = View.VISIBLE
         binding.btnSettings.visibility = View.VISIBLE
+    }
+
+    //wenn Streamer gemerkt werden soll
+    private fun activateFavoritesHeart() {
+        val btnLike: ImageButton = findViewById(R.id.btn_favorites)
+        btnLike.setImageResource(R.drawable.red_heart)
+    }
+
+    //wenn Streamer nicht mehr gemerkt werden soll
+    private fun disableFavoritesHeart() {
+        val btnLike: ImageButton = findViewById(R.id.btn_favorites)
+        btnLike.setImageResource(R.drawable.grey_heart)
     }
 }
