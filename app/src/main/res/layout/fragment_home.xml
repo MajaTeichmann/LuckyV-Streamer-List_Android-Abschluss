@@ -8,14 +8,10 @@
 
     </data>
 
-    <!--    todo: für "streamers live" grünen fleck & für "streamers offline" roten fleck-->
     <!--    todo: wenn tastatur eingeblendet, blende navBar aus-->
     <!--    todo: AutoCompleteTextView überarbeiten-->
     <!--    todo: Filter-Button aktivieren-->
-    <!--    todo: Home-Button aktivieren-->
-    <!--    todo: Favoriten-Button aktivieren-->
     <!--    todo: FilterFragment erstellen-->
-    <!--    todo: Settings-Button aktivieren-->
     <!--    todo: SettingsFragment erstellen-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -254,5 +250,34 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
 </layout>
+
+<!--<Spinner-->
+<!--android:id="@+id/s_dropDown"-->
+<!--android:layout_width="0dp"-->
+<!--android:layout_height="36dp"-->
+<!--android:layout_marginStart="16dp"-->
+<!--android:layout_marginEnd="2dp"-->
+<!--android:layout_marginTop="16dp"-->
+<!--android:background="@android:color/darker_gray"-->
+<!--android:contentDescription="Select Film"-->
+<!--android:spinnerMode="dropdown"-->
+<!--app:layout_constraintEnd_toStartOf="@+id/ib_addFavorite"-->
+<!--app:layout_constraintStart_toStartOf="parent"-->
+<!--app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
+<!--tools:ignore="TouchTargetSizeCheck"-->
+<!--android:autofillHints="test"/>-->
+
+<!--<ImageButton-->
+<!--android:id="@+id/ib_addFavorite"-->
+<!--android:layout_width="48dp"-->
+<!--android:layout_height="0dp"-->
+<!--android:layout_marginEnd="16dp"-->
+<!--android:background="@color/material_dynamic_neutral10"-->
+<!--android:contentDescription="addFavorite"-->
+<!--android:scaleType="centerInside"-->
+<!--app:layout_constraintBottom_toBottomOf="@+id/s_dropDown"-->
+<!--app:layout_constraintEnd_toEndOf="parent"-->
+<!--app:layout_constraintTop_toTopOf="@+id/s_dropDown"-->
+<!--app:srcCompat="@drawable/icon_favorite"-->
+<!--tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />-->
