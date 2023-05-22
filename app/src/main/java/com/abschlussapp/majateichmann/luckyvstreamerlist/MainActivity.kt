@@ -35,19 +35,19 @@ class MainActivity : AppCompatActivity() {
         var streamerList = MutableLiveData<List<Streamer>>()
 
         // Schleife durch die Liste der Streamer
-            for (streamer in streamerList.value?: emptyList()) {
-                if (streamer.favorisiert) {
-                    // toggleFavoriteStatus() im ViewModel aufrufen
-                    viewModel.toggleFavoriteStatus()
-                    activateFavoritesHeart()
-                    // Weitere Aktionen für favorisierte Streamer ausführen
-                } else {
-                    // addFavoriteItem() im ViewModel aufrufen
-                    viewModel.addFavoriteItem(streamer)
-                    // Weitere Aktionen für nicht-favorisierte Streamer ausführen
-                    disableFavoritesHeart()
-                }
+        for (streamer in streamerList.value ?: emptyList()) {
+            if (streamer.favorisiert) {
+                // toggleFavoriteStatus() im ViewModel aufrufen
+                viewModel.toggleFavoriteStatus()
+                activateFavoritesHeart()
+                // Weitere Aktionen für favorisierte Streamer ausführen
+            } else {
+                // addFavoriteItem() im ViewModel aufrufen
+                viewModel.addFavoriteItem(streamer)
+                // Weitere Aktionen für nicht-favorisierte Streamer ausführen
+                disableFavoritesHeart()
             }
+        }
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -55,29 +55,40 @@ class MainActivity : AppCompatActivity() {
 
         val navBar: BottomNavigationView = findViewById(R.id.navBar)
         navBar.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.navigation_home -> {
                     // Aktion für "Home" ausführen
-                    if(navController.currentDestination?.id != R.id.homeFragment){
+                    if (navController.currentDestination?.id != R.id.homeFragment) {
                         navController.navigate(R.id.homeFragment)
                     }
                     true
                 }
+
                 R.id.navigation_favorites -> {
                     // Aktion für "Favorites" ausführen
-                    if(navController.currentDestination?.id != R.id.favoritesFragment){
+                    if (navController.currentDestination?.id != R.id.favoritesFragment) {
                         navController.navigate(R.id.favoritesFragment)
                     }
                     true
                 }
+
                 R.id.navigation_settings -> {
                     // Aktion für "Settings" ausführen
-                    if(navController.currentDestination?.id != R.id.settingsFragment){
+                    if (navController.currentDestination?.id != R.id.settingsFragment) {
                         navController.navigate(R.id.settingsFragment)
                     }
                     true
                 }
+
                 else -> false
+            }
+        }
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.startFragment) {
+                navBar.visibility = View.GONE
+            } else {
+                navBar.visibility = View.VISIBLE
             }
         }
 
