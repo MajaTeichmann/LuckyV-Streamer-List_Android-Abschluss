@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.TAG
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 /**
@@ -52,136 +53,46 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
-        val btnHome = binding.btnHome
-        val btnFavorites = binding.btnFavorites
-        val btnSettings = binding.btnSettings
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.homeFragment -> {
-                    changeHomeColor()
-                    btnHome.isEnabled = false
-                    btnFavorites.isEnabled = true
-                    btnSettings.isEnabled = true
-                    btnFavorites.setOnClickListener {
-                        try {
-                            navController.navigate(R.id.action_homeFragment_to_favoritesFragment)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Navigation to FavoritesFragment failed: $e")
-                        }
+        val navBar: BottomNavigationView = findViewById(R.id.navBar)
+        navBar.setOnNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.navigation_home -> {
+                    // Aktion für "Home" ausführen
+                    if(navController.currentDestination?.id != R.id.homeFragment){
+                        navController.navigate(R.id.homeFragment)
                     }
-
-                    btnSettings.setOnClickListener {
-                        try {
-                            navController.navigate(R.id.action_homeFragment_to_settingsFragment)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Navigation to SettingsFragment failed: $e")
-                        }
-                    }
+                    true
                 }
-
-                R.id.favoritesFragment -> {
-                    changeFavoritesColor()
-                    btnHome.isEnabled = true
-                    btnFavorites.isEnabled = false
-                    btnSettings.isEnabled = true
-                    btnHome.setOnClickListener {
-                        try {
-                            navController.navigate(R.id.action_favoritesFragment_to_homeFragment)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Navigation to HomeFragment failed: $e")
-                        }
+                R.id.navigation_favorites -> {
+                    // Aktion für "Favorites" ausführen
+                    if(navController.currentDestination?.id != R.id.favoritesFragment){
+                        navController.navigate(R.id.favoritesFragment)
                     }
-
-                    btnSettings.setOnClickListener {
-                        try {
-                            navController.navigate(R.id.action_favoritesFragment_to_settingsFragment)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Navigation to SettingsFragment failed: $e")
-                        }
-                    }
+                    true
                 }
-
-                R.id.settingsFragment -> {
-                    changeSettingsColor()
-                    btnHome.isEnabled = true
-                    btnFavorites.isEnabled = true
-                    btnSettings.isEnabled = false
-                    btnHome.setOnClickListener {
-                        try {
-                            navController.navigate(R.id.action_settingsFragment_to_homeFragment)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Navigation to HomeFragment failed: $e")
-                        }
+                R.id.navigation_settings -> {
+                    // Aktion für "Settings" ausführen
+                    if(navController.currentDestination?.id != R.id.settingsFragment){
+                        navController.navigate(R.id.settingsFragment)
                     }
-
-                    btnFavorites.setOnClickListener {
-                        try {
-                            navController.navigate(R.id.action_settingsFragment_to_favoritesFragment)
-                        } catch (e: Exception) {
-                            Log.e(TAG, "Navigation to FavoritesFragment failed: $e")
-                        }
-                    }
+                    true
                 }
+                else -> false
             }
         }
+
         // Zeige das ConstraintLayout standardmäßig an
         binding.clAppHeader.visibility = View.VISIBLE
-    }
-
-    fun changeHomeColor() {
-        val btnHome: ImageButton = findViewById(R.id.btn_home)
-        btnHome.setImageResource(R.drawable.baseline_home_black_20)
-
-        val btnFavorites: ImageButton = findViewById(R.id.btn_favorites)
-        btnFavorites.setImageResource(R.drawable.baseline_favorite_white_20)
-
-        val btnSettings: ImageButton = findViewById(R.id.btn_settings)
-        btnSettings.setImageResource(R.drawable.baseline_settings_white_20)
-    }
-
-    //Wenn FavoritesFragment sichtbar
-    fun changeFavoritesColor() {
-        val btnHome: ImageButton = findViewById(R.id.btn_home)
-        btnHome.setImageResource(R.drawable.baseline_home_white_20)
-
-        val btnFavorites: ImageButton = findViewById(R.id.btn_favorites)
-        btnFavorites.setImageResource(R.drawable.baseline_favorite_black_20)
-
-        val btnSettings: ImageButton = findViewById(R.id.btn_settings)
-        btnSettings.setImageResource(R.drawable.baseline_settings_white_20)
-    }
-
-    //Wenn SettingsFragment sichtbar
-    fun changeSettingsColor() {
-        val btnHome: ImageButton = findViewById(R.id.btn_home)
-        btnHome.setImageResource(R.drawable.baseline_home_white_20)
-
-        val btnFavorites: ImageButton = findViewById(R.id.btn_favorites)
-        btnFavorites.setImageResource(R.drawable.baseline_favorite_white_20)
-
-        val btnSettings: ImageButton = findViewById(R.id.btn_settings)
-        btnSettings.setImageResource(R.drawable.baseline_settings_black_20)
     }
 
     fun ausblenden() {
         binding.tvHeader.visibility = View.INVISIBLE
         binding.ivLuckyvLogo.alpha = 0F
-
-        binding.clNavBar.visibility = View.INVISIBLE
-        binding.btnHome.visibility = View.INVISIBLE
-        binding.btnFavorites.visibility = View.INVISIBLE
-        binding.btnSettings.visibility = View.INVISIBLE
     }
 
     fun einblenden() {
         binding.tvHeader.visibility = View.VISIBLE
         binding.ivLuckyvLogo.alpha = 1F
-
-        binding.clNavBar.visibility = View.VISIBLE
-        binding.btnHome.visibility = View.VISIBLE
-        binding.btnFavorites.visibility = View.VISIBLE
-        binding.btnSettings.visibility = View.VISIBLE
     }
 
     //wenn Streamer gemerkt werden soll
