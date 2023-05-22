@@ -77,7 +77,7 @@ class HomeFragment : Fragment() {
         // Recyclerview neu gesetzt.
         viewModel.streamersOnline.observe(
             viewLifecycleOwner
-        ) {streamers ->
+        ) { streamers ->
             dataset = streamers
             binding.tvNumberPlayersOnline.text = streamers.size.toString()
             streamerListLive.adapter = LiveAdapter(streamers)
@@ -89,22 +89,35 @@ class HomeFragment : Fragment() {
             streamerListOffline.adapter = OfflineAdapter(it)
         }
 
+        fun updateRecyclerViews(isLive: Boolean) {
+            if (isLive) {
+                binding.rvStreamerOnline.visibility = View.VISIBLE
+                binding.rvStreamerOffline.visibility = View.GONE
+                binding.btnStreamersLive.isEnabled = false
+                binding.btnStreamersOffline.isEnabled = true
+            } else {
+                binding.rvStreamerOnline.visibility = View.GONE
+                binding.rvStreamerOffline.visibility = View.VISIBLE
+                binding.btnStreamersLive.isEnabled = true
+                binding.btnStreamersOffline.isEnabled = false
+            }
+        }
+
+        // Standardansicht setzen (LiveStreamer anzeigen, Button Streamers online deaktiviert)
+        updateRecyclerViews(true)
+
+        binding.btnStreamersLive.setOnClickListener {
+            updateRecyclerViews(true)
+        }
+
+        binding.btnStreamersOffline.setOnClickListener {
+            updateRecyclerViews(false)
+        }
+
+
         // Verbesserte Performance bei fixer Listengröße
         streamerListLive.setHasFixedSize(true)
         streamerListOffline.setHasFixedSize(true)
-
-        // Swipe-Logik festlegen
-        streamerListLive.setOnTouchListener(object : OnSwipeTouchListener(requireContext()) {
-            override fun onSwipeLeft() {
-                showRecyclerView2()
-            }
-        })
-
-        streamerListOffline.setOnTouchListener(object : OnSwipeTouchListener(requireContext()) {
-            override fun onSwipeRight() {
-                showRecyclerView1()
-            }
-        })
 
         //Link hinzufügen
         val fullText =
@@ -166,21 +179,5 @@ class HomeFragment : Fragment() {
                 viewModel.updateStreamer(dataset[position])
             }
         })
-    }
-
-    private fun showRecyclerView1() {
-        binding.rvStreamerOnline.visibility = View.VISIBLE
-        binding.tvStreamersOnline.visibility = View.VISIBLE
-
-        binding.rvStreamerOffline.visibility = View.GONE
-        binding.tvStreamersOffline.visibility = View.GONE
-    }
-
-    private fun showRecyclerView2() {
-        binding.rvStreamerOnline.visibility = View.GONE
-        binding.tvStreamersOnline.visibility = View.GONE
-
-        binding.rvStreamerOffline.visibility = View.VISIBLE
-        binding.tvStreamersOffline.visibility = View.VISIBLE
     }
 }

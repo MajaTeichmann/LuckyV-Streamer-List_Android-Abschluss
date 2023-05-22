@@ -149,7 +149,7 @@
                 android:backgroundTint="@color/luckyv_yellow"
                 android:text="@string/filtern_button"
                 android:textColor="@color/luckyv_black"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 app:cornerRadius="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -168,14 +168,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_searching">
 
-            <TextView
-                android:id="@+id/tv_streamers_online"
+            <Button
+                android:id="@+id/btn_streamers_live"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/streamers_live"
-                android:textSize="15sp"
+                android:backgroundTint="@color/btn_luckyv_yellow"
+                android:text="live"
+                android:textColor="@color/txt_luckyv_black"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -183,105 +185,100 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_streamer_online"
                 android:layout_width="match_parent"
-                android:layout_height="389dp"
+                android:layout_height="449dp"
                 android:layout_marginTop="5dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toTopOf="@id/navBar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_streamers_online"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintTop_toBottomOf="@id/btn_streamers_live"
                 app:spanCount="3"
                 tools:listitem="@layout/list_item_live" />
 
-            <TextView
-                android:id="@+id/tv_streamers_offline"
+            <Button
+                android:id="@+id/btn_streamers_offline"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:text="@string/streamers_offline"
-                android:textSize="15sp"
+                android:backgroundTint="@color/btn_luckyv_yellow"
+                android:text="offline"
+                android:textColor="@color/txt_luckyv_black"
+                android:textSize="11sp"
                 android:textStyle="bold"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_streamers_live"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_Streamer_offline"
                 android:layout_width="match_parent"
-                android:layout_height="389dp"
+                android:layout_height="449dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="499dp"
                 android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toTopOf="@id/navBar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_streamers_offline"
+                app:layout_constraintTop_toBottomOf="@id/btn_streamers_offline"
                 app:spanCount="3"
                 tools:listitem="@layout/list_item_offline" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/navBar"
-                android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:layout_marginTop="424dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/btnRefresh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="0"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/luckyv_logo"
-                    app:backgroundTint="@color/luckyv_yellow"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/luckyv_logo"
+            app:backgroundTint="@color/luckyv_yellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/navBar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="75dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent">-->
+
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
 
-<!--<Spinner-->
-<!--android:id="@+id/s_dropDown"-->
-<!--android:layout_width="0dp"-->
-<!--android:layout_height="36dp"-->
-<!--android:layout_marginStart="16dp"-->
-<!--android:layout_marginEnd="2dp"-->
-<!--android:layout_marginTop="16dp"-->
-<!--android:background="@android:color/darker_gray"-->
-<!--android:contentDescription="Select Film"-->
-<!--android:spinnerMode="dropdown"-->
-<!--app:layout_constraintEnd_toStartOf="@+id/ib_addFavorite"-->
-<!--app:layout_constraintStart_toStartOf="parent"-->
-<!--app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
-<!--tools:ignore="TouchTargetSizeCheck"-->
-<!--android:autofillHints="test"/>-->
+    <!--<Spinner-->
+    <!--android:id="@+id/s_dropDown"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="36dp"-->
+    <!--android:layout_marginStart="16dp"-->
+    <!--android:layout_marginEnd="2dp"-->
+    <!--android:layout_marginTop="16dp"-->
+    <!--android:background="@android:color/darker_gray"-->
+    <!--android:contentDescription="Select Film"-->
+    <!--android:spinnerMode="dropdown"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/ib_addFavorite"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/toolbar"-->
+    <!--tools:ignore="TouchTargetSizeCheck"-->
+    <!--android:autofillHints="test"/>-->
 
-<!--<ImageButton-->
-<!--android:id="@+id/ib_addFavorite"-->
-<!--android:layout_width="48dp"-->
-<!--android:layout_height="0dp"-->
-<!--android:layout_marginEnd="16dp"-->
-<!--android:background="@color/material_dynamic_neutral10"-->
-<!--android:contentDescription="addFavorite"-->
-<!--android:scaleType="centerInside"-->
-<!--app:layout_constraintBottom_toBottomOf="@+id/s_dropDown"-->
-<!--app:layout_constraintEnd_toEndOf="parent"-->
-<!--app:layout_constraintTop_toTopOf="@+id/s_dropDown"-->
-<!--app:srcCompat="@drawable/icon_favorite"-->
-<!--tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />-->
+    <!--<ImageButton-->
+    <!--android:id="@+id/ib_addFavorite"-->
+    <!--android:layout_width="48dp"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_marginEnd="16dp"-->
+    <!--android:background="@color/material_dynamic_neutral10"-->
+    <!--android:contentDescription="addFavorite"-->
+    <!--android:scaleType="centerInside"-->
+    <!--app:layout_constraintBottom_toBottomOf="@+id/s_dropDown"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="@+id/s_dropDown"-->
+    <!--app:srcCompat="@drawable/icon_favorite"-->
+    <!--tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />-->
