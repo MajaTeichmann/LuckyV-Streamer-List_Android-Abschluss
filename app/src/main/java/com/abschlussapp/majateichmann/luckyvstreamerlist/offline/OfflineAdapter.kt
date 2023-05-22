@@ -100,13 +100,5 @@ class OfflineAdapter(
         streamerName.ellipsize = TextUtils.TruncateAt.END
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
-
-        holder.streamerLayout.setOnClickListener {
-            // Navigation zum StreamFragment durchführen
-            Navigation.findNavController(
-                Activity(),
-                R.id.action_homeFragment_to_streamFragment
-            )
-        }
     }
 }

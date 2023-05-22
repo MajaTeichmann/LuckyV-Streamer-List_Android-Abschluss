@@ -66,6 +66,7 @@ class LiveAdapter(
      */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
+        //todo: LOG
         //streamer aus dem dataset holen
         var streamer = dataset[position]
 
