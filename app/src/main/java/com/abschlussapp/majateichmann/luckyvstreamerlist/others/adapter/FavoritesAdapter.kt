@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -56,8 +55,9 @@ class FavoritesAdapter(
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val streamer = itemList[position]
-                        streamer.favorisiert = true
-                        updateStreamer(streamer)
+                        val updatedStreamer =
+                            streamer.copy(favorisiert = !streamer.favorisiert) // Aktualisieren Sie den favorisiert-Status
+                        updateStreamer(updatedStreamer)
                         notifyItemChanged(position)
                     }
                 }
@@ -188,5 +188,10 @@ class FavoritesAdapter(
                 Log.i("FavoritesAdapter", "$item wurde nicht favorisiert")
             }
         }
+    }
+
+    fun updateData(streamers: List<Streamer>) {
+        itemList = streamers
+        notifyDataSetChanged()
     }
 }

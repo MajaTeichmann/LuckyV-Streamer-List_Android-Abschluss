@@ -32,36 +32,33 @@ class FavoritesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_favorites, container, false)
 
-        // ViewModel initialisieren
-        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        // Initialize the RecyclerView
+        recyclerView = view.findViewById(R.id.rv_favorites)
+        recyclerView.layoutManager = GridLayoutManager(context, 3)
 
+        // ViewModel initialisieren
+        val viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
         viewModel.streamersOnline.observe(viewLifecycleOwner) { streamers ->
             streamerList = streamers
-            // Initialize the RecyclerView
-            recyclerView = view.findViewById(R.id.rv_favorites)
-            recyclerView.layoutManager = GridLayoutManager(context, 3)
+            // Filter streamersList
+            val filteredList = streamerList.filter { it.live && it.favorisiert }
 
-            // Prüfen Sie, ob die streamerList bereits initialisiert wurde und filtern Sie sie
-            if (::streamerList.isInitialized) {
-                val filteredList = streamerList.filter { it.live && it.favorisiert }
-
-                // Initialize the favoritesAdapter with the filtered list
-                favoritesAdapter = FavoritesAdapter(filteredList, ::updateStreamer)
-                recyclerView.adapter = favoritesAdapter
-            }
+            // Initialize the favoritesAdapter with the filtered list
+            favoritesAdapter = FavoritesAdapter(filteredList, ::updateStreamer)
+            recyclerView.adapter = favoritesAdapter
         }
         return view
     }
 
-    fun updateStreamer(streamer: Streamer) {
-        streamer.favorisiert = true
+    private fun updateStreamer(streamer: Streamer) {
+        val updatedStreamer = streamer.copy(favorisiert = false)
 
         val position = streamerList.indexOf(streamer)
-        if(position != -1){
+        if (position != -1) {
+            streamerList = streamerList.toMutableList().apply { set(position, updatedStreamer) }
             favoritesAdapter.notifyItemChanged(position)
         }
     }
