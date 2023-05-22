@@ -88,7 +88,7 @@
                     android:paddingBottom="2dp"
                     android:textAlignment="gravity"
                     android:textColor="@color/luckyv_white"
-                    android:textSize="10sp"
+                    android:textSize="11sp"
                     android:textStyle="normal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
