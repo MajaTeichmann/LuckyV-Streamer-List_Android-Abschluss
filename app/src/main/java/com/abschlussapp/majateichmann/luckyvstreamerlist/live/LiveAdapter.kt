@@ -113,9 +113,9 @@ class LiveAdapter(
             onItemClickListener?.onButtonClick(position)
             streamer.favorisiert = !streamer.favorisiert
             /** if(streamer.favorisiert){
-                streamer.favorisiert = false
+            streamer.favorisiert = false
             }else{
-                streamer.favorisiert = true
+            streamer.favorisiert = true
             } **/
 
         }

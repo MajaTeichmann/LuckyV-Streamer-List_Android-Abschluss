@@ -27,6 +27,11 @@ interface StreamerDao {
     @Query("SELECT * FROM STREAMER WHERE live = 1")
     fun showLive() : LiveData<List<Streamer>>
 
+    // zeige mir alle Streamer an, die offline sind
     @Query("SELECT * FROM STREAMER WHERE live = 0")
     fun showOffline(): LiveData<List<Streamer>>
+
+    // zeige mir alle Streamer an, die favorisiert sind
+    @Query("SELECT * FROM STREAMER WHERE favorisiert = 1")
+    fun showFavorites(): LiveData<List<Streamer>>
 }

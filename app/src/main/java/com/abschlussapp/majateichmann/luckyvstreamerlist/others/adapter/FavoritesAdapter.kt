@@ -46,7 +46,7 @@ class FavoritesAdapter(
 
     //Funktion zum Erstellen des richtigen ViewHolders
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
+        when (viewType) {
             liveItem -> {
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.list_item_favorites_live, parent, false)
@@ -83,7 +83,9 @@ class FavoritesAdapter(
                 return viewHolder
             }
 
-            else -> throw IllegalArgumentException("Ungültiger View-Typ")
+            else -> {
+                throw IllegalArgumentException("Ungültiger View-Typ")
+            }
         }
     }
 

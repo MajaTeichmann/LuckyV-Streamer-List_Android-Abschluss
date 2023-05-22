@@ -31,13 +31,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val favoriteItems: LiveData<List<Streamer>> = _favoriteItems
 
     fun addFavoriteItem(streamer: Streamer) {
-        val updatedList = (_favoriteItems.value ?: emptyList()) + streamer
-        _favoriteItems.value = updatedList
+        _favoriteItems.value = _favoriteItems.value?.plus(streamer)
     }
 
     fun removeFavoriteItem(streamer: Streamer) {
-        val updatedList = (_favoriteItems.value ?: emptyList()).filterNot { it == streamer }
-        _favoriteItems.value = updatedList
+        _favoriteItems.value = _favoriteItems.value?.minus(streamer)
     }
 
     fun updateStreamer(streamer: Streamer) {
