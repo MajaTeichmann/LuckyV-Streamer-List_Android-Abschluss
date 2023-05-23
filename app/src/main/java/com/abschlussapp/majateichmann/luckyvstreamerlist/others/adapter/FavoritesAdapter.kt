@@ -133,10 +133,8 @@ class FavoritesAdapter(
             }
 
             offlineItem -> {
-                val itemOffline = itemList[position]
+                val itemOffline = streamer
                 val viewHolder = holder as ViewHolderOfflineItem
-
-                val logoUrl = itemOffline.logo_url
 
                 // Daten für ViewHolderLiveItem setzen
                 holder.ivStreamVorschau.load(streamer.logo_url)
