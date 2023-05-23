@@ -1,6 +1,5 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.offline
 
-import android.app.Activity
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
@@ -61,29 +59,29 @@ class OfflineAdapter(
 
         if (!streamer.live) {
             holder.tvStreamername.text = streamer.name
-            holder.tvCharname.text = streamer.ic_name
+            holder.tvCharname.text = streamer.ic_nameOff
         }
 
         // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
-        if (streamer.fraktion == null) {
+        if (streamer.fraktionOff == null) {
             holder.tvFraktion.visibility = View.GONE
         }
 
         // befülle textview mit wert aus übergebener variable (aus API)
         val fraktion = holder.tvFraktion
-        fraktion.text = streamer.fraktion
+        fraktion.text = streamer.fraktionOff
 
         // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
         fraktion.ellipsize = TextUtils.TruncateAt.END
         fraktion.maxLines = 1
         fraktion.isSingleLine = true
 
-        if (streamer.ic_name == null) {
+        if (streamer.ic_nameOff == null) {
             holder.tvCharname.visibility = View.GONE
         }
 
         val icName = holder.tvCharname
-        icName.text = streamer.ic_name
+        icName.text = streamer.ic_nameOff
 
         icName.ellipsize = TextUtils.TruncateAt.END
         icName.maxLines = 1

@@ -40,11 +40,9 @@ class MainActivity : AppCompatActivity() {
                 // toggleFavoriteStatus() im ViewModel aufrufen
                 viewModel.toggleFavoriteStatus()
                 activateFavoritesHeart()
-                // Weitere Aktionen für favorisierte Streamer ausführen
             } else {
                 // addFavoriteItem() im ViewModel aufrufen
                 viewModel.addFavoriteItem(streamer)
-                // Weitere Aktionen für nicht-favorisierte Streamer ausführen
                 disableFavoritesHeart()
             }
         }
