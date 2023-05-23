@@ -59,7 +59,10 @@ class FavoritesFragment : Fragment() {
         val position = streamerList.indexOf(streamer)
         if (position != -1) {
             streamerList = streamerList.toMutableList().apply { set(position, updatedStreamer) }
-            favoritesAdapter.notifyItemChanged(position)
+            recyclerView.post {
+                favoritesAdapter.notifyItemChanged(position)
+            }
         }
     }
+
 }

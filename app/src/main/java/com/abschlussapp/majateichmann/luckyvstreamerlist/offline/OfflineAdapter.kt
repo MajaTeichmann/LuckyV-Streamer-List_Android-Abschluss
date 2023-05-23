@@ -1,6 +1,5 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.offline
 
-import android.app.Activity
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
@@ -30,7 +29,16 @@ class OfflineAdapter(
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
-        val streamerLayout: ConstraintLayout = itemView.findViewById(R.id.cl_offline_streamer)
+        val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
+    }
+
+    interface OnItemClickListener {
+        fun onButtonClick(position: Int)
+    }
+
+    private var onItemClickListener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
     }
 
     /**
@@ -61,29 +69,29 @@ class OfflineAdapter(
 
         if (!streamer.live) {
             holder.tvStreamername.text = streamer.name
-            holder.tvCharname.text = streamer.ic_name
+            holder.tvCharname.text = streamer.ic_nameOff
         }
 
         // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
-        if (streamer.fraktion == null) {
+        if (streamer.fraktionOff == null) {
             holder.tvFraktion.visibility = View.GONE
         }
 
         // befülle textview mit wert aus übergebener variable (aus API)
         val fraktion = holder.tvFraktion
-        fraktion.text = streamer.fraktion
+        fraktion.text = streamer.fraktionOff
 
         // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
         fraktion.ellipsize = TextUtils.TruncateAt.END
         fraktion.maxLines = 1
         fraktion.isSingleLine = true
 
-        if (streamer.ic_name == null) {
+        if (streamer.ic_nameOff == null) {
             holder.tvCharname.visibility = View.GONE
         }
 
         val icName = holder.tvCharname
-        icName.text = streamer.ic_name
+        icName.text = streamer.ic_nameOff
 
         icName.ellipsize = TextUtils.TruncateAt.END
         icName.maxLines = 1
@@ -100,5 +108,17 @@ class OfflineAdapter(
         streamerName.ellipsize = TextUtils.TruncateAt.END
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
+
+        // Button-Click-Listener
+        holder.like.setOnClickListener {
+            onItemClickListener?.onButtonClick(position)
+            streamer.favorisiert = !streamer.favorisiert
+            /** if(streamer.favorisiert){
+            streamer.favorisiert = false
+            }else{
+            streamer.favorisiert = true
+            } **/
+
+        }
     }
 }

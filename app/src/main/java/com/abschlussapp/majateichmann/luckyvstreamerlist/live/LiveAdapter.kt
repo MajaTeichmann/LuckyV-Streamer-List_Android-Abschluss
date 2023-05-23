@@ -1,6 +1,5 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.live
 
-import android.annotation.SuppressLint
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
@@ -30,7 +29,7 @@ class LiveAdapter(
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
-        val like: ImageButton = itemView.findViewById(R.id.btn_favorites)
+        val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
     }
 
     interface OnItemClickListener {
@@ -66,30 +65,29 @@ class LiveAdapter(
      */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
-        //todo: LOG
         //streamer aus dem dataset holen
         var streamer = dataset[position]
 
         // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
-        if (streamer.fraktion == null) {
+        if (streamer.fraktionOff == null) {
             holder.tvFraktion.visibility = View.GONE
         }
 
         // befülle textview mit wert aus übergebener variable (aus API)
         val fraktion = holder.tvFraktion
-        fraktion.text = streamer.fraktion
+        fraktion.text = streamer.fraktionOff
 
         // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
         fraktion.ellipsize = TextUtils.TruncateAt.END
         fraktion.maxLines = 1
         fraktion.isSingleLine = true
 
-        if (streamer.ic_name == null) {
-            streamer.ic_name = ""
+        if (streamer.ic_nameOff == null) {
+            streamer.ic_nameOff = ""
         }
 
         val icName = holder.tvCharname
-        icName.text = streamer.ic_name
+        icName.text = streamer.ic_nameOff
 
         icName.ellipsize = TextUtils.TruncateAt.END
         icName.maxLines = 1
