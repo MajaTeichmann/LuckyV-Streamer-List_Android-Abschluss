@@ -51,5 +51,4 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
         // Aktualisieren Sie den Streamer in der Datenbank
         database.streamerDao.update(streamer)
     }
-
 }

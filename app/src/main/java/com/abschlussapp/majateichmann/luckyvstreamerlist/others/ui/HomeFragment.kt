@@ -14,14 +14,11 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
-import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
-import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.OnSwipeTouchListener
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
@@ -178,6 +175,7 @@ class HomeFragment : Fragment() {
                 viewModel.toggleFavoriteStatus()
                 viewModel.updateStreamer(dataset[position])
             }
+            //todo: onclick raus & in adapter ausladen (viewModel.updateStreamer)
         })
     }
 }
