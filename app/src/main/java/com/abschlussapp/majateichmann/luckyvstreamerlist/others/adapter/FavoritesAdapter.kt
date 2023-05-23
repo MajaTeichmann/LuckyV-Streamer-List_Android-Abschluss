@@ -152,6 +152,27 @@ class FavoritesAdapter(
 
                 //Logo-URL Laden
                 viewHolderOn.ivStreamVorschauOnline.load(streamer.logo_url)
+
+                // Klicklistener für den Button "btn_favorisieren" hinzufügen
+                viewHolderOn.btnFavoritesOnline.setOnClickListener {
+                    if (streamer.favorisiert) {
+                        //todo:
+                        Log.i(TAG, "Online Streamer ist favorisiert")
+                        viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.grey_heart)
+                        streamer.favorisiert = false
+                        //todo:
+                        Log.i(TAG, "Online Streamer ist NICHT MEHR favorisiert")
+                    } else if (!streamer.favorisiert) {
+                        //todo:
+                        Log.i(TAG, "Online Streamer ist NICHT favorisiert")
+                        viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)
+                        streamer.favorisiert = true
+                        //todo:
+                        Log.i(TAG, "Online Streamer ist JETZT favorisiert")
+                    }
+                    // Aufruf der updateStreamer-Funktion
+                    updateStreamer(streamer)
+                }
             }
 
             offlineItem -> {
@@ -206,53 +227,31 @@ class FavoritesAdapter(
 
                 //Logo-URL Laden
                 viewHolderOff.ivStreamVorschauOffline.load(streamer.logo_url)
+
+                viewHolderOff.btnFavoritesOffline.setOnClickListener {
+                    if (streamer.favorisiert) {
+                        //todo:
+                        Log.i(TAG, "Offline Streamer ist favorisiert")
+                        viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.grey_heart)
+                        streamer.favorisiert = false
+                        //todo:
+                        Log.i(TAG, "Offline Streamer ist NICHT MEHR favorisiert")
+                    } else if (!streamer.favorisiert) {
+                        //todo:
+                        Log.i(TAG, "Offline Streamer ist NICHT favorisiert")
+                        viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.red_heart)
+                        streamer.favorisiert = true
+                        //todo:
+                        Log.i(TAG, "Offline Streamer ist JETZT favorisiert")
+                    }
+                    // Aufruf der updateStreamer-Funktion
+                    updateStreamer(streamer)
+                }
             }
 
             else -> {
                 throw IllegalArgumentException("Ungültiger View-Typ")
             }
-        }
-        // Klicklistener für den Button "btn_favorisieren" hinzufügen
-        val viewHolderOn = holder as ViewHolderLiveItem
-        viewHolderOn.btnFavoritesOnline.setOnClickListener {
-            if (streamer.favorisiert) {
-                //todo:
-                Log.i(TAG, "Online Streamer ist favorisiert")
-                viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.grey_heart)
-                streamer.favorisiert = false
-                //todo:
-                Log.i(TAG, "Online Streamer ist NICHT MEHR favorisiert")
-            } else if (!streamer.favorisiert) {
-                //todo:
-                Log.i(TAG, "Online Streamer ist NICHT favorisiert")
-                viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)
-                streamer.favorisiert = true
-                //todo:
-                Log.i(TAG, "Online Streamer ist JETZT favorisiert")
-            }
-            // Aufruf der updateStreamer-Funktion
-            updateStreamer(streamer)
-        }
-
-        val viewHolderOff = holder as ViewHolderOfflineItem
-        viewHolderOff.btnFavoritesOffline.setOnClickListener {
-            if (streamer.favorisiert) {
-                //todo:
-                Log.i(TAG, "Offline Streamer ist favorisiert")
-                viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.grey_heart)
-                streamer.favorisiert = false
-                //todo:
-                Log.i(TAG, "Offline Streamer ist NICHT MEHR favorisiert")
-            } else if (!streamer.favorisiert) {
-                //todo:
-                Log.i(TAG, "Offline Streamer ist NICHT favorisiert")
-                viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.red_heart)
-                streamer.favorisiert = true
-                //todo:
-                Log.i(TAG, "Offline Streamer ist JETZT favorisiert")
-            }
-            // Aufruf der updateStreamer-Funktion
-            updateStreamer(streamer)
         }
     }
 
