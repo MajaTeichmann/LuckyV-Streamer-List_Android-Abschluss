@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -28,7 +29,16 @@ class OfflineAdapter(
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
-        val streamerLayout: ConstraintLayout = itemView.findViewById(R.id.cl_offline_streamer)
+        val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
+    }
+
+    interface OnItemClickListener {
+        fun onButtonClick(position: Int)
+    }
+
+    private var onItemClickListener: OnItemClickListener? = null
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
     }
 
     /**
@@ -98,5 +108,17 @@ class OfflineAdapter(
         streamerName.ellipsize = TextUtils.TruncateAt.END
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
+
+        // Button-Click-Listener
+        holder.like.setOnClickListener {
+            onItemClickListener?.onButtonClick(position)
+            streamer.favorisiert = !streamer.favorisiert
+            /** if(streamer.favorisiert){
+            streamer.favorisiert = false
+            }else{
+            streamer.favorisiert = true
+            } **/
+
+        }
     }
 }
