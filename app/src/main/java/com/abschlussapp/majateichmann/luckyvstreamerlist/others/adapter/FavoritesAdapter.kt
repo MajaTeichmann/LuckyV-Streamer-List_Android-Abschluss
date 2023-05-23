@@ -122,7 +122,7 @@ class FavoritesAdapter(
                         streamer.favorisiert = false
                         //todo:
                         Log.i(TAG, "Online Streamer ist NICHT MEHR favorisiert")
-                    } else if (!streamer.favorisiert) {
+                    } else{
                         //todo:
                         Log.i(TAG, "Online Streamer ist NICHT favorisiert")
                         viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)

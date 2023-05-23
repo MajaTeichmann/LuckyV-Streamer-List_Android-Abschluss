@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
+//todo: erstellen
 class SearchAdapter(
     context: Context,
     streamer: List<Streamer>
