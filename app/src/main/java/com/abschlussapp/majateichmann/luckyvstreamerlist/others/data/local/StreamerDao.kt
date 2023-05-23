@@ -35,9 +35,9 @@ interface StreamerDao {
     @Query("SELECT * FROM STREAMER WHERE favorisiert = 1")
     fun showFavorites(): LiveData<List<Streamer>>
 
-    @Query("UPDATE Streamer SET favorisiert = 1 WHERE name = name")
-    fun addFavorite(): LiveData<List<Streamer>>
+    @Query("UPDATE Streamer SET favorisiert = 1 WHERE name = :name")
+   fun addFavorite(name: String)
 
-    @Query("UPDATE Streamer SET favorisiert = 0 WHERE name = name")
-    fun deleteFavorite(): LiveData<List<Streamer>>
+    @Query("UPDATE Streamer SET favorisiert = 0 WHERE name = :name")
+    fun deleteFavorite(name: String)
 }

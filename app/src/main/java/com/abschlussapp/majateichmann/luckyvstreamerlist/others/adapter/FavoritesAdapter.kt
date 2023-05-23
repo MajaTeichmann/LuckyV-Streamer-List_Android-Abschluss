@@ -15,95 +15,58 @@ import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.StreamerDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.TAG
 
 class FavoritesAdapter(
     var itemList: List<Streamer>,
+//    private val addFavorite: (name: String) -> Unit,
+//    private val deleteFavorite: (name: String) -> Unit,
     private val updateStreamer: (Streamer) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var dataset: List<Streamer> = emptyList()
-
-    //View-Typen definieren
+    // View-Typen definieren
     private val liveItem = 1
     private val offlineItem = 2
 
-    //ViewHolder für liveItem
+    // ViewHolder für liveItem
     class ViewHolderLiveItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivStreamVorschauOnline: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamerNameOnline: TextView = itemView.findViewById(R.id.tv_streamername)
         val ivGreenDot: ImageView = itemView.findViewById(R.id.iv_green_dot)
         val tvCharNameOnline: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktionOnline: TextView = itemView.findViewById(R.id.tv_fraktion)
-
-        //wegen abwärtskompatibilität und mehr möglichkeiten als beim normalen ImageButton
         val btnFavoritesOnline: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
     }
 
-    //ViewHolder für offlineItem
+    // ViewHolder für offlineItem
     class ViewHolderOfflineItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivStreamVorschauOffline: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamerNameOffline: TextView = itemView.findViewById(R.id.tv_streamername)
         val ivRedDot: ImageView = itemView.findViewById(R.id.iv_red_dot)
         val tvCharNameOffline: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktionOffline: TextView = itemView.findViewById(R.id.tv_fraktion)
-
-        //wegen abwärtskompatibilität und mehr möglichkeiten als beim normalen ImageButton
         val btnFavoritesOffline: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
     }
 
-    //Funktion zum Erstellen des richtigen ViewHolders
+    // Funktion zum Erstellen des richtigen ViewHolders
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
             liveItem -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_item_favorites_live, parent, false)
-                val viewHolder = ViewHolderLiveItem(view)
-
-                viewHolder.btnFavoritesOnline.setOnClickListener {
-                    val position = viewHolder.adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val streamer = itemList[position]
-                        val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
-                        val updatedItemList = itemList.toMutableList().apply { set(position, updatedStreamer) }
-                        itemList = updatedItemList
-                        notifyItemChanged(position)
-                        updateStreamer(updatedStreamer)
-                    }
-                }
-
-                return viewHolder
+                val view = inflater.inflate(R.layout.list_item_favorites_live, parent, false)
+                ViewHolderLiveItem(view)
             }
-
             offlineItem -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.list_item_favorites_offline, parent, false)
-                val viewHolder = ViewHolderOfflineItem(view)
-
-                viewHolder.btnFavoritesOffline.setOnClickListener {
-                    val position = viewHolder.adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val streamer = itemList[position]
-                        val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
-                        val updatedItemList = itemList.toMutableList().apply { set(position, updatedStreamer) }
-                        itemList = updatedItemList
-                        notifyItemChanged(position)
-                        updateStreamer(updatedStreamer)
-                    }
-                }
-
-                return viewHolder
+                val view = inflater.inflate(R.layout.list_item_favorites_offline, parent, false)
+                ViewHolderOfflineItem(view)
             }
-
-            else -> {
-                throw IllegalArgumentException("Ungültiger View-Typ")
-            }
+            else -> throw IllegalArgumentException("Ungültiger View-Typ")
         }
     }
 
-    //Funktion zum binden der Daten an ViewHolder
+    // Funktion zum Binden der Daten an ViewHolder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         val streamer = itemList[position]
         val itemType = getItemViewType(position)
 
@@ -121,25 +84,17 @@ class FavoritesAdapter(
                 // Klicklistener für den Button "btn_favorisieren" hinzufügen
                 viewHolderOn.btnFavoritesOnline.setOnClickListener {
                     if (streamer.favorisiert) {
-                        //todo:
-                        Log.i(TAG, "Online Streamer ist favorisiert")
                         viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.grey_heart)
-                        streamer.favorisiert = false
-                        //todo:
-                        Log.i(TAG, "Online Streamer ist NICHT MEHR favorisiert")
+                        deleteFavorite(streamer.name)
                     } else {
-                        //todo:
-                        Log.i(TAG, "Online Streamer ist NICHT favorisiert")
                         viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)
-                        streamer.favorisiert = true
-                        //todo:
-                        Log.i(TAG, "Online Streamer ist JETZT favorisiert")
+                        addFavorite(streamer.name)
                     }
                     val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
                     updateStreamer(updatedStreamer)
                 }
 
-                // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
+                // Falls der Wert im übergebenen Datensatz null ist, befülle ihn mit leerem String
                 if (streamer.fraktion == null) {
                     viewHolderOn.tvFraktionOnline.visibility = View.GONE
                 }
@@ -148,7 +103,7 @@ class FavoritesAdapter(
                     viewHolderOn.tvCharNameOnline.visibility = View.GONE
                 }
 
-                // befülle textview mit wert aus übergebener variable (aus API)
+                // Befülle TextView mit Wert aus übergebener Variable (aus API)
                 val fraktionOn = viewHolderOn.tvFraktionOnline
                 fraktionOn.text = streamer.fraktion
 
@@ -158,8 +113,7 @@ class FavoritesAdapter(
                 val streamerNameOn = viewHolderOn.tvStreamerNameOnline
                 streamerNameOn.text = streamer.name
 
-
-                // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
+                // Falls der String im TextView zu lang ist, um in eine Zeile zu passen, kürze ihn am Ende mit "..." ab
                 fraktionOn.ellipsize = TextUtils.TruncateAt.END
                 fraktionOn.maxLines = 1
                 fraktionOn.isSingleLine = true
@@ -172,11 +126,7 @@ class FavoritesAdapter(
                 streamerNameOn.maxLines = 1
                 streamerNameOn.isSingleLine = true
 
-                //todo:
-                Log.i("Online Streamer is online", streamer.live.toString())
-                Log.i("Online Streamer is favorite", streamer.favorisiert.toString())
-
-                //Logo-URL Laden
+                // Logo-URL laden
                 viewHolderOn.ivStreamVorschauOnline.load(streamer.logo_url)
             }
 
@@ -192,19 +142,11 @@ class FavoritesAdapter(
 
                 viewHolderOff.btnFavoritesOffline.setOnClickListener {
                     if (streamer.favorisiert) {
-                        //todo:
-                        Log.i(TAG, "Offline Streamer ist favorisiert")
                         viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.grey_heart)
-                        streamer.favorisiert = false
-                        //todo:
-                        Log.i(TAG, "Offline Streamer ist NICHT MEHR favorisiert")
-                    } else if (!streamer.favorisiert) {
-                        //todo:
-                        Log.i(TAG, "Offline Streamer ist NICHT favorisiert")
+                        deleteFavorite(streamer.name)
+                    } else {
                         viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.red_heart)
-                        streamer.favorisiert = true
-                        //todo:
-                        Log.i(TAG, "Offline Streamer ist JETZT favorisiert")
+                        addFavorite(streamer.name)
                     }
                     val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
                     updateStreamer(updatedStreamer)
@@ -215,7 +157,7 @@ class FavoritesAdapter(
                     viewHolderOff.tvCharNameOffline.text = streamer.ic_name
                 }
 
-                // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
+                // Falls der Wert im übergebenen Datensatz null ist, befülle ihn mit leerem String
                 if (streamer.fraktion == null) {
                     viewHolderOff.tvFraktionOffline.visibility = View.GONE
                 }
@@ -223,7 +165,7 @@ class FavoritesAdapter(
                     viewHolderOff.tvCharNameOffline.visibility = View.GONE
                 }
 
-                // befülle textview mit wert aus übergebener variable (aus API)
+                // Befülle TextView mit Wert aus übergebener Variable (aus API)
                 val fraktionOff = viewHolderOff.tvFraktionOffline
                 fraktionOff.text = streamer.fraktion
 
@@ -233,7 +175,7 @@ class FavoritesAdapter(
                 val streamerNameOff = viewHolderOff.tvStreamerNameOffline
                 streamerNameOff.text = streamer.name
 
-                // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
+                // Falls der String im TextView zu lang ist, um in eine Zeile zu passen, kürze ihn am Ende mit "..." ab
                 fraktionOff.ellipsize = TextUtils.TruncateAt.END
                 fraktionOff.maxLines = 1
                 fraktionOff.isSingleLine = true
@@ -246,11 +188,7 @@ class FavoritesAdapter(
                 streamerNameOff.maxLines = 1
                 streamerNameOff.isSingleLine = true
 
-                //todo:
-                Log.i("Offline Streamer is online", streamer.live.toString())
-                Log.i("Offline Streamer is favorite", streamer.favorisiert.toString())
-
-                //Logo-URL Laden
+                // Logo-URL laden
                 viewHolderOff.ivStreamVorschauOffline.load(streamer.logo_url)
             }
 
@@ -260,7 +198,25 @@ class FavoritesAdapter(
         }
     }
 
-    //Funktion zum Abrufen der Anzahl an ListItems
+    // Funktion zum Toggeln des Favoritenstatus
+    private fun toggleFavorite(streamer: Streamer) {
+        val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
+        updateStreamer(updatedStreamer)
+    }
+
+    // Funktion zum Hinzufügen eines Favoriten
+    private fun addFavorite(streamerName: String) {
+        // TODO: Implementiere die Logik zum Hinzufügen eines Favoriten
+        Log.i(TAG, "Streamer $streamerName wurde zu den Favoriten hinzugefügt")
+    }
+
+    // Funktion zum Löschen eines Favoriten
+    private fun deleteFavorite(streamerName: String) {
+        // TODO: Implementiere die Logik zum Löschen eines Favoriten
+        Log.i(TAG, "Streamer $streamerName wurde aus den Favoriten entfernt")
+    }
+
+    // Funktion zum Abrufen der Anzahl an ListItems
     override fun getItemCount(): Int {
         return itemList.size
     }
@@ -271,10 +227,7 @@ class FavoritesAdapter(
         return when {
             item.live && item.favorisiert -> liveItem
             !item.live && item.favorisiert -> offlineItem
-            else -> {
-                //todo:
-                Log.i("FavoritesAdapter", "$item wurde nicht favorisiert")
-            }
+            else -> throw IllegalArgumentException("Ungültiger View-Typ")
         }
     }
 }
