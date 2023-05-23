@@ -109,8 +109,8 @@ class FavoritesAdapter(
                 // Daten für ViewHolderLiveItem setzen
                 viewHolderOn.ivStreamVorschauOnline.load(streamer.logo_url)
                 viewHolderOn.tvStreamerNameOnline.text = streamer.name
-                viewHolderOn.tvCharNameOnline.text = streamer.ic_nameOff
-                viewHolderOn.tvFraktionOnline.text = streamer.fraktionOff
+                viewHolderOn.tvCharNameOnline.text = streamer.ic_name
+                viewHolderOn.tvFraktionOnline.text = streamer.fraktion
                 viewHolderOn.ivGreenDot.setImageResource(R.drawable.green_dot)
 
                 // Klicklistener für den Button "btn_favorisieren" hinzufügen
@@ -135,20 +135,20 @@ class FavoritesAdapter(
                 }
 
                 // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
-                if (streamer.fraktionOff == null) {
+                if (streamer.fraktion == null) {
                     viewHolderOn.tvFraktionOnline.visibility = View.GONE
                 }
 
-                if (streamer.ic_nameOff == null) {
+                if (streamer.ic_name == null) {
                     viewHolderOn.tvCharNameOnline.visibility = View.GONE
                 }
 
                 // befülle textview mit wert aus übergebener variable (aus API)
                 val fraktionOn = viewHolderOn.tvFraktionOnline
-                fraktionOn.text = streamer.fraktionOff
+                fraktionOn.text = streamer.fraktion
 
                 val icNameOn = viewHolderOn.tvCharNameOnline
-                icNameOn.text = streamer.ic_nameOff
+                icNameOn.text = streamer.ic_name
 
                 val streamerNameOn = viewHolderOn.tvStreamerNameOnline
                 streamerNameOn.text = streamer.name
@@ -181,8 +181,8 @@ class FavoritesAdapter(
                 // Daten für ViewHolderLiveItem setzen
                 viewHolderOff.ivStreamVorschauOffline.load(streamer.logo_url)
                 viewHolderOff.tvStreamerNameOffline.text = streamer.name
-                viewHolderOff.tvCharNameOffline.text = streamer.ic_nameOff
-                viewHolderOff.tvFraktionOffline.text = streamer.fraktionOff
+                viewHolderOff.tvCharNameOffline.text = streamer.ic_name
+                viewHolderOff.tvFraktionOffline.text = streamer.fraktion
                 viewHolderOff.ivRedDot.setImageResource(R.drawable.red_dot)
 
                 viewHolderOff.btnFavoritesOffline.setOnClickListener {
@@ -207,23 +207,23 @@ class FavoritesAdapter(
 
                 if (!streamer.live) {
                     viewHolderOff.tvStreamerNameOffline.text = streamer.name
-                    viewHolderOff.tvCharNameOffline.text = streamer.ic_nameOff
+                    viewHolderOff.tvCharNameOffline.text = streamer.ic_name
                 }
 
                 // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
-                if (streamer.fraktionOff == null) {
+                if (streamer.fraktion == null) {
                     viewHolderOff.tvFraktionOffline.visibility = View.GONE
                 }
-                if (streamer.ic_nameOff == null) {
+                if (streamer.ic_name == null) {
                     viewHolderOff.tvCharNameOffline.visibility = View.GONE
                 }
 
                 // befülle textview mit wert aus übergebener variable (aus API)
                 val fraktionOff = viewHolderOff.tvFraktionOffline
-                fraktionOff.text = streamer.fraktionOff
+                fraktionOff.text = streamer.fraktion
 
                 val icNameOff = viewHolderOff.tvCharNameOffline
-                icNameOff.text = streamer.ic_nameOff
+                icNameOff.text = streamer.ic_name
 
                 val streamerNameOff = viewHolderOff.tvStreamerNameOffline
                 streamerNameOff.text = streamer.name

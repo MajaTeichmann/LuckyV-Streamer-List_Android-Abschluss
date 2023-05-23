@@ -17,8 +17,8 @@ data class Streamer(
     val logo_url: String,
     val live: Boolean,
     // weil fraktion und ic_name in manchen fällen "NULL" ist
-    var fraktionOff: String?,
-    var ic_nameOff: String?,
+    var fraktion: String?,
+    var ic_name: String?,
 
     // Zusätzliche Variable hinzufügen (nicht in API)
     var favorisiert: Boolean = false

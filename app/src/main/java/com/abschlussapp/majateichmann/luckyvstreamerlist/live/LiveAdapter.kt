@@ -69,25 +69,25 @@ class LiveAdapter(
         var streamer = dataset[position]
 
         // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
-        if (streamer.fraktionOff == null) {
+        if (streamer.fraktion == null) {
             holder.tvFraktion.visibility = View.GONE
         }
 
         // befülle textview mit wert aus übergebener variable (aus API)
         val fraktion = holder.tvFraktion
-        fraktion.text = streamer.fraktionOff
+        fraktion.text = streamer.fraktion
 
         // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
         fraktion.ellipsize = TextUtils.TruncateAt.END
         fraktion.maxLines = 1
         fraktion.isSingleLine = true
 
-        if (streamer.ic_nameOff == null) {
-            streamer.ic_nameOff = ""
+        if (streamer.ic_name == null) {
+            streamer.ic_name = ""
         }
 
         val icName = holder.tvCharname
-        icName.text = streamer.ic_nameOff
+        icName.text = streamer.ic_name
 
         icName.ellipsize = TextUtils.TruncateAt.END
         icName.maxLines = 1

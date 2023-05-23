@@ -44,7 +44,7 @@ class FavoritesFragment : Fragment() {
         viewModel.streamersOnline.observe(viewLifecycleOwner) { streamers ->
             streamerList = streamers
             // Filter streamersList
-            val filteredList = streamerList.filter { it.live && it.favorisiert }
+            val filteredList = streamerList.filter { (it.live && it.favorisiert) || (!it.live && it.favorisiert)}
 
             // Initialize the favoritesAdapter with the filtered list
             favoritesAdapter = FavoritesAdapter(filteredList, ::updateStreamer)
@@ -54,7 +54,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun updateStreamer(streamer: Streamer) {
-        val updatedStreamer = streamer.copy(favorisiert = false)
+        val updatedStreamer = streamer.copy(favorisiert = true)
 
         val position = streamerList.indexOf(streamer)
         if (position != -1) {
