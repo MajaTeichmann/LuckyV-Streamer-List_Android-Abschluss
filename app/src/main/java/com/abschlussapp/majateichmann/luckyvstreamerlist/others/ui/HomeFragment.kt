@@ -175,7 +175,7 @@ class HomeFragment : Fragment() {
                 viewModel.toggleFavoriteStatus()
                 viewModel.updateStreamer(dataset[position])
             }
-            //todo: onclick raus in adapter ausladen (viewModel.updateStreamer)
+            //todo: onclick raus & in adapter ausladen (viewModel.updateStreamer)
         })
     }
 }

@@ -14,13 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
+import com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.TAG
 
 class FavoritesAdapter(
     var itemList: List<Streamer>,
     private val updateStreamer: (Streamer) -> Unit
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var dataset: List<Streamer> = emptyList()
 
     //View-Typen definieren
     private val liveItem = 1
@@ -62,10 +64,11 @@ class FavoritesAdapter(
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val streamer = itemList[position]
-                        val updatedStreamer =
-                            streamer.copy(favorisiert = !streamer.favorisiert) // Aktualisieren Sie den favorisiert-Status
-                        updateStreamer(updatedStreamer)
+                        val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
+                        val updatedItemList = itemList.toMutableList().apply { set(position, updatedStreamer) }
+                        itemList = updatedItemList
                         notifyItemChanged(position)
+                        updateStreamer(updatedStreamer)
                     }
                 }
 
@@ -81,9 +84,11 @@ class FavoritesAdapter(
                     val position = viewHolder.adapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val streamer = itemList[position]
-                        streamer.favorisiert = !streamer.favorisiert
-                        updateStreamer(streamer)
+                        val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
+                        val updatedItemList = itemList.toMutableList().apply { set(position, updatedStreamer) }
+                        itemList = updatedItemList
                         notifyItemChanged(position)
+                        updateStreamer(updatedStreamer)
                     }
                 }
 
@@ -122,7 +127,7 @@ class FavoritesAdapter(
                         streamer.favorisiert = false
                         //todo:
                         Log.i(TAG, "Online Streamer ist NICHT MEHR favorisiert")
-                    } else{
+                    } else {
                         //todo:
                         Log.i(TAG, "Online Streamer ist NICHT favorisiert")
                         viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)
@@ -130,8 +135,8 @@ class FavoritesAdapter(
                         //todo:
                         Log.i(TAG, "Online Streamer ist JETZT favorisiert")
                     }
-                    // Aufruf der updateStreamer-Funktion
-                    updateStreamer(streamer)
+                    val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
+                    updateStreamer(updatedStreamer)
                 }
 
                 // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
@@ -201,8 +206,8 @@ class FavoritesAdapter(
                         //todo:
                         Log.i(TAG, "Offline Streamer ist JETZT favorisiert")
                     }
-                    // Aufruf der updateStreamer-Funktion
-                    updateStreamer(streamer)
+                    val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
+                    updateStreamer(updatedStreamer)
                 }
 
                 if (!streamer.live) {
