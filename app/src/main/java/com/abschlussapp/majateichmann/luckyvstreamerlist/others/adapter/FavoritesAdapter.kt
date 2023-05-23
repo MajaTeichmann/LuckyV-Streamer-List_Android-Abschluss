@@ -271,9 +271,3 @@ class FavoritesAdapter(
             }
         }
     }
-
-    fun updateData(streamers: List<Streamer>) {
-        itemList = streamers
-        notifyDataSetChanged()
-    }
-}
