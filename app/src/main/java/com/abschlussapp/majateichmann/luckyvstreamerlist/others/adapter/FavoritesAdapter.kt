@@ -113,6 +113,27 @@ class FavoritesAdapter(
                 viewHolderOn.tvFraktionOnline.text = streamer.fraktionOff
                 viewHolderOn.ivGreenDot.setImageResource(R.drawable.green_dot)
 
+                // Klicklistener für den Button "btn_favorisieren" hinzufügen
+                viewHolderOn.btnFavoritesOnline.setOnClickListener {
+                    if (streamer.favorisiert) {
+                        //todo:
+                        Log.i(TAG, "Online Streamer ist favorisiert")
+                        viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.grey_heart)
+                        streamer.favorisiert = false
+                        //todo:
+                        Log.i(TAG, "Online Streamer ist NICHT MEHR favorisiert")
+                    } else if (!streamer.favorisiert) {
+                        //todo:
+                        Log.i(TAG, "Online Streamer ist NICHT favorisiert")
+                        viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)
+                        streamer.favorisiert = true
+                        //todo:
+                        Log.i(TAG, "Online Streamer ist JETZT favorisiert")
+                    }
+                    // Aufruf der updateStreamer-Funktion
+                    updateStreamer(streamer)
+                }
+
                 // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
                 if (streamer.fraktionOff == null) {
                     viewHolderOn.tvFraktionOnline.visibility = View.GONE
@@ -146,33 +167,12 @@ class FavoritesAdapter(
                 streamerNameOn.maxLines = 1
                 streamerNameOn.isSingleLine = true
 
-                //todo: LOGSTATEMENTS LÖSCHEN
+                //todo:
                 Log.i("Online Streamer is online", streamer.live.toString())
                 Log.i("Online Streamer is favorite", streamer.favorisiert.toString())
 
                 //Logo-URL Laden
                 viewHolderOn.ivStreamVorschauOnline.load(streamer.logo_url)
-
-                // Klicklistener für den Button "btn_favorisieren" hinzufügen
-                viewHolderOn.btnFavoritesOnline.setOnClickListener {
-                    if (streamer.favorisiert) {
-                        //todo:
-                        Log.i(TAG, "Online Streamer ist favorisiert")
-                        viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.grey_heart)
-                        streamer.favorisiert = false
-                        //todo:
-                        Log.i(TAG, "Online Streamer ist NICHT MEHR favorisiert")
-                    } else if (!streamer.favorisiert) {
-                        //todo:
-                        Log.i(TAG, "Online Streamer ist NICHT favorisiert")
-                        viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)
-                        streamer.favorisiert = true
-                        //todo:
-                        Log.i(TAG, "Online Streamer ist JETZT favorisiert")
-                    }
-                    // Aufruf der updateStreamer-Funktion
-                    updateStreamer(streamer)
-                }
             }
 
             offlineItem -> {
@@ -184,6 +184,26 @@ class FavoritesAdapter(
                 viewHolderOff.tvCharNameOffline.text = streamer.ic_nameOff
                 viewHolderOff.tvFraktionOffline.text = streamer.fraktionOff
                 viewHolderOff.ivRedDot.setImageResource(R.drawable.red_dot)
+
+                viewHolderOff.btnFavoritesOffline.setOnClickListener {
+                    if (streamer.favorisiert) {
+                        //todo:
+                        Log.i(TAG, "Offline Streamer ist favorisiert")
+                        viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.grey_heart)
+                        streamer.favorisiert = false
+                        //todo:
+                        Log.i(TAG, "Offline Streamer ist NICHT MEHR favorisiert")
+                    } else if (!streamer.favorisiert) {
+                        //todo:
+                        Log.i(TAG, "Offline Streamer ist NICHT favorisiert")
+                        viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.red_heart)
+                        streamer.favorisiert = true
+                        //todo:
+                        Log.i(TAG, "Offline Streamer ist JETZT favorisiert")
+                    }
+                    // Aufruf der updateStreamer-Funktion
+                    updateStreamer(streamer)
+                }
 
                 if (!streamer.live) {
                     viewHolderOff.tvStreamerNameOffline.text = streamer.name
@@ -221,32 +241,12 @@ class FavoritesAdapter(
                 streamerNameOff.maxLines = 1
                 streamerNameOff.isSingleLine = true
 
-                //todo: LOGSTATEMENTS LÖSCHEN
+                //todo:
                 Log.i("Offline Streamer is online", streamer.live.toString())
                 Log.i("Offline Streamer is favorite", streamer.favorisiert.toString())
 
                 //Logo-URL Laden
                 viewHolderOff.ivStreamVorschauOffline.load(streamer.logo_url)
-
-                viewHolderOff.btnFavoritesOffline.setOnClickListener {
-                    if (streamer.favorisiert) {
-                        //todo:
-                        Log.i(TAG, "Offline Streamer ist favorisiert")
-                        viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.grey_heart)
-                        streamer.favorisiert = false
-                        //todo:
-                        Log.i(TAG, "Offline Streamer ist NICHT MEHR favorisiert")
-                    } else if (!streamer.favorisiert) {
-                        //todo:
-                        Log.i(TAG, "Offline Streamer ist NICHT favorisiert")
-                        viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.red_heart)
-                        streamer.favorisiert = true
-                        //todo:
-                        Log.i(TAG, "Offline Streamer ist JETZT favorisiert")
-                    }
-                    // Aufruf der updateStreamer-Funktion
-                    updateStreamer(streamer)
-                }
             }
 
             else -> {
@@ -267,13 +267,9 @@ class FavoritesAdapter(
             item.live && item.favorisiert -> liveItem
             !item.live && item.favorisiert -> offlineItem
             else -> {
+                //todo:
                 Log.i("FavoritesAdapter", "$item wurde nicht favorisiert")
             }
         }
-    }
-
-    fun updateData(streamers: List<Streamer>) {
-        itemList = streamers
-        notifyDataSetChanged()
     }
 }
