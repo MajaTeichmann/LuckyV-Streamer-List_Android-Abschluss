@@ -5,18 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
-import com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter
-import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.StreamerDatabase
-import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.TAG
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
 class FavoritesAdapter(
     var itemList: List<Streamer>,
@@ -57,10 +52,12 @@ class FavoritesAdapter(
                 val view = inflater.inflate(R.layout.list_item_favorites_live, parent, false)
                 ViewHolderLiveItem(view)
             }
+
             offlineItem -> {
                 val view = inflater.inflate(R.layout.list_item_favorites_offline, parent, false)
                 ViewHolderOfflineItem(view)
             }
+
             else -> throw IllegalArgumentException("Ungültiger View-Typ")
         }
     }
@@ -85,10 +82,10 @@ class FavoritesAdapter(
                 viewHolderOn.btnFavoritesOnline.setOnClickListener {
                     if (streamer.favorisiert) {
                         viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.grey_heart)
-                        deleteFavorite(streamer.name)
+                        deleteFavorite(streamerName = streamer.name, position)
                     } else {
                         viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)
-                        addFavorite(streamer.name)
+                        addFavorite(streamerName = streamer.name, position)
                     }
                     val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
                     updateStreamer(updatedStreamer)
@@ -143,10 +140,10 @@ class FavoritesAdapter(
                 viewHolderOff.btnFavoritesOffline.setOnClickListener {
                     if (streamer.favorisiert) {
                         viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.grey_heart)
-                        deleteFavorite(streamer.name)
+                        deleteFavorite(streamerName = streamer.name, position)
                     } else {
                         viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.red_heart)
-                        addFavorite(streamer.name)
+                        addFavorite(streamerName = streamer.name, position)
                     }
                     val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
                     updateStreamer(updatedStreamer)
@@ -205,15 +202,63 @@ class FavoritesAdapter(
     }
 
     // Funktion zum Hinzufügen eines Favoriten
-    private fun addFavorite(streamerName: String) {
-        // TODO: Implementiere die Logik zum Hinzufügen eines Favoriten
-        Log.i(TAG, "Streamer $streamerName wurde zu den Favoriten hinzugefügt")
+    private fun addFavorite(streamerName: String, position: Int): Int {
+        val streamer = itemList[position]
+        return when {
+            streamer.live && streamer.favorisiert -> Log.i(
+                "Favoriten-Test ADD",
+                "Online-Streamer $streamerName konnte nicht zuden Favoriten hinzugefügt werden"
+            )
+
+            !streamer.live && streamer.favorisiert -> Log.i(
+                "Favoriten-Test ADD",
+                "Offline-Streamer $streamerName konnte nicht zu den Favoriten hinzugefügt werden"
+            )
+
+            streamer.live && !streamer.favorisiert -> Log.i(
+                "Favoriten-Test ADD",
+                " Online-Streamer $streamerName wurde den Favoriten hinzugefügt"
+            )
+
+            !streamer.live && !streamer.favorisiert -> Log.i(
+                "Favoriten-Test ADD",
+                "Offline-Streamer $streamerName wurde den Favoriten hinzugefügt"
+            )
+
+            else -> {
+                Log.i("Favoriten-Test", "Streamer $streamerName wurde aus den Favoriten entfernt")
+            }
+        }
     }
 
     // Funktion zum Löschen eines Favoriten
-    private fun deleteFavorite(streamerName: String) {
-        // TODO: Implementiere die Logik zum Löschen eines Favoriten
-        Log.i(TAG, "Streamer $streamerName wurde aus den Favoriten entfernt")
+    private fun deleteFavorite(streamerName: String, position: Int): Int {
+        val streamer = itemList[position]
+        return when {
+            streamer.live && streamer.favorisiert -> Log.i(
+                "Favoriten-Test DEL",
+                "Online-Streamer $streamerName konnte nicht aus den Favoriten entfernt"
+            )
+
+            !streamer.live && streamer.favorisiert -> Log.i(
+                "Favoriten-Test DEL",
+                "Offline-Streamer $streamerName konnte nicht aus den Favoriten entfernt"
+            )
+
+            streamer.live && !streamer.favorisiert -> Log.i(
+                "Favoriten-Test DEL",
+                " Online-Streamer $streamerName wurde aus den Favoriten entfernt"
+            )
+
+            !streamer.live && !streamer.favorisiert -> Log.i(
+                "Favoriten-Test DEL",
+                "Offline-Streamer $streamerName wurde aus den Favoriten entfernt"
+            )
+
+            else -> {
+                Log.i("Favoriten-Test", "Streamer $streamerName wurde aus den Favoriten entfernt")
+            }
+        }
     }
 
     // Funktion zum Abrufen der Anzahl an ListItems
