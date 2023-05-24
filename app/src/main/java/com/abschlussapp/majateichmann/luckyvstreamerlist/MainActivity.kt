@@ -32,21 +32,6 @@ class MainActivity : AppCompatActivity() {
         // ViewModel initialisieren
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        var streamerList = MutableLiveData<List<Streamer>>()
-
-        // Schleife durch die Liste der Streamer
-        for (streamer in streamerList.value ?: emptyList()) {
-            if (streamer.favorisiert) {
-                // toggleFavoriteStatus() im ViewModel aufrufen
-                viewModel.toggleFavoriteStatus()
-                activateFavoritesHeart()
-            } else {
-                // addFavoriteItem() im ViewModel aufrufen
-                viewModel.addFavoriteItem(streamer)
-                disableFavoritesHeart()
-            }
-        }
-
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController

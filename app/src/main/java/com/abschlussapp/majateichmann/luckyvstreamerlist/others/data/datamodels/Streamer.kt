@@ -6,10 +6,7 @@ import androidx.room.PrimaryKey
 // als Datenbank-Entität definierte Datenklasse "Streamer"
 @Entity
 data class Streamer(
-
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
-
+    @PrimaryKey()
     val name: String,
 
     //Datenklasse besteht aus 7 Eigenschaften, wovon 6 als Parameter für den Konstruktor definiert sind

@@ -70,7 +70,11 @@ class FavoritesAdapter(
         when (itemType) {
             liveItem -> {
                 val viewHolderOn = holder as ViewHolderLiveItem
-
+                if (streamer.favorisiert) {
+                    viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)
+                } else {
+                    viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.grey_heart)
+                }
                 // Daten für ViewHolderLiveItem setzen
                 viewHolderOn.ivStreamVorschauOnline.load(streamer.logo_url)
                 viewHolderOn.tvStreamerNameOnline.text = streamer.name
@@ -81,10 +85,8 @@ class FavoritesAdapter(
                 // Klicklistener für den Button "btn_favorisieren" hinzufügen
                 viewHolderOn.btnFavoritesOnline.setOnClickListener {
                     if (streamer.favorisiert) {
-                        viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.grey_heart)
                         deleteFavorite(streamerName = streamer.name, position)
                     } else {
-                        viewHolderOn.btnFavoritesOnline.setBackgroundResource(R.drawable.red_heart)
                         addFavorite(streamerName = streamer.name, position)
                     }
                     val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)

@@ -77,7 +77,10 @@ class HomeFragment : Fragment() {
         ) { streamers ->
             dataset = streamers
             binding.tvNumberPlayersOnline.text = streamers.size.toString()
-            streamerListLive.adapter = LiveAdapter(streamers)
+
+            val adapter = LiveAdapter(dataset,viewModel)
+
+            streamerListLive.adapter = adapter
         }
 
         viewModel.streamersOffline.observe(
@@ -166,16 +169,5 @@ class HomeFragment : Fragment() {
         // Referenz zur MainActivity erhalten
         val mainActivity = requireActivity() as MainActivity
         mainActivity.einblenden()
-
-        val adapter = LiveAdapter(dataset)
-
-        adapter.setOnItemClickListener(object : LiveAdapter.OnItemClickListener {
-            override fun onButtonClick(position: Int) {
-                viewModel.addFavoriteItem(dataset[position])
-                viewModel.toggleFavoriteStatus()
-                viewModel.updateStreamer(dataset[position])
-            }
-            //todo: onclick raus & in adapter ausladen (viewModel.updateStreamer)
-        })
     }
 }
