@@ -206,13 +206,13 @@ class FavoritesAdapter(
 
     // Funktion zum Hinzufügen eines Favoriten
     private fun addFavorite(streamerName: String) {
-        // TODO: Implementiere die Logik zum Hinzufügen eines Favoriten
+        addFavorite(streamerName)
         Log.i(TAG, "Streamer $streamerName wurde zu den Favoriten hinzugefügt")
     }
 
     // Funktion zum Löschen eines Favoriten
     private fun deleteFavorite(streamerName: String) {
-        // TODO: Implementiere die Logik zum Löschen eines Favoriten
+        deleteFavorite(streamerName)
         Log.i(TAG, "Streamer $streamerName wurde aus den Favoriten entfernt")
     }
 

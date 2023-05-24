@@ -1,6 +1,7 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +14,10 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.Favorite
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
 
-// TODO: MUSS NOCH ERSTELLT WERDEN (BONUS THEMA)
-
 class FavoritesFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var favoritesAdapter: FavoritesAdapter
-
-    // Hier wird das ViewModel, in dem die Logik stattfindet, geholt
-    private lateinit var viewModel: MainViewModel
 
     // Hier wird die Liste der Streamer initialisiert
     private lateinit var streamerList: List<Streamer>
@@ -54,6 +50,7 @@ class FavoritesFragment : Fragment() {
         return view
     }
 
+    //todo: wieder einkommentieren
     private fun updateStreamer(streamer: Streamer) {
         val updatedStreamer = streamer.copy(favorisiert = true)
 
@@ -65,4 +62,15 @@ class FavoritesFragment : Fragment() {
             }
         }
     }
+}
+
+private fun addFavorite(streamerName: String) {
+    addFavorite(streamerName)
+    Log.i(TAG, "Streamer $streamerName wurde zu den Favoriten hinzugefügt")
+}
+
+// Funktion zum Löschen eines Favoriten
+private fun deleteFavorite(streamerName: String) {
+    deleteFavorite(streamerName)
+    Log.i(TAG, "Streamer $streamerName wurde aus den Favoriten entfernt")
 }
