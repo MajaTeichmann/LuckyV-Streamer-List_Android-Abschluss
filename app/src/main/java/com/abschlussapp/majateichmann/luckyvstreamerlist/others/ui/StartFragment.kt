@@ -107,7 +107,7 @@ class StartFragment : Fragment() {
 
                             val recyclerViewLive: RecyclerView? =
                                 view.findViewById(R.id.rv_streamer_online)
-                            recyclerViewLive?.adapter = LiveAdapter(streamers.streamer)
+                            recyclerViewLive?.adapter = LiveAdapter(streamers.streamer, viewModel)
                             val recyclerViewOffline: RecyclerView? =
                                 view.findViewById(R.id.rv_Streamer_offline)
                             recyclerViewOffline?.adapter = OfflineAdapter(streamers.streamer)

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
@@ -13,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
 /**
  * Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling
  */
 class LiveAdapter(
-    private val dataset: List<Streamer>
+    private val dataset: List<Streamer>,
+    private val viewModel: MainViewModel
 ) : RecyclerView.Adapter<LiveAdapter.ItemViewHolder>() {
 
     /**
@@ -30,15 +31,6 @@ class LiveAdapter(
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
         val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
-    }
-
-    interface OnItemClickListener {
-        fun onButtonClick(position: Int)
-    }
-
-    private var onItemClickListener: OnItemClickListener? = null
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        onItemClickListener = listener
     }
 
 
@@ -67,6 +59,12 @@ class LiveAdapter(
 
         //streamer aus dem dataset holen
         var streamer = dataset[position]
+
+        if (streamer.favorisiert) {
+            holder.like.setBackgroundResource(R.drawable.red_heart)
+        } else {
+            holder.like.setBackgroundResource(R.drawable.grey_heart)
+        }
 
         // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
         if (streamer.fraktion == null) {
@@ -108,14 +106,9 @@ class LiveAdapter(
 
         // Button-Click-Listener
         holder.like.setOnClickListener {
-            onItemClickListener?.onButtonClick(position)
             streamer.favorisiert = !streamer.favorisiert
-            /** if(streamer.favorisiert){
-            streamer.favorisiert = false
-            }else{
-            streamer.favorisiert = true
-            } **/
 
+            viewModel.updateStreamer(streamer)
         }
     }
 }

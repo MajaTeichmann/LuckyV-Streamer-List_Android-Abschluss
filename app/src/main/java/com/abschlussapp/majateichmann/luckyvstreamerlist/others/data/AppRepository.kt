@@ -26,13 +26,6 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
         try{
             val streamerData = api.retrofitService.getStreamers().streamer
 
-            // Zusätzliche Variable hinzufügen (nicht in API)
-            val favorisiert: Boolean = false
-
-            for(streamer in streamerData){
-                streamer.favorisiert = favorisiert
-            }
-
             database.streamerDao.insertAll(streamerData)
         }catch(e: Exception){
             Log.e(TAG,"Error loading Data from API: $e")

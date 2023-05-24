@@ -11,7 +11,7 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.
 @Dao
 interface StreamerDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertAll(streamer: List<Streamer>)
 
     @Query("SELECT * from Streamer")
