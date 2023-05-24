@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.FavoritesAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.StreamerDao
 
 
 class FavoritesFragment : Fragment() {
@@ -50,7 +51,6 @@ class FavoritesFragment : Fragment() {
         return view
     }
 
-    //todo: wieder einkommentieren
     private fun updateStreamer(streamer: Streamer) {
         val updatedStreamer = streamer.copy(favorisiert = true)
 
