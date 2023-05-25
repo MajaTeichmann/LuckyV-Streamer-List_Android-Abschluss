@@ -63,14 +63,3 @@ class FavoritesFragment : Fragment() {
         }
     }
 }
-
-private fun addFavorite(streamerName: String) {
-    addFavorite(streamerName)
-    Log.i(TAG, "Streamer $streamerName wurde zu den Favoriten hinzugefügt")
-}
-
-// Funktion zum Löschen eines Favoriten
-private fun deleteFavorite(streamerName: String) {
-    deleteFavorite(streamerName)
-    Log.i(TAG, "Streamer $streamerName wurde aus den Favoriten entfernt")
-}
