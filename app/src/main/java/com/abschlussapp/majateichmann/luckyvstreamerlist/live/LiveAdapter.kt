@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
@@ -91,6 +92,7 @@ class LiveAdapter(
         icName.maxLines = 1
         icName.isSingleLine = true
 
+        //todo:
         Log.e("Streamer is live", streamer.live.toString())
 
 
