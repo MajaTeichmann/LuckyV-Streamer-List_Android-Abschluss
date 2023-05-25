@@ -15,17 +15,15 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
-/**
- * Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling
- */
+//TODO: Kommentare bearbeitet ✅
+
+/** Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling */
 class OfflineAdapter(
     private val dataset: List<Streamer>,
     private val viewModel: MainViewModel
 ) : RecyclerView.Adapter<OfflineAdapter.ItemViewHolder>() {
 
-    /**
-     * der ViewHolder umfasst die View und stellt einen Listeneintrag dar
-     */
+    /** der ViewHolder umfasst die View und stellt einen Listeneintrag dar */
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
@@ -34,9 +32,7 @@ class OfflineAdapter(
         val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
     }
 
-    /**
-     * hier werden neue ViewHolder erstellt
-     */
+    /** hier werden neue ViewHolder erstellt */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val itemLayout = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_offline, parent, false)
@@ -44,20 +40,16 @@ class OfflineAdapter(
         return ItemViewHolder(itemLayout)
     }
 
-    /**
-     * damit der LayoutManager weiß, wie lang die Liste ist
-     */
+    /** damit der LayoutManager weiß, wie lang die Liste ist */
     override fun getItemCount(): Int {
         return dataset.size
     }
 
-    /**
-     * hier findet der Recyclingprozess statt
-     * die vom ViewHolder bereitgestellten Parameter erhalten die Information des Listeneintrags
-     */
+    /** hier findet der Recyclingprozess statt
+     * Die vom ViewHolder bereitgestellten Parameter erhalten die Information des Listeneintrags */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
-        //streamer aus dem dataset holen
+        /** streamer aus dem dataset holen */
         var streamer = dataset[position]
 
         if (streamer.favorisiert) {
@@ -71,16 +63,17 @@ class OfflineAdapter(
             holder.tvCharname.text = streamer.ic_name
         }
 
-        // falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string
+        /** falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string */
         if (streamer.fraktion == null) {
             holder.tvFraktion.visibility = View.GONE
         }
 
-        // befülle textview mit wert aus übergebener variable (aus API)
+        /** befülle textview mit wert aus übergebener variable (aus API) */
         val fraktion = holder.tvFraktion
         fraktion.text = streamer.fraktion
 
-        // falls der string im textview zu lang ist, um in eine zeile zu passen, kürze ihn am ende mit "..." ab
+        /** falls der string im textview zu lang ist, um in eine zeile zu passen,
+         * kürze ihn am ende mit "..." ab */
         fraktion.ellipsize = TextUtils.TruncateAt.END
         fraktion.maxLines = 1
         fraktion.isSingleLine = true
@@ -96,10 +89,7 @@ class OfflineAdapter(
         icName.maxLines = 1
         icName.isSingleLine = true
 
-        //todo:
-        Log.e("Streamer is not live", (!streamer.live).toString())
-
-        //Logo-URL Laden
+        /** Logo-URL Laden */
         holder.ivStreamVorschau.load(streamer.logo_url)
 
         val streamerName = holder.tvStreamername
@@ -109,7 +99,7 @@ class OfflineAdapter(
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
 
-        // Button-Click-Listener
+        /** Button-Click-Listener */
         holder.like.setOnClickListener {
             streamer.favorisiert = !streamer.favorisiert
 

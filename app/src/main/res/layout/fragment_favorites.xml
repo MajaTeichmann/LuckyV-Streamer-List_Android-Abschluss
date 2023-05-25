@@ -25,18 +25,84 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_favorites"
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/rv_favorites"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.0"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_header"-->
+        <!--            app:spanCount="3"-->
+        <!--            tools:listitem="@layout/list_item_favorites_live" />-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_streamer_online_rv_streamer_offline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_header"
-            app:spanCount="3"
-            tools:listitem="@layout/list_item_favorites_live" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_header">
+
+            <Button
+                android:id="@+id/btn_streamers_live"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/btn_luckyv_yellow"
+                android:text="live"
+                android:textColor="@color/txt_luckyv_black"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_streamer_online"
+                android:layout_width="match_parent"
+                android:layout_height="619dp"
+                android:layout_marginTop="5dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_streamers_live"
+                app:spanCount="3"
+                tools:listitem="@layout/list_item_favorites_live" />
+
+            <Button
+                android:id="@+id/btn_streamers_offline"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/btn_luckyv_yellow"
+                android:text="offline"
+                android:textColor="@color/txt_luckyv_black"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/btn_streamers_live"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_Streamer_offline"
+                android:layout_width="match_parent"
+                android:layout_height="619dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="499dp"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_streamers_offline"
+                app:spanCount="3"
+                tools:listitem="@layout/list_item_favorites_offline" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

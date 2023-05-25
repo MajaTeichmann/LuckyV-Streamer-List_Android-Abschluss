@@ -6,6 +6,8 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.StreamerDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
 
+//TODO: Kommentare bearbeitet ❌
+
 const val TAG = "AppRepository"
 
 /**
@@ -29,14 +31,6 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
             database.streamerDao.insertAll(streamerData)
         }catch(e: Exception){
             Log.e(TAG,"Error loading Data from API: $e")
-        }
-    }
-
-    suspend fun deleteAllStreamers(){
-        try{
-            database.streamerDao.deleteAll()
-        }catch(e: Exception){
-            Log.e(TAG,"Failed to delete all Streamers from Database: $e")
         }
     }
 

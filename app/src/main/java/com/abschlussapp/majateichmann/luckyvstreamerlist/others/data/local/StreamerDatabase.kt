@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
+//TODO: Kommentare bearbeitet ❌
 @Database(entities = [Streamer::class], version = 1)
 abstract class StreamerDatabase : RoomDatabase() {
 

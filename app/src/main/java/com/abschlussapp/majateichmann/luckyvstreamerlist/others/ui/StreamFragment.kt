@@ -14,6 +14,8 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentStr
 
 //TODO: MUSS NOCH ERSTELLT WERDEN
 
+//TODO: Kommentare bearbeitet ❌
+
 class StreamFragment : Fragment() {
 
     private lateinit var binding: FragmentStreamBinding

@@ -12,6 +12,8 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.getDa
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
 import kotlinx.coroutines.launch
 
+//TODO: Kommentare bearbeitet ❌
+
 enum class ApiStatus { LOADING, ERROR, DONE }
 
 const val TAG = "MainViewModel"
