@@ -13,6 +13,8 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
+//TODO: Kommentare bearbeitet ❌
+
 class FavoritesLiveAdapter(
     private val dataset: List<Streamer>,
     private val viewModel: MainViewModel
@@ -35,7 +37,6 @@ class FavoritesLiveAdapter(
         return ViewHolderLiveItem(view)
     }
 
-
     // Funktion zum Abrufen der Anzahl an ListItems
     override fun getItemCount(): Int {
         return dataset.size
@@ -46,6 +47,11 @@ class FavoritesLiveAdapter(
         val streamer = dataset[position]
 
         val viewHolder = holder as ViewHolderLiveItem
+
+        if (streamer.live) {
+            viewHolder.tvStreamerName.text = streamer.name
+            viewHolder.tvCharName.text = streamer.ic_name
+        }
 
         if (streamer.favorisiert) {
             viewHolder.like.setBackgroundResource(R.drawable.red_heart)

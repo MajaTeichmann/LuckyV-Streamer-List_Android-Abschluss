@@ -21,7 +21,7 @@ class FavoritesOfflineAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     // ViewHolder für liveItem
-    class ViewHolderLiveItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolderOfflineItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamerName: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharName: TextView = itemView.findViewById(R.id.tv_charname)
@@ -34,9 +34,8 @@ class FavoritesOfflineAdapter(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_favorites_offline, parent, false)
 
-        return FavoritesAdapter.ViewHolderOfflineItem(view)
+        return ViewHolderOfflineItem(view)
     }
-
 
     // Funktion zum Abrufen der Anzahl an ListItems
     override fun getItemCount(): Int {
@@ -47,7 +46,7 @@ class FavoritesOfflineAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val streamer = dataset[position]
 
-        val viewHolder = holder as ViewHolderLiveItem
+        val viewHolder = holder as ViewHolderOfflineItem
 
         if (!streamer.live) {
             viewHolder.tvStreamerName.text = streamer.name
