@@ -100,7 +100,5 @@ interface StreamerDao {
         reloadedEntity.favorisiert = favorisiert
 
         update(reloadedEntity)
-
-        // Andere Aktualisierungen hier, falls erforderlich
     }
 }
