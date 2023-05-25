@@ -78,15 +78,19 @@ class HomeFragment : Fragment() {
             dataset = streamers
             binding.tvNumberPlayersOnline.text = streamers.size.toString()
 
-            val adapter = LiveAdapter(dataset,viewModel)
+            val adapter = LiveAdapter(dataset, viewModel)
 
             streamerListLive.adapter = adapter
         }
 
         viewModel.streamersOffline.observe(
             viewLifecycleOwner
-        ) {
-            streamerListOffline.adapter = OfflineAdapter(it)
+        ) { streamers ->
+            dataset = streamers
+
+            val adapter = OfflineAdapter(dataset, viewModel)
+
+            streamerListOffline.adapter = adapter
         }
 
         fun updateRecyclerViews(isLive: Boolean) {

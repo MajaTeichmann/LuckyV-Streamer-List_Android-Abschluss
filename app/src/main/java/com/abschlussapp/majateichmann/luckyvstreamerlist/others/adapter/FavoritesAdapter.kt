@@ -131,6 +131,11 @@ class FavoritesAdapter(
 
             offlineItem -> {
                 val viewHolderOff = holder as ViewHolderOfflineItem
+                if (streamer.favorisiert) {
+                    viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.red_heart)
+                } else {
+                    viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.grey_heart)
+                }
 
                 // Daten für ViewHolderLiveItem setzen
                 viewHolderOff.ivStreamVorschauOffline.load(streamer.logo_url)
@@ -141,10 +146,8 @@ class FavoritesAdapter(
 
                 viewHolderOff.btnFavoritesOffline.setOnClickListener {
                     if (streamer.favorisiert) {
-                        viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.grey_heart)
                         deleteFavorite(streamerName = streamer.name, position)
                     } else {
-                        viewHolderOff.btnFavoritesOffline.setBackgroundResource(R.drawable.red_heart)
                         addFavorite(streamerName = streamer.name, position)
                     }
                     val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
@@ -197,11 +200,11 @@ class FavoritesAdapter(
         }
     }
 
-    // Funktion zum Toggeln des Favoritenstatus
-    private fun toggleFavorite(streamer: Streamer) {
-        val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
-        updateStreamer(updatedStreamer)
-    }
+    // todo: Funktion zum Toggeln des Favoritenstatus
+//    private fun toggleFavorite(streamer: Streamer) {
+//        val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
+//        updateStreamer(updatedStreamer)
+//    }
 
     // Funktion zum Hinzufügen eines Favoriten
     private fun addFavorite(streamerName: String, position: Int): Int {
