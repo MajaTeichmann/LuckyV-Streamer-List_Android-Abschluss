@@ -22,21 +22,20 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
+//TODO: Kommentare bearbeitet ✅
 
 class HomeFragment : Fragment() {
 
-    // Hier wird das ViewModel, in dem die Logik stattfindet, geholt
+    /** Hier wird das ViewModel, in dem die Logik stattfindet, geholt */
     private val viewModel: MainViewModel by activityViewModels()
 
-    // Das binding für das HomeFragment wird deklariert
+    /** Das binding für das HomeFragment wird deklariert */
     private lateinit var binding: FragmentHomeBinding
 
     private var dataset: List<Streamer> = emptyList()
 
-    /**
-     * Lifecycle Funktion onCreateView
-     * Hier wird das binding initialisiert und das Layout gebaut
-     */
+    /** Lifecycle Funktion onCreateView
+     * Hier wird das binding initialisiert und das Layout gebaut */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,10 +46,8 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    /**
-     * Lifecycle Funktion onViewCreated
-     * Hier werden die Elemente eingerichtet und z.B. onClickListener gesetzt
-     */
+    /** Lifecycle Funktion onViewCreated
+     * Hier werden die Elemente eingerichtet und z.B. onClickListener gesetzt */
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,30 +56,30 @@ class HomeFragment : Fragment() {
         val streamerListLive = binding.rvStreamerOnline
         val streamerListOffline = binding.rvStreamerOffline
 
-        // GridLayoutManger für die RecyclerViews erstellen
+        /** GridLayoutManger für die RecyclerViews erstellen */
         val gridLayoutManagerLive = GridLayoutManager(requireContext(), 3)
         val gridLayoutManagerOffline = GridLayoutManager(requireContext(), 3)
         streamerListLive.layoutManager = gridLayoutManagerLive
         streamerListOffline.layoutManager = gridLayoutManagerOffline
 
-        // Bei einem Klick auf btnRefresh sollen die Informationen erneut abgerufen werden
+        /** Bei einem Klick auf btnRefresh sollen die Informationen erneut abgerufen werden */
         binding.btnRefresh.setOnClickListener {
             viewModel.loadData()
         }
 
-        // Die Variable streamer wird beobachtet und bei einer Änderung wird der com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter der
-        // Recyclerview neu gesetzt.
+        /** Die Variable streamer wird beobachtet und bei einer Änderung wird der LiveAdapter der
+         * Recyclerview neu gesetzt */
         viewModel.streamersOnline.observe(
             viewLifecycleOwner
         ) { streamers ->
             dataset = streamers
             binding.tvNumberPlayersOnline.text = streamers.size.toString()
-
             val adapter = LiveAdapter(dataset, viewModel)
-
             streamerListLive.adapter = adapter
         }
 
+        /** Die Variable streamer wird beobachtet und bei einer Änderung wird der OfflineAdapter der
+         * Recyclerview neu gesetzt */
         viewModel.streamersOffline.observe(
             viewLifecycleOwner
         ) { streamers ->
@@ -107,7 +104,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        // Standardansicht setzen (LiveStreamer anzeigen, Button Streamers online deaktiviert)
+        /** Standardansicht setzen (LiveStreamer anzeigen, Button Streamers online deaktiviert) */
         updateRecyclerViews(true)
 
         binding.btnStreamersLive.setOnClickListener {
@@ -119,30 +116,33 @@ class HomeFragment : Fragment() {
         }
 
 
-        // Verbesserte Performance bei fixer Listengröße
+        /** Verbesserte Performance bei fixer Listengröße */
         streamerListLive.setHasFixedSize(true)
         streamerListOffline.setHasFixedSize(true)
 
-        //Link hinzufügen
-        val fullText =
-            "Bei dieser App handelt es sich um die App-Version einer bereits existierenden Internetseite, welche alle Spieler auflistet, die ihr LuckyV RP auf Twitch streamen."
+        /** Link in den Fließtext hinzufügen */
+        val fullText = "Bei dieser App handelt es sich um die App-Version einer bereits " +
+                "existierenden Internetseite, welche alle Spieler auflistet, die ihr LuckyV RP auf " +
+                "Twitch streamen."
         val linkText = "Internetseite"
         val spannableString = SpannableString(fullText)
 
-        //Klickbarer Bereich für Link festlegen
+        /** Klickbarer Bereich für Link festlegen */
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-                //URL meiner Zieladresse
+
+                /** URL meiner Zieladresse */
                 val url = "https://luckyv-streamer.frozenpenguin.media/"
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             }
         }
-        // Position des Links im Text festlegen
+
+        /** Position des Links im Text festlegen */
         val startIndex = fullText.indexOf(linkText)
         val endIndex = startIndex + linkText.length
 
-        // Link zum SpannableString hinzufügen
+        /** Link zum SpannableString hinzufügen */
         spannableString.setSpan(
             clickableSpan,
             startIndex,
@@ -152,14 +152,14 @@ class HomeFragment : Fragment() {
         binding.tvDescription1.text = spannableString
         binding.tvDescription1.movementMethod = LinkMovementMethod.getInstance()
 
-        // Erstelle eine Instanz der StyleSpan-Klasse für den fettgedruckten Textstil
+        /** Instanz der StyleSpan-Klasse für den fettgedruckten Text */
         val boldSpan = StyleSpan(Typeface.BOLD)
 
-        // Position des zu fettgedruckenden Textabschnitts im Text festlegen
+        /** Position des fettgedruckten Textabschnitts im Text festlegen */
         val stringAbschnittStartIndex = fullText.indexOf("bereits existierenden")
         val stringAbschnittEndIndex = stringAbschnittStartIndex + "bereits existierenden".length
 
-        // Füge den StyleSpan zum SpannableString hinzu, um den Text fettgedruckt darzustellen
+        /** StyleSpan zum SpannableString hinzufügen, um den Text fettgedruckt darzustellen */
         spannableString.setSpan(
             boldSpan,
             stringAbschnittStartIndex,
@@ -167,10 +167,10 @@ class HomeFragment : Fragment() {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
-        // Setze den formatierten SpannableString als Text für die TextView
+        /** formatierten SpannableString als Text für die TextView setzen*/
         binding.tvDescription1.text = spannableString
 
-        // Referenz zur MainActivity erhalten
+        /** Referenz zur MainActivity erhalten */
         val mainActivity = requireActivity() as MainActivity
         mainActivity.einblenden()
     }

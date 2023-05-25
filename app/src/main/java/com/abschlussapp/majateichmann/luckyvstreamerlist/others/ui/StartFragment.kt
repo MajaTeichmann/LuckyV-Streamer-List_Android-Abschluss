@@ -27,6 +27,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+//TODO: Kommentare bearbeitet ❌
+
 class StartFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()

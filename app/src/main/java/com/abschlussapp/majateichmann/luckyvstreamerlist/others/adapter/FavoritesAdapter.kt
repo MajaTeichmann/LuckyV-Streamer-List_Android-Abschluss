@@ -13,10 +13,10 @@ import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
+//TODO: Kommentare bearbeitet ❌
+
 class FavoritesAdapter(
     var itemList: List<Streamer>,
-//    private val addFavorite: (name: String) -> Unit,
-//    private val deleteFavorite: (name: String) -> Unit,
     private val updateStreamer: (Streamer) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -199,12 +199,6 @@ class FavoritesAdapter(
             }
         }
     }
-
-    // todo: Funktion zum Toggeln des Favoritenstatus
-//    private fun toggleFavorite(streamer: Streamer) {
-//        val updatedStreamer = streamer.copy(favorisiert = !streamer.favorisiert)
-//        updateStreamer(updatedStreamer)
-//    }
 
     // Funktion zum Hinzufügen eines Favoriten
     private fun addFavorite(streamerName: String, position: Int): Int {

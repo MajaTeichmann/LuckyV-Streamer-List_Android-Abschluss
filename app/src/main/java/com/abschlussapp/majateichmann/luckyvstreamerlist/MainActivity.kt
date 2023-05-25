@@ -15,6 +15,7 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+//TODO: Kommentare bearbeitet ❌
 
 /**
  * Main Activity, dient als Einstiegspunkt für die App
@@ -87,17 +88,5 @@ class MainActivity : AppCompatActivity() {
     fun einblenden() {
         binding.tvHeader.visibility = View.VISIBLE
         binding.ivLuckyvLogo.alpha = 1F
-    }
-
-    //wenn Streamer gemerkt werden soll
-    private fun activateFavoritesHeart() {
-        val btnLike: ImageButton = findViewById(R.id.btn_favorites)
-        btnLike.setImageResource(R.drawable.red_heart)
-    }
-
-    //wenn Streamer nicht mehr gemerkt werden soll
-    private fun disableFavoritesHeart() {
-        val btnLike: ImageButton = findViewById(R.id.btn_favorites)
-        btnLike.setImageResource(R.drawable.grey_heart)
     }
 }

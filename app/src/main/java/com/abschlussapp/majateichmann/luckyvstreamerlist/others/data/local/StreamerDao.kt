@@ -9,6 +9,8 @@ import androidx.room.Transaction
 import androidx.room.Update
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
+//TODO: Kommentare bearbeitet ❌
+
 @Dao
 interface StreamerDao {
 

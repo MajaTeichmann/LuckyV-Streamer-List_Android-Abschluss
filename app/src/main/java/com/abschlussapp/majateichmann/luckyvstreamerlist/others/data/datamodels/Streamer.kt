@@ -3,6 +3,8 @@ package com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+//TODO: Kommentare bearbeitet ❌
+
 // als Datenbank-Entität definierte Datenklasse "Streamer"
 @Entity
 data class Streamer(

@@ -7,6 +7,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
+//TODO: Kommentare bearbeitet ❌
+
 // Basis URL der API in Konstante "BASE_URL" definieren
 const val BASE_URL = "https://luckyv-streamer.frozenpenguin.media/"
 
