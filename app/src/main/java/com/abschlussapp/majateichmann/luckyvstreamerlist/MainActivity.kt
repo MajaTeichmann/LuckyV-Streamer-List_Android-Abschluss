@@ -10,10 +10,15 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMai
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.AppRepository
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.TAG
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.getDatabase
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
 
 //TODO: Kommentare bearbeitet ❌
 
@@ -24,11 +29,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var viewModel: MainViewModel
+    private lateinit var repository: AppRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Repository-Objekt erstellen und Context übergeben
+        repository = AppRepository(StreamerApi, getDatabase(applicationContext), applicationContext)
 
         // ViewModel initialisieren
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -78,6 +87,11 @@ class MainActivity : AppCompatActivity() {
 
         // Zeige das ConstraintLayout standardmäßig an
         binding.clAppHeader.visibility = View.VISIBLE
+
+        // Fetch streamer data from the API using a coroutine
+        lifecycleScope.launch {
+            repository.getStreamer()
+        }
     }
 
     fun ausblenden() {

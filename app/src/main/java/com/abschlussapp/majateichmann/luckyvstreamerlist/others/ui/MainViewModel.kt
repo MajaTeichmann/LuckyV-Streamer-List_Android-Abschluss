@@ -20,6 +20,8 @@ const val TAG = "MainViewModel"
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val context = application.applicationContext
+
     fun updateStreamer(streamer: Streamer) {
         viewModelScope.launch {
             repository.updateStreamer(streamer)
@@ -28,7 +30,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // hier wird eine AppRepository Instanz erstellt, mit dem Parameter StreamerApi
     private val database = getDatabase(application)
-    private val repository = AppRepository(StreamerApi, database)
+    private val repository = AppRepository(StreamerApi, database, context)
 
     /**
      * Diese Funktion ruft die Repository-Funktion zum Laden der Streamer
