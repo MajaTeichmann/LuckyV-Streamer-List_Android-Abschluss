@@ -12,9 +12,7 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentStreamBinding
 
-//TODO: MUSS NOCH ERSTELLT WERDEN
-
-//TODO: Kommentare bearbeitet ❌
+//TODO: ZUSATZ
 
 class StreamFragment : Fragment() {
 

@@ -20,11 +20,7 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 
-//TODO: Kommentare bearbeitet ❌
-
-/**
- * Main Activity, dient als Einstiegspunkt für die App
- */
+/** Main Activity, dient als Einstiegspunkt für die App */
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -36,10 +32,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Repository-Objekt erstellen und Context übergeben
+        /** Repository-Objekt erstellen und Context übergeben */
         repository = AppRepository(StreamerApi, getDatabase(applicationContext), applicationContext)
 
-        // ViewModel initialisieren
+        /** ViewModel initialisieren */
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         val navHostFragment =
@@ -50,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         navBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
-                    // Aktion für "Home" ausführen
+                    /** Aktion für "Home" ausführen */
                     if (navController.currentDestination?.id != R.id.homeFragment) {
                         navController.navigate(R.id.homeFragment)
                     }
@@ -58,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_favorites -> {
-                    // Aktion für "Favorites" ausführen
+                    /** Aktion für "Favorites" ausführen */
                     if (navController.currentDestination?.id != R.id.favoritesFragment) {
                         navController.navigate(R.id.favoritesFragment)
                     }
@@ -66,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_settings -> {
-                    // Aktion für "Settings" ausführen
+                    /** Aktion für "Settings" ausführen */
                     if (navController.currentDestination?.id != R.id.settingsFragment) {
                         navController.navigate(R.id.settingsFragment)
                     }
@@ -85,15 +81,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Zeige das ConstraintLayout standardmäßig an
+        /** Zeige das ConstraintLayout standardmäßig an */
         binding.clAppHeader.visibility = View.VISIBLE
 
-        // Fetch streamer data from the API using a coroutine
+        /** Mittels Coroutine Streamerdaten aus der API laden */
         lifecycleScope.launch {
             repository.getStreamer()
         }
     }
 
+    /** Funktionen zum ein- und ausblenden der TopApp Bar */
     fun ausblenden() {
         binding.tvHeader.visibility = View.INVISIBLE
         binding.ivLuckyvLogo.alpha = 0F

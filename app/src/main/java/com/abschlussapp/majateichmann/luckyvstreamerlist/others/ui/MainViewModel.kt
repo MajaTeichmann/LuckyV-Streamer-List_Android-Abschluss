@@ -12,8 +12,6 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.getDa
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
 import kotlinx.coroutines.launch
 
-//TODO: Kommentare bearbeitet ❌
-
 enum class ApiStatus { LOADING, ERROR, DONE }
 
 const val TAG = "MainViewModel"
@@ -28,7 +26,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // hier wird eine AppRepository Instanz erstellt, mit dem Parameter StreamerApi
+    /** hier wird eine AppRepository Instanz erstellt, mit dem Parameter StreamerApi */
     private val database = getDatabase(application)
     private val repository = AppRepository(StreamerApi, database, context)
 
@@ -36,13 +34,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
      * Diese Funktion ruft die Repository-Funktion zum Laden der Streamer
      * innerhalb einer Coroutine auf
      */
-
-    //Alle Streamer
     private val _loading = MutableLiveData<ApiStatus>()
     val loading: LiveData<ApiStatus>
         get() = _loading
 
-    // hier werden die Streamer aus dem repository in einer eigenen Variablen gespeichert
+    /** hier werden die Streamer aus dem repository in einer eigenen Variablen gespeichert */
     val streamer = repository.streamerList
     val streamersOnline = repository.streamersOnline
     val streamersOffline = repository.streamersOffline
@@ -53,7 +49,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadData() {
         viewModelScope.launch {
-            // Streamer aus API in die Datenbank laden
+            /** Streamer aus API in die Datenbank laden */
             _loading.value = ApiStatus.LOADING
             try {
                 repository.getStreamer()

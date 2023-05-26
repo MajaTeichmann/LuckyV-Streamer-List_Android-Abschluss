@@ -1,6 +1,4 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter
 
-//todo: erstellen
-
-//TODO: Kommentare bearbeitet ❌
+//todo: ZUSATZ
 class FilterAdapter()

@@ -15,8 +15,6 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.Favorite
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.FavoritesOfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
-//TODO: Kommentare bearbeitet ❌
-
 class FavoritesFragment : Fragment() {
 
     private lateinit var recyclerViewLive: RecyclerView
@@ -24,13 +22,13 @@ class FavoritesFragment : Fragment() {
     private lateinit var favoritesLiveAdapter: FavoritesLiveAdapter
     private lateinit var favoritesOfflineAdapter: FavoritesOfflineAdapter
 
-    // Hier wird die Liste der Streamer initialisiert
+    /** Liste der Streamer initialisieren */
     private lateinit var dataset: List<Streamer>
 
     /** Das binding für das HomeFragment wird deklariert */
     private lateinit var binding: FragmentFavoritesBinding
 
-    /** Hier wird das ViewModel, in dem die Logik stattfindet, geholt */
+    /** ViewModel, in dem die Logik stattfindet */
     private val viewModel: MainViewModel by activityViewModels()
 
     /** Lifecycle Funktion onCreateView
@@ -41,14 +39,13 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // Initialize the binding using FragmentFavoritesBinding.inflate
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        // ViewModel initialisieren
+        /** ViewModel initialisieren */
         val viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
-        // Initialize the RecyclerView
+        /** RecyclerView initialisieren*/
         recyclerViewLive = view.findViewById(R.id.rv_streamer_online)
         recyclerViewLive.layoutManager = GridLayoutManager(context, 3)
 
@@ -57,14 +54,15 @@ class FavoritesFragment : Fragment() {
 
         viewModel.streamersOnline.observe(viewLifecycleOwner) { streamers ->
             dataset = streamers
-            // Filter streamersList
+
+            /** streamersList filtern */
             val filteredListLive =
                 dataset.filter { (it.live && it.favorisiert) }
 
             val filteredListOffline =
                 dataset.filter { (!it.live && it.favorisiert) }
 
-            // Initialize the favoritesAdapter with the filtered list
+            /** favoritesAdapter mit gefilteter Liste initialisieren */
             favoritesLiveAdapter = FavoritesLiveAdapter(filteredListLive, viewModel)
             recyclerViewLive.adapter = favoritesLiveAdapter
 
@@ -100,7 +98,7 @@ class FavoritesFragment : Fragment() {
 
             val filteredListLive = dataset.filter { it.live && it.favorisiert }
 
-            // Initialize the favoritesAdapter with the filtered list
+            /** favoritesAdapter mit gefilteter Liste initialisieren */
             favoritesLiveAdapter = FavoritesLiveAdapter(filteredListLive, viewModel)
             recyclerViewLive.adapter = favoritesLiveAdapter
         }
@@ -111,6 +109,7 @@ class FavoritesFragment : Fragment() {
             dataset = streamers
             val filteredListOffline = dataset.filter { !it.live && it.favorisiert }
 
+            /** favoritesAdapter mit gefilteter Liste initialisieren */
             favoritesOfflineAdapter = FavoritesOfflineAdapter(filteredListOffline, viewModel)
             recyclerViewOffline.adapter = favoritesOfflineAdapter
         }

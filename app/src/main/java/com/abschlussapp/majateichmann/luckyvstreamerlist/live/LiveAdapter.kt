@@ -13,7 +13,6 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
-//TODO: Kommentare bearbeitet ✅
 
 /** Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling */
 class LiveAdapter(

@@ -27,15 +27,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-//TODO: Kommentare bearbeitet ❌
-
 class StartFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var binding: FragmentStartBinding
     private lateinit var mainActivity: MainActivity
 
-    //ProgressBar
+    /** ProgressBar zeigt Fortschritt des API ladens */
     private lateinit var progressBar: ProgressBar
 
     private val handler = Handler(Looper.getMainLooper())
@@ -44,14 +42,14 @@ class StartFragment : Fragment() {
     private val progressRunnable = object : Runnable {
         override fun run() {
             if (progress < 100) {
-                // Erhöht den Fortschritt um 1
+                /** Erhöht den Fortschritt um 1 */
                 progress++
                 progressBar.progress = progress
 
-                // Ruft Runnable jede Sekunde erneut auf
+                /** Ruft Runnable jede Sekunde erneut auf */
                 handler.postDelayed(this, 1000)
             } else {
-                // wenn Fortschritt 100 erreicht, ProgressBar ausblenden und zum nächsten Fragment navigieren
+                /** wenn Fortschritt 100 erreicht, ProgressBar ausblenden und zum nächsten Fragment navigieren */
                 progressBar.visibility = View.GONE
             }
         }
@@ -60,7 +58,7 @@ class StartFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        // Referenziere die MainActivity
+        /** Referenziere die MainActivity */
         mainActivity = context as MainActivity
     }
 
@@ -69,7 +67,7 @@ class StartFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         binding = FragmentStartBinding.inflate(inflater, container, false)
         progressBar = binding.progressBar
 
@@ -84,7 +82,7 @@ class StartFragment : Fragment() {
 
         viewModel.loading.observe(viewLifecycleOwner) {
 
-            // Referenz zur MainActivity erhalten
+            /** Referenz zur MainActivity erhalten */
             val mainActivity = requireActivity() as MainActivity
             mainActivity.ausblenden()
 
@@ -97,12 +95,12 @@ class StartFragment : Fragment() {
                 }
 
                 else -> {
-                    // Coroutine starten, um die Streamer-Daten von der API abzurufen
+                    /** Coroutine starten, um die Streamer-Daten von der API abzurufen */
                     lifecycleScope.launch {
                         try {
                             progressBar.visibility = View.VISIBLE
 
-                            // getStreamers() wird asynchron aufgerufen & Ergebnis wird in "streamers" gespeichert
+                            /** getStreamers() wird asynchron aufgerufen & Ergebnis wird in "streamers" gespeichert */
                             val streamers = withContext(Dispatchers.IO) {
                                 StreamerApi.retrofitService.getStreamers()
                             }
@@ -115,22 +113,24 @@ class StartFragment : Fragment() {
                             recyclerViewOffline?.adapter =
                                 OfflineAdapter(streamers.streamer, viewModel)
                         } catch (e: Exception) {
-                            // Wenn ein Fehler aufgetreten ist, wird der Fortschrittsbalken ausgeblendet und eine Fehlermeldung angezeigt.
+
+                            /** Wenn ein Fehler aufgetreten ist, wird der Fortschrittsbalken
+                             * ausgeblendet und eine Fehlermeldung angezeigt. */
                             progressBar.visibility = View.GONE
 
-                            // Zeige einen Fehler-Dialog oder eine Fehlermeldung an.
+                            /** Zeige einen Fehler-Dialog oder eine Fehlermeldung an. */
                             Log.e(TAG, "Fehler beim Abrufen der Streamer-Daten: ${e.message}")
 
                         } finally {
-                            // Fortschrittsbalken ausblenden, unabhängig davon, ob ein Fehler aufgetreten ist oder nicht
+                            /** Fortschrittsbalken ausblenden, unabhängig davon, ob ein Fehler aufgetreten ist oder nicht */
                             progressBar.visibility = View.GONE
 
-                            // Navigation zum nächsten Fragment durchführen
+                            /** Navigation zum nächsten Fragment durchführen */
                             val navController: NavController = findNavController(requireView())
                             navController.navigate(R.id.action_startFragment_to_homeFragment)
                         }
                     }
-                    //entferne den handler der ProgressBar
+                    /** entferne den handler der ProgressBar */
                     handler.removeCallbacks(progressRunnable)
                 }
             }
