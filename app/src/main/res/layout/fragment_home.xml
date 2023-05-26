@@ -10,8 +10,6 @@
 
     <!--    todo: wenn tastatur eingeblendet, blende navBar aus-->
     <!--    todo: AutoCompleteTextView überarbeiten-->
-    <!--    todo: Filter-Button aktivieren-->
-    <!--    todo: FilterFragment erstellen-->
     <!--    todo: SettingsFragment erstellen-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -143,11 +141,11 @@
             app:layout_constraintTop_toBottomOf="@+id/cl_description">
 
             <Button
-                android:id="@+id/btn_filter"
+                android:id="@+id/btn_sort"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:backgroundTint="@color/luckyv_yellow"
-                android:text="@string/filtern_button"
+                android:text="@string/sort_button"
                 android:textColor="@color/luckyv_black"
                 android:textSize="11sp"
                 app:cornerRadius="8dp"
@@ -164,9 +162,9 @@
                 android:contentDescription="Select Filter"
                 android:spinnerMode="dropdown"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/btn_filter"
-                app:layout_constraintStart_toStartOf="@+id/btn_filter"
-                app:layout_constraintTop_toBottomOf="@+id/btn_filter"
+                app:layout_constraintEnd_toEndOf="@+id/btn_sort"
+                app:layout_constraintStart_toStartOf="@+id/btn_sort"
+                app:layout_constraintTop_toBottomOf="@+id/btn_sort"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -184,7 +184,7 @@ class HomeFragment : Fragment() {
         //todo: beschreibung
         val dropdownSort = view.findViewById<Spinner>(R.id.dropDown_sort)
 
-        binding.btnFilter.setOnClickListener {
+        binding.btnSort.setOnClickListener {
             // Überprüfen Sie den aktuellen Zustand der Sichtbarkeit des Dropdown-Filters
             val isVisible = binding.dropDownSort.visibility == View.VISIBLE
 
