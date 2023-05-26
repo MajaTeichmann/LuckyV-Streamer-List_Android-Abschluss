@@ -257,7 +257,7 @@ class HomeFragment : Fragment() {
                     streamerListLive.adapter = adapterLive
                     adapterLive.notifyDataSetChanged()
 
-                    val adapterOffline = OfflineAdapter(sortedStreamersLive, viewModel)
+                    val adapterOffline = OfflineAdapter(sortedStreamersOffline, viewModel)
                     streamerListOffline.adapter = adapterOffline
                     adapterOffline.notifyDataSetChanged()
                 }
