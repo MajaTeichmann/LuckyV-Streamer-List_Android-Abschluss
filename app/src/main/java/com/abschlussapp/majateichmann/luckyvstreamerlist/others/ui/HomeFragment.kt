@@ -14,10 +14,14 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
+import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
@@ -30,7 +34,10 @@ class HomeFragment : Fragment() {
     /** Das binding für das HomeFragment wird deklariert */
     private lateinit var binding: FragmentHomeBinding
 
-    private var dataset: List<Streamer> = emptyList()
+    private var datasetLive: List<Streamer> = emptyList()
+    private var datasetOffline: List<Streamer> = emptyList()
+    private var sortedStreamersLive: List<Streamer> = emptyList()
+    private var sortedStreamersOffline: List<Streamer> = emptyList()
 
     /** Lifecycle Funktion onCreateView
      * Hier wird das binding initialisiert und das Layout gebaut */
@@ -70,9 +77,9 @@ class HomeFragment : Fragment() {
         viewModel.streamersOnline.observe(
             viewLifecycleOwner
         ) { streamers ->
-            dataset = streamers
+            datasetLive = streamers
             binding.tvNumberPlayersOnline.text = streamers.size.toString()
-            val adapter = LiveAdapter(dataset, viewModel)
+            val adapter = LiveAdapter(datasetLive, viewModel)
             streamerListLive.adapter = adapter
         }
 
@@ -81,14 +88,15 @@ class HomeFragment : Fragment() {
         viewModel.streamersOffline.observe(
             viewLifecycleOwner
         ) { streamers ->
-            dataset = streamers
+            datasetOffline = streamers
 
-            val adapter = OfflineAdapter(dataset, viewModel)
+            val adapter = OfflineAdapter(datasetOffline, viewModel)
 
             streamerListOffline.adapter = adapter
         }
 
-        fun updateRecyclerViews(isLive: Boolean) {
+        fun updateRecyclerViews(isLive: Boolean, sortBy: String ="") {
+            val streamerList =
             if (isLive) {
                 binding.rvStreamerOnline.visibility = View.VISIBLE
                 binding.rvStreamerOffline.visibility = View.GONE
@@ -100,6 +108,7 @@ class HomeFragment : Fragment() {
                 binding.btnStreamersLive.isEnabled = true
                 binding.btnStreamersOffline.isEnabled = false
             }
+
         }
 
         /** Standardansicht setzen (LiveStreamer anzeigen, Button Streamers online deaktiviert) */
@@ -171,5 +180,92 @@ class HomeFragment : Fragment() {
         /** Referenz zur MainActivity erhalten */
         val mainActivity = requireActivity() as MainActivity
         mainActivity.einblenden()
+
+        //todo: beschreibung
+        val dropdownSort = view.findViewById<Spinner>(R.id.dropDown_sort)
+
+        binding.btnFilter.setOnClickListener {
+            // Überprüfen Sie den aktuellen Zustand der Sichtbarkeit des Dropdown-Filters
+            val isVisible = binding.dropDownSort.visibility == View.VISIBLE
+
+            // Ändern Sie die Sichtbarkeit basierend auf dem aktuellen Zustand
+            binding.dropDownSort.visibility = if (isVisible) View.GONE else View.VISIBLE
+        }
+
+        val filterOptionsFilter =
+            listOf<String>(
+                "Sortieren nach:",
+                "Name (A-Z)",
+                "Name (Z-A)",
+                "Charname (A-Z)",
+                "Charname (Z-A)",
+                "Fraktion (A-Z)",
+                "Fraktion (Z-A)"
+            )
+
+        val dropdownFilterAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            filterOptionsFilter
+        )
+        dropdownSort.adapter = dropdownFilterAdapter
+
+        dropdownSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedOption = dropdownSort.selectedItem.toString()
+
+                if (dropdownSort.visibility == View.VISIBLE) {
+                    when (selectedOption) {
+                        filterOptionsFilter[1] -> {
+                            sortedStreamersLive = datasetLive.sortedBy { it.name }
+                            sortedStreamersOffline = datasetOffline.sortedBy { it.name }
+                        }
+
+                        filterOptionsFilter[2] -> {
+                            sortedStreamersLive = datasetLive.sortedByDescending { it.name }
+                            sortedStreamersOffline = datasetOffline.sortedByDescending { it.name }
+                        }
+
+                        filterOptionsFilter[3] -> {
+                            sortedStreamersLive = datasetLive.sortedBy { it.ic_name }
+                            sortedStreamersOffline = datasetOffline.sortedBy { it.ic_name }
+                        }
+
+                        filterOptionsFilter[4] -> {
+                            sortedStreamersLive = datasetLive.sortedByDescending { it.ic_name }
+                            sortedStreamersOffline = datasetOffline.sortedByDescending { it.ic_name }
+                        }
+
+                        filterOptionsFilter[5] -> {
+                            sortedStreamersLive = datasetLive.sortedBy { it.fraktion }
+                            sortedStreamersOffline = datasetOffline.sortedBy { it.fraktion }
+                        }
+
+                        filterOptionsFilter[6] -> {
+                            sortedStreamersLive = datasetLive.sortedByDescending { it.fraktion }
+                            sortedStreamersOffline = datasetOffline.sortedByDescending { it.fraktion }
+                        }
+                    }
+                    /** Aktualisiert den Adapter mit sortedStreamersLive/Offline  */
+                    val adapterLive = LiveAdapter(sortedStreamersLive, viewModel)
+                    streamerListLive.adapter = adapterLive
+                    adapterLive.notifyDataSetChanged()
+
+                    val adapterOffline = OfflineAdapter(sortedStreamersOffline, viewModel)
+                    streamerListOffline.adapter = adapterOffline
+                    adapterOffline.notifyDataSetChanged()
+                }
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
     }
 }
