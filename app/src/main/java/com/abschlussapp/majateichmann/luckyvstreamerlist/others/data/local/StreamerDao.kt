@@ -15,12 +15,23 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.
 interface StreamerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(streamer: Streamer)
+    suspend fun insert(streamer: Streamer): Long
 
     @Transaction
-    suspend fun insertAll(streamerList: List<Streamer>){
-        for(streamer in streamerList){
-            insert(streamer.apply { favorisiert = getEntityByName(streamer.name).favorisiert })
+    suspend fun insertAll(streamerList: List<Streamer>) {
+        for (streamer in streamerList) {
+            val oldStreamer = getEntityByName(streamer.name)
+
+            val newStreamer = streamer
+
+            /** Bloß nicht entfernen!!!
+             * "database.streamerDao.getEntityByName(streamer.name)" gibt null zurück,
+             * wenn Streamer nicht in Datenbank */
+            if (oldStreamer != null) {
+                newStreamer.favorisiert = oldStreamer.favorisiert
+            }
+            insert(newStreamer)
+
         }
     }
 
@@ -56,15 +67,4 @@ interface StreamerDao {
 
     @Query("UPDATE Streamer SET favorisiert = :favorisiert WHERE name = :name")
     fun updateExcludedVariable(name: String, favorisiert: Boolean)
-
-    @Transaction
-    suspend fun reloadEntity(entity: Streamer) {
-        val name = entity.name
-        val favorisiert = entity.favorisiert
-
-        val reloadedEntity = getEntityByName(name)
-        reloadedEntity.favorisiert = favorisiert
-
-        update(reloadedEntity)
-    }
 }

@@ -5,6 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 //TODO: Kommentare bearbeitet ❌
 @Database(entities = [Streamer::class], version = 1)
@@ -29,4 +33,12 @@ fun getDatabase(context: Context): StreamerDatabase {
     }
     // als return-Statement gebe ich meinen Context an (=INSTANCE)
     return INSTANCE
+}
+
+@OptIn(DelicateCoroutinesApi::class)
+fun insertDataToDatabase(context: Context, data: List<Streamer>) {
+    GlobalScope.launch(Dispatchers.IO) {
+        val database = getDatabase(context)
+        database.streamerDao.insertAll(data)
+    }
 }
