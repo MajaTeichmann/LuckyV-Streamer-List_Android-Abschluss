@@ -13,14 +13,12 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
-//TODO: Kommentare bearbeitet ❌
-
 class FavoritesOfflineAdapter(
     private val dataset: List<Streamer>,
     private val viewModel: MainViewModel
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    // ViewHolder für liveItem
+    /** ViewHolder für OfflineItem */
     class ViewHolderOfflineItem(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamerName: TextView = itemView.findViewById(R.id.tv_streamername)
@@ -29,7 +27,7 @@ class FavoritesOfflineAdapter(
         val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
     }
 
-    // Funktion zum Erstellen des richtigen ViewHolders
+    /** Funktion zum Erstellen des richtigen ViewHolders */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_favorites_offline, parent, false)
@@ -37,12 +35,12 @@ class FavoritesOfflineAdapter(
         return ViewHolderOfflineItem(view)
     }
 
-    // Funktion zum Abrufen der Anzahl an ListItems
+    /** Funktion zum Abrufen der Anzahl an ListItems */
     override fun getItemCount(): Int {
         return dataset.size
     }
 
-    // Funktion zum Binden der Daten an ViewHolder
+    /** Funktion zum Binden der Daten an ViewHolder */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val streamer = dataset[position]
 
@@ -59,7 +57,7 @@ class FavoritesOfflineAdapter(
             viewHolder.like.setBackgroundResource(R.drawable.grey_heart)
         }
 
-        // Falls der Wert im übergebenen Datensatz null ist, befülle ihn mit leerem String
+        /** Falls der Wert im übergebenen Datensatz null ist, befülle ihn mit leerem String */
         if (streamer.fraktion == null) {
             viewHolder.tvFraktion.visibility = View.GONE
         }
@@ -68,7 +66,7 @@ class FavoritesOfflineAdapter(
             viewHolder.tvCharName.visibility = View.GONE
         }
 
-        // Befülle TextView mit Wert aus übergebener Variable (aus API)
+        /** Befülle TextView mit Wert aus übergebener Variable (aus API) */
         val fraktion = viewHolder.tvFraktion
         fraktion.text = streamer.fraktion
 
@@ -78,7 +76,7 @@ class FavoritesOfflineAdapter(
         val streamerName = viewHolder.tvStreamerName
         streamerName.text = streamer.name
 
-        // Falls der String im TextView zu lang ist, um in eine Zeile zu passen, kürze ihn am Ende mit "..." ab
+        /** Falls der String im TextView zu lang ist, um in eine Zeile zu passen, kürze ihn am Ende mit "..." ab */
         fraktion.ellipsize = TextUtils.TruncateAt.END
         fraktion.maxLines = 1
         fraktion.isSingleLine = true
@@ -91,7 +89,7 @@ class FavoritesOfflineAdapter(
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
 
-        // Logo-URL laden
+        /** Logo-URL laden */
         viewHolder.ivStreamVorschau.load(streamer.logo_url)
 
         /** Button-Click-Listener */

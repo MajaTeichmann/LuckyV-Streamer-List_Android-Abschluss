@@ -22,8 +22,6 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
-//TODO: Kommentare bearbeitet ✅
-
 class HomeFragment : Fragment() {
 
     /** Hier wird das ViewModel, in dem die Logik stattfindet, geholt */

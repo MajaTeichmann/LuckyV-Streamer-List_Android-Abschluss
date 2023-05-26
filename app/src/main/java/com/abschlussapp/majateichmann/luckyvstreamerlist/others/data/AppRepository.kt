@@ -1,16 +1,12 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.data
 
-import android.app.Activity
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.StreamerDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.insertDataToDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
-
-//TODO: Kommentare bearbeitet ❌
 
 const val TAG = "AppRepository"
 
@@ -32,15 +28,18 @@ class AppRepository(private val api: StreamerApi, private val database: Streamer
     suspend fun getStreamer(){
         try{
             val streamerData = api.retrofitService.getStreamers().streamer
-            // Daten in die Datenbank einfügen
+
+            /** Daten in die Datenbank einfügen */
             insertDataToDatabase(context, streamerData)
+
         }catch(e: Exception){
             Log.e(TAG,"Error loading Data from API: $e")
         }
     }
 
     suspend fun updateStreamer(streamer: Streamer) {
-        // Aktualisieren Sie den Streamer in der Datenbank
+
+        /** Streamer in der Datenbank aktualisieren */
         database.streamerDao.update(streamer)
     }
 }

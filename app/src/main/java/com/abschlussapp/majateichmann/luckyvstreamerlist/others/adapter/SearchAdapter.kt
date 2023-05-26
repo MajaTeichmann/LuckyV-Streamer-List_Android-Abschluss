@@ -8,9 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
-//todo: erstellen
-
-//TODO: Kommentare bearbeitet ❌
+//todo: ZUSATZ
 class SearchAdapter(
     context: Context,
     streamer: List<Streamer>
