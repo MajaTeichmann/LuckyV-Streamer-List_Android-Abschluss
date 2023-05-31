@@ -21,6 +21,15 @@ class OfflineAdapter(
     private val viewModel: MainViewModel
 ) : RecyclerView.Adapter<OfflineAdapter.ItemViewHolder>() {
 
+    init{
+        setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int):Long{
+        // Gib den Namen des Streamers als ID zurück
+        return dataset[position].name.hashCode().toLong()
+    }
+
     /** der ViewHolder umfasst die View und stellt einen Listeneintrag dar */
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)

@@ -54,7 +54,6 @@ class HomeFragment : Fragment() {
     /** Lifecycle Funktion onViewCreated
      * Hier werden die Elemente eingerichtet und z.B. onClickListener gesetzt */
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -182,7 +181,7 @@ class HomeFragment : Fragment() {
         mainActivity.einblenden()
 
         //todo: beschreibung
-        val dropdownSort = view.findViewById<Spinner>(R.id.dropDown_sort)
+        val dropdownSort = binding.dropDownSort
 
         binding.btnSort.setOnClickListener {
             // Überprüfen Sie den aktuellen Zustand der Sichtbarkeit des Dropdown-Filters
@@ -211,7 +210,6 @@ class HomeFragment : Fragment() {
         dropdownSort.adapter = dropdownFilterAdapter
 
         dropdownSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            @SuppressLint("NotifyDataSetChanged")
             override fun onItemSelected(
                 parent: AdapterView<*>,
                 view: View?,
@@ -255,17 +253,27 @@ class HomeFragment : Fragment() {
                     /** Aktualisiert den Adapter mit sortedStreamersLive/Offline  */
                     val adapterLive = LiveAdapter(sortedStreamersLive, viewModel)
                     streamerListLive.adapter = adapterLive
-                    adapterLive.notifyDataSetChanged()
+                    val currentLivePosition = gridLayoutManagerLive.findFirstVisibleItemPosition()
+                    binding.rvStreamerOnline.scrollToPosition(currentLivePosition)
+                    streamerListLive.scrollToPosition(currentLivePosition)
+                    adapterLive.notifyItemChanged(position)
 
                     val adapterOffline = OfflineAdapter(sortedStreamersOffline, viewModel)
                     streamerListOffline.adapter = adapterOffline
-                    adapterOffline.notifyDataSetChanged()
+                    val currentOfflinePosition = gridLayoutManagerOffline.findFirstVisibleItemPosition()
+                    binding.rvStreamerOnline.scrollToPosition(currentOfflinePosition)
+                    streamerListOffline.scrollToPosition(currentLivePosition)
+                    adapterOffline.notifyItemChanged(position)
                 }
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
-
     }
+
+    fun scrollToPosition(position: Int) {
+        binding.rvStreamerOnline.scrollToPosition(position)
+        binding.rvStreamerOffline.scrollToPosition(position)
+    }
+
 }
