@@ -20,10 +20,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val context = application.applicationContext
 
+    // Variable zur Speicherung der Referenz zum HomeFragment
+    private var homeFragment: HomeFragment? = null
+
     fun updateStreamer(streamer: Streamer) {
         viewModelScope.launch {
             repository.updateStreamer(streamer)
         }
+    }
+
+    // Methode zum Abrufen der Referenz zum HomeFragment
+    fun getHomeFragment(): HomeFragment? {
+        return homeFragment
     }
 
     /** hier wird eine AppRepository Instanz erstellt, mit dem Parameter StreamerApi */

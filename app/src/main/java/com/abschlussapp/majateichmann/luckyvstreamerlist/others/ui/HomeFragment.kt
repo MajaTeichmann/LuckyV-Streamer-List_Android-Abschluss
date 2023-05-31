@@ -1,7 +1,6 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
 
 import com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
@@ -16,17 +15,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
-import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
 
     /** Hier wird das ViewModel, in dem die Logik stattfindet, geholt */
     private val viewModel: MainViewModel by activityViewModels()
@@ -63,6 +61,8 @@ class HomeFragment : Fragment() {
         /** GridLayoutManger für die RecyclerViews erstellen */
         val gridLayoutManagerLive = GridLayoutManager(requireContext(), 3)
         val gridLayoutManagerOffline = GridLayoutManager(requireContext(), 3)
+        gridLayoutManagerLive.isAutoMeasureEnabled = true
+        gridLayoutManagerOffline.isAutoMeasureEnabled = true
         streamerListLive.layoutManager = gridLayoutManagerLive
         streamerListOffline.layoutManager = gridLayoutManagerOffline
 
@@ -90,23 +90,23 @@ class HomeFragment : Fragment() {
             datasetOffline = streamers
 
             val adapter = OfflineAdapter(datasetOffline, viewModel)
-
+            adapter.scrollToPositionCallback = this
             streamerListOffline.adapter = adapter
         }
 
-        fun updateRecyclerViews(isLive: Boolean, sortBy: String ="") {
+        fun updateRecyclerViews(isLive: Boolean, sortBy: String = "") {
             val streamerList =
-            if (isLive) {
-                binding.rvStreamerOnline.visibility = View.VISIBLE
-                binding.rvStreamerOffline.visibility = View.GONE
-                binding.btnStreamersLive.isEnabled = false
-                binding.btnStreamersOffline.isEnabled = true
-            } else {
-                binding.rvStreamerOnline.visibility = View.GONE
-                binding.rvStreamerOffline.visibility = View.VISIBLE
-                binding.btnStreamersLive.isEnabled = true
-                binding.btnStreamersOffline.isEnabled = false
-            }
+                if (isLive) {
+                    binding.rvStreamerOnline.visibility = View.VISIBLE
+                    binding.rvStreamerOffline.visibility = View.GONE
+                    binding.btnStreamersLive.isEnabled = false
+                    binding.btnStreamersOffline.isEnabled = true
+                } else {
+                    binding.rvStreamerOnline.visibility = View.GONE
+                    binding.rvStreamerOffline.visibility = View.VISIBLE
+                    binding.btnStreamersLive.isEnabled = true
+                    binding.btnStreamersOffline.isEnabled = false
+                }
 
         }
 
@@ -237,7 +237,8 @@ class HomeFragment : Fragment() {
 
                         filterOptionsFilter[4] -> {
                             sortedStreamersLive = datasetLive.sortedByDescending { it.ic_name }
-                            sortedStreamersOffline = datasetOffline.sortedByDescending { it.ic_name }
+                            sortedStreamersOffline =
+                                datasetOffline.sortedByDescending { it.ic_name }
                         }
 
                         filterOptionsFilter[5] -> {
@@ -247,23 +248,22 @@ class HomeFragment : Fragment() {
 
                         filterOptionsFilter[6] -> {
                             sortedStreamersLive = datasetLive.sortedByDescending { it.fraktion }
-                            sortedStreamersOffline = datasetOffline.sortedByDescending { it.fraktion }
+                            sortedStreamersOffline =
+                                datasetOffline.sortedByDescending { it.fraktion }
                         }
                     }
+
                     /** Aktualisiert den Adapter mit sortedStreamersLive/Offline  */
                     val adapterLive = LiveAdapter(sortedStreamersLive, viewModel)
                     streamerListLive.adapter = adapterLive
-                    val currentLivePosition = gridLayoutManagerLive.findFirstVisibleItemPosition()
-                    binding.rvStreamerOnline.scrollToPosition(currentLivePosition)
-                    streamerListLive.scrollToPosition(currentLivePosition)
-                    adapterLive.notifyItemChanged(position)
 
                     val adapterOffline = OfflineAdapter(sortedStreamersOffline, viewModel)
+                    adapterOffline.scrollToPositionCallback = this@HomeFragment
+
                     streamerListOffline.adapter = adapterOffline
-                    val currentOfflinePosition = gridLayoutManagerOffline.findFirstVisibleItemPosition()
-                    binding.rvStreamerOnline.scrollToPosition(currentOfflinePosition)
-                    streamerListOffline.scrollToPosition(currentLivePosition)
-                    adapterOffline.notifyItemChanged(position)
+
+                    binding.rvStreamerOnline.scrollToPosition(position)
+                    binding.rvStreamerOffline.scrollToPosition(position)
                 }
             }
 
@@ -271,9 +271,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun scrollToPosition(position: Int) {
-        binding.rvStreamerOnline.scrollToPosition(position)
-        binding.rvStreamerOffline.scrollToPosition(position)
+    override fun scrollToPosition(position: Int) {
+        val layoutManager = binding.rvStreamerOffline.layoutManager as LinearLayoutManager
+        layoutManager.scrollToPositionWithOffset(position, 0)
     }
-
 }
+
