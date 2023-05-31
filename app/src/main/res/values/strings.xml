@@ -8,8 +8,8 @@
 
     <string name="app_description_line3">Ganz einfach: Die Internetseite ist zwar sehr hilfreich und nützlich, diese ist aber leider nicht für die Nutzung eines Smartphones/Tablets konzipiert. Und deshalb nehme ich das nun selbst in die Hand.</string>
 
-    <string name="players_online">online:</string>
-    <string name="online_players_number">${players_online}</string>
+    <string name="players_live">live:</string>
+    <string name="live_players_number">${players_online}</string>
     <string name="suchbegriff">Suchbegriff</string>
     <string name="sort_button">Sortieren</string>
 

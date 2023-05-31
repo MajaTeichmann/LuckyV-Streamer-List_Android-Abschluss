@@ -1,14 +1,12 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.offline
 
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
@@ -21,6 +19,21 @@ class OfflineAdapter(
     private val viewModel: MainViewModel
 ) : RecyclerView.Adapter<OfflineAdapter.ItemViewHolder>() {
 
+    init{
+        setHasStableIds(true)
+    }
+
+    interface ScrollToPositionCallback {
+        fun scrollToPosition(position: Int)
+    }
+
+    var scrollToPositionCallback: ScrollToPositionCallback? = null
+
+    override fun getItemId(position: Int):Long{
+        // Gib den Namen des Streamers als ID zurück
+        return dataset[position].name.hashCode().toLong()
+    }
+
     /** der ViewHolder umfasst die View und stellt einen Listeneintrag dar */
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
@@ -28,6 +41,10 @@ class OfflineAdapter(
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
         val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
+
+        fun getAdapterPositionInRecyclerView(): Int{
+            return bindingAdapterPosition
+        }
     }
 
     /** hier werden neue ViewHolder erstellt */
@@ -99,9 +116,24 @@ class OfflineAdapter(
 
         /** Button-Click-Listener */
         holder.like.setOnClickListener {
-            streamer.favorisiert = !streamer.favorisiert
 
+            val adapterPositionInRecyclerView = holder.getAdapterPositionInRecyclerView()
+            val streamer = dataset[adapterPositionInRecyclerView]
+
+            streamer.favorisiert = !streamer.favorisiert
             viewModel.updateStreamer(streamer)
+
+            // Scrollen zur gewünschten Position
+            scrollToPositionCallback?.scrollToPosition(adapterPositionInRecyclerView)
+
+            //homefragmentmanager -> homefragment -> funktion
+
+//            val homeFragment = viewModel.getHomeFragment()
+//            homeFragment?.scrollToPosition(adapterPositionInRecyclerView)
+//
+//            // Rufen Sie die Callback-Funktion auf, um zur gewünschten Position zu scrollen
+//            scrollToPositionCallback?.scrollToPosition(adapterPositionInRecyclerView)
+
         }
     }
 }
