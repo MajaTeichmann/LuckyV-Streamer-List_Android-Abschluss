@@ -19,7 +19,7 @@ class OfflineAdapter(
     private val viewModel: MainViewModel
 ) : RecyclerView.Adapter<OfflineAdapter.ItemViewHolder>() {
 
-    init{
+    init {
         setHasStableIds(true)
     }
 
@@ -29,7 +29,7 @@ class OfflineAdapter(
 
     var scrollToPositionCallback: ScrollToPositionCallback? = null
 
-    override fun getItemId(position: Int):Long{
+    override fun getItemId(position: Int): Long {
         // Gib den Namen des Streamers als ID zurück
         return dataset[position].name.hashCode().toLong()
     }
@@ -42,7 +42,7 @@ class OfflineAdapter(
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
         val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
 
-        fun getAdapterPositionInRecyclerView(): Int{
+        fun getAdapterPositionInRecyclerView(): Int {
             return bindingAdapterPosition
         }
     }
@@ -125,15 +125,6 @@ class OfflineAdapter(
 
             // Scrollen zur gewünschten Position
             scrollToPositionCallback?.scrollToPosition(adapterPositionInRecyclerView)
-
-            //homefragmentmanager -> homefragment -> funktion
-
-//            val homeFragment = viewModel.getHomeFragment()
-//            homeFragment?.scrollToPosition(adapterPositionInRecyclerView)
-//
-//            // Rufen Sie die Callback-Funktion auf, um zur gewünschten Position zu scrollen
-//            scrollToPositionCallback?.scrollToPosition(adapterPositionInRecyclerView)
-
         }
     }
 }

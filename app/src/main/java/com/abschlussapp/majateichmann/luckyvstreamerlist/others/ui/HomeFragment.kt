@@ -19,10 +19,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+
+private var dropdownPosition: Int = 0
 
 class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
 
@@ -36,6 +39,10 @@ class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
     private var datasetOffline: List<Streamer> = emptyList()
     private var sortedStreamersLive: List<Streamer> = emptyList()
     private var sortedStreamersOffline: List<Streamer> = emptyList()
+
+    // Deklariere eine Variable, um den aktuellen Scroll-Zustand zu speichern
+    private var scrollPositionLive: Int = 0
+    private var scrollPositionOffline: Int = 0
 
     /** Lifecycle Funktion onCreateView
      * Hier wird das binding initialisiert und das Layout gebaut */
@@ -80,6 +87,9 @@ class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
             binding.tvNumberPlayersOnline.text = streamers.size.toString()
             val adapter = LiveAdapter(datasetLive, viewModel)
             streamerListLive.adapter = adapter
+
+            // Stelle den vorherigen Scroll-Zustand wieder her
+            streamerListLive.scrollToPosition(scrollPositionLive)
         }
 
         /** Die Variable streamer wird beobachtet und bei einer Änderung wird der OfflineAdapter der
@@ -92,21 +102,23 @@ class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
             val adapter = OfflineAdapter(datasetOffline, viewModel)
             adapter.scrollToPositionCallback = this
             streamerListOffline.adapter = adapter
+
+            // Stelle den vorherigen Scroll-Zustand wieder her
+            streamerListOffline.scrollToPosition(scrollPositionOffline)
         }
 
-        fun updateRecyclerViews(isLive: Boolean, sortBy: String = "") {
-            val streamerList =
-                if (isLive) {
-                    binding.rvStreamerOnline.visibility = View.VISIBLE
-                    binding.rvStreamerOffline.visibility = View.GONE
-                    binding.btnStreamersLive.isEnabled = false
-                    binding.btnStreamersOffline.isEnabled = true
-                } else {
-                    binding.rvStreamerOnline.visibility = View.GONE
-                    binding.rvStreamerOffline.visibility = View.VISIBLE
-                    binding.btnStreamersLive.isEnabled = true
-                    binding.btnStreamersOffline.isEnabled = false
-                }
+        fun updateRecyclerViews(isLive: Boolean) {
+            if (isLive) {
+                binding.rvStreamerOnline.visibility = View.VISIBLE
+                binding.rvStreamerOffline.visibility = View.GONE
+                binding.btnStreamersLive.isEnabled = false
+                binding.btnStreamersOffline.isEnabled = true
+            } else {
+                binding.rvStreamerOnline.visibility = View.GONE
+                binding.rvStreamerOffline.visibility = View.VISIBLE
+                binding.btnStreamersLive.isEnabled = true
+                binding.btnStreamersOffline.isEnabled = false
+            }
 
         }
 
@@ -216,6 +228,8 @@ class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
                 position: Int,
                 id: Long
             ) {
+                dropdownPosition = position
+
                 val selectedOption = dropdownSort.selectedItem.toString()
 
                 if (dropdownSort.visibility == View.VISIBLE) {
@@ -265,6 +279,7 @@ class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
                     binding.rvStreamerOnline.scrollToPosition(position)
                     binding.rvStreamerOffline.scrollToPosition(position)
                 }
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -274,6 +289,34 @@ class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
     override fun scrollToPosition(position: Int) {
         val layoutManager = binding.rvStreamerOffline.layoutManager as LinearLayoutManager
         layoutManager.scrollToPositionWithOffset(position, 0)
+        binding.rvStreamerOffline.postDelayed({
+            layoutManager.findViewByPosition(position)?.let { view ->
+                val emptyState = RecyclerView.State()
+                val currentScrollOffset = layoutManager.computeVerticalScrollOffset(emptyState)
+                val targetScrollOffset = position * view.height
+                val scrollDifference = targetScrollOffset - currentScrollOffset
+                binding.rvStreamerOffline.smoothScrollBy(0, scrollDifference)
+            }
+        }, 100)
+    }
+
+    /** Die Funktion onSaveInstanceState wird überschrieben um den aktuellen Scroll-Zustand
+     * der RecyclerViews zu speichern. */
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        scrollPositionLive = (binding.rvStreamerOnline.layoutManager as LinearLayoutManager)
+            .findFirstVisibleItemPosition()
+        scrollPositionOffline = (binding.rvStreamerOffline.layoutManager as LinearLayoutManager)
+            .findFirstVisibleItemPosition()
+    }
+
+    /** Die Funktion onViewStateRestored wird überschrieben um den vorherigen Scroll-Zustand
+     * der RecyclerViews wiederherzustellen. */
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            scrollPositionLive = savedInstanceState.getInt("scrollPositionLive")
+            scrollPositionOffline = savedInstanceState.getInt("scrollPositionOffline")
+        }
     }
 }
-
