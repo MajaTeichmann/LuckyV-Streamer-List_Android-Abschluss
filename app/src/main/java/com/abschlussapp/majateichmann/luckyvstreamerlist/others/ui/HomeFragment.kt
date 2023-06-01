@@ -29,7 +29,7 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.
 //todo: Listadapter
 private var dropdownPosition: Int = 0
 
-class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
+class HomeFragment : Fragment() {
 
     /** Hier wird das ViewModel, in dem die Logik stattfindet, geholt */
     private val viewModel: MainViewModel by activityViewModels()
@@ -94,19 +94,16 @@ class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
             streamerListLive.scrollToPosition(scrollPositionLive)
         }
 
+        val adapterOffline = OfflineAdapter(viewModel)
+        streamerListOffline.adapter = adapterOffline
+
         /** Die Variable streamer wird beobachtet und bei einer Änderung wird der OfflineAdapter der
          * Recyclerview neu gesetzt */
         viewModel.streamersOffline.observe(
             viewLifecycleOwner
         ) { streamers ->
             datasetOffline = streamers
-
-            val adapter = OfflineAdapter(datasetOffline, viewModel)
-            adapter.scrollToPositionCallback = this
-            streamerListOffline.adapter = adapter
-
-            // Stelle den vorherigen Scroll-Zustand wieder her
-            streamerListOffline.scrollToPosition(scrollPositionOffline)
+            adapterOffline.submitList(datasetOffline)
         }
 
         fun updateRecyclerViews(isLive: Boolean) {
@@ -273,11 +270,6 @@ class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
                     val adapterLive = LiveAdapter(sortedStreamersLive, viewModel)
                     streamerListLive.adapter = adapterLive
 
-                    val adapterOffline = OfflineAdapter(sortedStreamersOffline, viewModel)
-                    adapterOffline.scrollToPositionCallback = this@HomeFragment
-
-                    streamerListOffline.adapter = adapterOffline
-
                     binding.rvStreamerOnline.scrollToPosition(position)
                     binding.rvStreamerOffline.scrollToPosition(position)
                 }
@@ -288,19 +280,19 @@ class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
         }
     }
 
-    override fun scrollToPosition(position: Int) {
-        val layoutManager = binding.rvStreamerOffline.layoutManager as LinearLayoutManager
-        layoutManager.scrollToPositionWithOffset(position, 0)
-        binding.rvStreamerOffline.postDelayed({
-            layoutManager.findViewByPosition(position)?.let { view ->
-                val emptyState = RecyclerView.State()
-                val currentScrollOffset = layoutManager.computeVerticalScrollOffset(emptyState)
-                val targetScrollOffset = position * view.height
-                val scrollDifference = targetScrollOffset - currentScrollOffset
-                binding.rvStreamerOffline.smoothScrollBy(0, scrollDifference)
-            }
-        }, 100)
-    }
+//    override fun scrollToPosition(position: Int) {
+//        val layoutManager = binding.rvStreamerOffline.layoutManager as LinearLayoutManager
+//        layoutManager.scrollToPositionWithOffset(position, 0)
+//        binding.rvStreamerOffline.postDelayed({
+//            layoutManager.findViewByPosition(position)?.let { view ->
+//                val emptyState = RecyclerView.State()
+//                val currentScrollOffset = layoutManager.computeVerticalScrollOffset(emptyState)
+//                val targetScrollOffset = position * view.height
+//                val scrollDifference = targetScrollOffset - currentScrollOffset
+//                binding.rvStreamerOffline.smoothScrollBy(0, scrollDifference)
+//            }
+//        }, 100)
+//    }
 
     /** Die Funktion onSaveInstanceState wird überschrieben um den aktuellen Scroll-Zustand
      * der RecyclerViews zu speichern. */
