@@ -19,6 +19,18 @@
     <string name="platzhalter">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
     <string name="favorites">Favorites</string>
 
+    <string name="settings_de_language">Sprache</string>
+    <string name="settings_de_language_deutsch">deutsch</string>
+    <string name="settings_de_language_englisch">englisch</string>
+
+    <string name="settings_en_language">Language</string>
+    <string name="settings_en_language_german">german</string>
+    <string name="settings_en_language_english">english</string>
+
+    <string name="settings_mode">Mode</string>
+    <string name="settings_mode_light">lightmode</string>
+    <string name="settings_mode_dark">darkmode</string>
+
 </resources>
 
 <!--LuckyV (link) ist ein deutscher Grand Theft Auto V (kurz GTAV) Hardcore Roleplay (kurz RP) Server, welcher am 15. Mai 2023 seinen 3. Geburtstag feiert.-->

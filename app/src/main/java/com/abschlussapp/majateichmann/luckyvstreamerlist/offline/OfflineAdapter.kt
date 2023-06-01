@@ -7,19 +7,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.StreamerDiffUtil
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
 /** Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling */
 class OfflineAdapter(
-    private val dataset: List<Streamer>,
     private val viewModel: MainViewModel
-) : RecyclerView.Adapter<OfflineAdapter.ItemViewHolder>() {
+) : ListAdapter<Streamer, OfflineAdapter.ItemViewHolder>(StreamerDiffUtil()) {
 
-    init{
+    init {
         setHasStableIds(true)
     }
 
@@ -29,9 +30,9 @@ class OfflineAdapter(
 
     var scrollToPositionCallback: ScrollToPositionCallback? = null
 
-    override fun getItemId(position: Int):Long{
+    override fun getItemId(position: Int): Long {
         // Gib den Namen des Streamers als ID zurück
-        return dataset[position].name.hashCode().toLong()
+        return currentList[position].name.hashCode().toLong()
     }
 
     /** der ViewHolder umfasst die View und stellt einen Listeneintrag dar */
@@ -42,7 +43,7 @@ class OfflineAdapter(
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
         val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
 
-        fun getAdapterPositionInRecyclerView(): Int{
+        fun getAdapterPositionInRecyclerView(): Int {
             return bindingAdapterPosition
         }
     }
@@ -55,17 +56,13 @@ class OfflineAdapter(
         return ItemViewHolder(itemLayout)
     }
 
-    /** damit der LayoutManager weiß, wie lang die Liste ist */
-    override fun getItemCount(): Int {
-        return dataset.size
-    }
 
     /** hier findet der Recyclingprozess statt
      * Die vom ViewHolder bereitgestellten Parameter erhalten die Information des Listeneintrags */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         /** streamer aus dem dataset holen */
-        var streamer = dataset[position]
+        var streamer = currentList[position]
 
         if (streamer.favorisiert) {
             holder.like.setBackgroundResource(R.drawable.red_heart)
@@ -118,22 +115,13 @@ class OfflineAdapter(
         holder.like.setOnClickListener {
 
             val adapterPositionInRecyclerView = holder.getAdapterPositionInRecyclerView()
-            val streamer = dataset[adapterPositionInRecyclerView]
+            val streamer = currentList[adapterPositionInRecyclerView]
 
             streamer.favorisiert = !streamer.favorisiert
             viewModel.updateStreamer(streamer)
 
             // Scrollen zur gewünschten Position
             scrollToPositionCallback?.scrollToPosition(adapterPositionInRecyclerView)
-
-            //homefragmentmanager -> homefragment -> funktion
-
-//            val homeFragment = viewModel.getHomeFragment()
-//            homeFragment?.scrollToPosition(adapterPositionInRecyclerView)
-//
-//            // Rufen Sie die Callback-Funktion auf, um zur gewünschten Position zu scrollen
-//            scrollToPositionCallback?.scrollToPosition(adapterPositionInRecyclerView)
-
         }
     }
 }
