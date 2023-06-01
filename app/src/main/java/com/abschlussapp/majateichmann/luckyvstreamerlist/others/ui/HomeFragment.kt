@@ -25,6 +25,8 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
+
+//todo: Listadapter
 private var dropdownPosition: Int = 0
 
 class HomeFragment : Fragment(), OfflineAdapter.ScrollToPositionCallback {
