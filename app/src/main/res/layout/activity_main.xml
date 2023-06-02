@@ -39,6 +39,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
+
 <!--            app:textColorDay="@{viewModel.isDayTheme ? @color/luckyv_black : @color/luckyv_white}"-->
 
             <ImageView
