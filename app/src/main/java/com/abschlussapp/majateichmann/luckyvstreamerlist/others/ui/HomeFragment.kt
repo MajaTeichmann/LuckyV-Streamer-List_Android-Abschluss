@@ -19,14 +19,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 
-
-//todo: Listadapter
 private var dropdownPosition: Int = 0
 
 class HomeFragment : Fragment() {
@@ -69,16 +66,20 @@ class HomeFragment : Fragment() {
 
         /** GridLayoutManger für die RecyclerViews erstellen */
         val gridLayoutManagerLive = GridLayoutManager(requireContext(), 3)
-        val gridLayoutManagerOffline = GridLayoutManager(requireContext(), 3)
         gridLayoutManagerLive.isAutoMeasureEnabled = true
-        gridLayoutManagerOffline.isAutoMeasureEnabled = true
         streamerListLive.layoutManager = gridLayoutManagerLive
+
+        val gridLayoutManagerOffline = GridLayoutManager(requireContext(), 3)
+        gridLayoutManagerOffline.isAutoMeasureEnabled = true
         streamerListOffline.layoutManager = gridLayoutManagerOffline
 
         /** Bei einem Klick auf btnRefresh sollen die Informationen erneut abgerufen werden */
         binding.btnRefresh.setOnClickListener {
             viewModel.loadData()
         }
+
+        val adapterLive = LiveAdapter(viewModel)
+        streamerListLive.adapter = adapterLive
 
         /** Die Variable streamer wird beobachtet und bei einer Änderung wird der LiveAdapter der
          * Recyclerview neu gesetzt */
@@ -87,11 +88,7 @@ class HomeFragment : Fragment() {
         ) { streamers ->
             datasetLive = streamers
             binding.tvNumberPlayersOnline.text = streamers.size.toString()
-            val adapter = LiveAdapter(datasetLive, viewModel)
-            streamerListLive.adapter = adapter
-
-            // Stelle den vorherigen Scroll-Zustand wieder her
-            streamerListLive.scrollToPosition(scrollPositionLive)
+            adapterLive.submitList(datasetLive)
         }
 
         val adapterOffline = OfflineAdapter(viewModel)
@@ -266,10 +263,6 @@ class HomeFragment : Fragment() {
                         }
                     }
 
-                    /** Aktualisiert den Adapter mit sortedStreamersLive/Offline  */
-                    val adapterLive = LiveAdapter(sortedStreamersLive, viewModel)
-                    streamerListLive.adapter = adapterLive
-
                     binding.rvStreamerOnline.scrollToPosition(position)
                     binding.rvStreamerOffline.scrollToPosition(position)
                 }
@@ -279,20 +272,6 @@ class HomeFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
-
-//    override fun scrollToPosition(position: Int) {
-//        val layoutManager = binding.rvStreamerOffline.layoutManager as LinearLayoutManager
-//        layoutManager.scrollToPositionWithOffset(position, 0)
-//        binding.rvStreamerOffline.postDelayed({
-//            layoutManager.findViewByPosition(position)?.let { view ->
-//                val emptyState = RecyclerView.State()
-//                val currentScrollOffset = layoutManager.computeVerticalScrollOffset(emptyState)
-//                val targetScrollOffset = position * view.height
-//                val scrollDifference = targetScrollOffset - currentScrollOffset
-//                binding.rvStreamerOffline.smoothScrollBy(0, scrollDifference)
-//            }
-//        }, 100)
-//    }
 
     /** Die Funktion onSaveInstanceState wird überschrieben um den aktuellen Scroll-Zustand
      * der RecyclerViews zu speichern. */

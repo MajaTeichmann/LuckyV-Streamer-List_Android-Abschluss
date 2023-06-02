@@ -24,12 +24,6 @@ class OfflineAdapter(
         setHasStableIds(true)
     }
 
-    interface ScrollToPositionCallback {
-        fun scrollToPosition(position: Int)
-    }
-
-    var scrollToPositionCallback: ScrollToPositionCallback? = null
-
     override fun getItemId(position: Int): Long {
         // Gib den Namen des Streamers als ID zurück
         return currentList[position].name.hashCode().toLong()
@@ -56,33 +50,32 @@ class OfflineAdapter(
         return ItemViewHolder(itemLayout)
     }
 
-
     /** hier findet der Recyclingprozess statt
      * Die vom ViewHolder bereitgestellten Parameter erhalten die Information des Listeneintrags */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         /** streamer aus dem dataset holen */
-        var streamer = currentList[position]
+        val streamerList = currentList[position]
 
-        if (streamer.favorisiert) {
+        if (streamerList.favorisiert) {
             holder.like.setBackgroundResource(R.drawable.red_heart)
         } else {
             holder.like.setBackgroundResource(R.drawable.grey_heart)
         }
 
-        if (!streamer.live) {
-            holder.tvStreamername.text = streamer.name
-            holder.tvCharname.text = streamer.ic_name
+        if (!streamerList.live) {
+            holder.tvStreamername.text = streamerList.name
+            holder.tvCharname.text = streamerList.ic_name
         }
 
         /** falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string */
-        if (streamer.fraktion == null) {
+        if (streamerList.fraktion == null) {
             holder.tvFraktion.visibility = View.GONE
         }
 
         /** befülle textview mit wert aus übergebener variable (aus API) */
         val fraktion = holder.tvFraktion
-        fraktion.text = streamer.fraktion
+        fraktion.text = streamerList.fraktion
 
         /** falls der string im textview zu lang ist, um in eine zeile zu passen,
          * kürze ihn am ende mit "..." ab */
@@ -90,22 +83,22 @@ class OfflineAdapter(
         fraktion.maxLines = 1
         fraktion.isSingleLine = true
 
-        if (streamer.ic_name == null) {
+        if (streamerList.ic_name == null) {
             holder.tvCharname.visibility = View.GONE
         }
 
         val icName = holder.tvCharname
-        icName.text = streamer.ic_name
+        icName.text = streamerList.ic_name
 
         icName.ellipsize = TextUtils.TruncateAt.END
         icName.maxLines = 1
         icName.isSingleLine = true
 
         /** Logo-URL Laden */
-        holder.ivStreamVorschau.load(streamer.logo_url)
+        holder.ivStreamVorschau.load(streamerList.logo_url)
 
         val streamerName = holder.tvStreamername
-        streamerName.text = streamer.name
+        streamerName.text = streamerList.name
 
         streamerName.ellipsize = TextUtils.TruncateAt.END
         streamerName.maxLines = 1
@@ -115,13 +108,12 @@ class OfflineAdapter(
         holder.like.setOnClickListener {
 
             val adapterPositionInRecyclerView = holder.getAdapterPositionInRecyclerView()
-            val streamer = currentList[adapterPositionInRecyclerView]
+            val streamerPosition = currentList[adapterPositionInRecyclerView]
 
-            streamer.favorisiert = !streamer.favorisiert
-            viewModel.updateStreamer(streamer)
+            streamerPosition.favorisiert = !streamerPosition.favorisiert
+            viewModel.updateStreamer(streamerPosition)
 
-            // Scrollen zur gewünschten Position
-            scrollToPositionCallback?.scrollToPosition(adapterPositionInRecyclerView)
+            notifyItemChanged(position)
         }
     }
 }

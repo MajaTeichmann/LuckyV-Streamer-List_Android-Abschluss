@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentFavoritesBinding
@@ -22,14 +23,18 @@ class FavoritesFragment : Fragment() {
     private lateinit var favoritesLiveAdapter: FavoritesLiveAdapter
     private lateinit var favoritesOfflineAdapter: FavoritesOfflineAdapter
 
-    /** Liste der Streamer initialisieren */
-    private lateinit var dataset: List<Streamer>
+    // Deklariere eine Variable, um den aktuellen Scroll-Zustand zu speichern
+    private var scrollPositionLive: Int = 0
+    private var scrollPositionOffline: Int = 0
+
+    /** ViewModel, in dem die Logik stattfindet */
+    private val viewModel: MainViewModel by activityViewModels()
 
     /** Das binding für das HomeFragment wird deklariert */
     private lateinit var binding: FragmentFavoritesBinding
 
-    /** ViewModel, in dem die Logik stattfindet */
-    private val viewModel: MainViewModel by activityViewModels()
+    /** Liste der Streamer initialisieren */
+    private lateinit var dataset: List<Streamer>
 
     /** Lifecycle Funktion onCreateView
      * Hier wird das binding initialisiert und das Layout gebaut */
@@ -40,10 +45,11 @@ class FavoritesFragment : Fragment() {
     ): View? {
 
         binding = FragmentFavoritesBinding.inflate(inflater, container, false)
-        val view = binding.root
 
         /** ViewModel initialisieren */
         val viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+
+        val view = binding.root
 
         /** RecyclerView initialisieren*/
         recyclerViewLive = view.findViewById(R.id.rv_streamer_online)
@@ -55,18 +61,11 @@ class FavoritesFragment : Fragment() {
         viewModel.streamersOnline.observe(viewLifecycleOwner) { streamers ->
             dataset = streamers
 
-            /** streamersList filtern */
-            val filteredListLive =
-                dataset.filter { (it.live && it.favorisiert) }
-
-            val filteredListOffline =
-                dataset.filter { (!it.live && it.favorisiert) }
-
             /** favoritesAdapter mit gefilteter Liste initialisieren */
-            favoritesLiveAdapter = FavoritesLiveAdapter(filteredListLive, viewModel)
+            favoritesLiveAdapter = FavoritesLiveAdapter(viewModel)
             recyclerViewLive.adapter = favoritesLiveAdapter
 
-            favoritesOfflineAdapter = FavoritesOfflineAdapter(filteredListOffline, viewModel)
+            favoritesOfflineAdapter = FavoritesOfflineAdapter(viewModel)
             recyclerViewOffline.adapter = favoritesOfflineAdapter
         }
 
@@ -84,10 +83,20 @@ class FavoritesFragment : Fragment() {
 
         /** GridLayoutManger für die RecyclerViews erstellen */
         val gridLayoutManagerLive = GridLayoutManager(requireContext(), 3)
+        gridLayoutManagerLive.isAutoMeasureEnabled = true
         favoritesLive.layoutManager = gridLayoutManagerLive
 
         val gridLayoutManagerOffline = GridLayoutManager(requireContext(), 3)
+        gridLayoutManagerOffline.isAutoMeasureEnabled = true
         favoritesOffline.layoutManager = gridLayoutManagerOffline
+
+        /** favoritesAdapter mit gefilteter Liste initialisieren */
+        favoritesLiveAdapter = FavoritesLiveAdapter(viewModel)
+        recyclerViewLive.adapter = favoritesLiveAdapter
+
+        /** favoritesAdapter mit gefilteter Liste initialisieren */
+        favoritesOfflineAdapter = FavoritesOfflineAdapter(viewModel)
+        recyclerViewOffline.adapter = favoritesOfflineAdapter
 
         /** Die Variable streamer wird beobachtet und bei einer Änderung wird der LiveAdapter der
          * Recyclerview neu gesetzt */
@@ -95,23 +104,14 @@ class FavoritesFragment : Fragment() {
             viewLifecycleOwner
         ) { streamers ->
             dataset = streamers
-
-            val filteredListLive = dataset.filter { it.live && it.favorisiert }
-
-            /** favoritesAdapter mit gefilteter Liste initialisieren */
-            favoritesLiveAdapter = FavoritesLiveAdapter(filteredListLive, viewModel)
-            recyclerViewLive.adapter = favoritesLiveAdapter
+            favoritesLiveAdapter.submitList(dataset.filter { it.live && it.favorisiert })
         }
 
         viewModel.streamersOffline.observe(
             viewLifecycleOwner
         ) { streamers ->
             dataset = streamers
-            val filteredListOffline = dataset.filter { !it.live && it.favorisiert }
-
-            /** favoritesAdapter mit gefilteter Liste initialisieren */
-            favoritesOfflineAdapter = FavoritesOfflineAdapter(filteredListOffline, viewModel)
-            recyclerViewOffline.adapter = favoritesOfflineAdapter
+            favoritesOfflineAdapter.submitList(dataset.filter { !it.live && it.favorisiert })
         }
 
         fun updateRecyclerViews(isLive: Boolean) {
@@ -141,5 +141,26 @@ class FavoritesFragment : Fragment() {
 
         /** Verbesserte Performance bei fixer Listengröße */
         favoritesLive.setHasFixedSize(true)
+        favoritesOffline.setHasFixedSize(true)
+    }
+
+    /** Die Funktion onSaveInstanceState wird überschrieben um den aktuellen Scroll-Zustand
+     * der RecyclerViews zu speichern. */
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        scrollPositionLive = (binding.rvStreamerOnline.layoutManager as LinearLayoutManager)
+            .findFirstVisibleItemPosition()
+        scrollPositionOffline = (binding.rvStreamerOffline.layoutManager as LinearLayoutManager)
+            .findFirstVisibleItemPosition()
+    }
+
+    /** Die Funktion onViewStateRestored wird überschrieben um den vorherigen Scroll-Zustand
+     * der RecyclerViews wiederherzustellen. */
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            scrollPositionLive = savedInstanceState.getInt("scrollPositionLive")
+            scrollPositionOffline = savedInstanceState.getInt("scrollPositionOffline")
+        }
     }
 }

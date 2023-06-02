@@ -7,26 +7,27 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.StreamerDiffUtil
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
 
 /** Diese Klasse organisiert mithilfe der ViewHolder Klasse das Recycling */
 class LiveAdapter(
-    private val dataset: List<Streamer>,
     private val viewModel: MainViewModel
-) : RecyclerView.Adapter<LiveAdapter.ItemViewHolder>() {
+) : ListAdapter<Streamer, LiveAdapter.ItemViewHolder>(StreamerDiffUtil()) {
 
     init{
         setHasStableIds(true)
     }
 
-    override fun getItemId(position: Int):Long{
+    override fun getItemId(position: Int): Long{
         // Gib den Namen des Streamers als ID zurück
-        return dataset[position].name.hashCode().toLong()
+        return currentList[position].name.hashCode().toLong()
     }
 
     /** der ViewHolder umfasst die View und stellt einen Listeneintrag dar */
@@ -36,6 +37,10 @@ class LiveAdapter(
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
         val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
+
+        fun getAdapterPositionInRecyclerView(): Int {
+            return bindingAdapterPosition
+        }
     }
 
     /** hier werden neue ViewHolder erstellt */
@@ -46,32 +51,27 @@ class LiveAdapter(
         return ItemViewHolder(itemLayout)
     }
 
-    /** damit der LayoutManager weiß, wie lang die Liste ist */
-    override fun getItemCount(): Int {
-        return dataset.size
-    }
-
     /** hier findet der Recyclingprozess statt.
      * Die vom ViewHolder bereitgestellten Parameter erhalten die Information des Listeneintrags */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         /** streamer aus dem dataset holen */
-        var streamer = dataset[position]
+        val streamerList = currentList[position]
 
-        if (streamer.favorisiert) {
+        if (streamerList.favorisiert) {
             holder.like.setBackgroundResource(R.drawable.red_heart)
         } else {
             holder.like.setBackgroundResource(R.drawable.grey_heart)
         }
 
         /** falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string */
-        if (streamer.fraktion == null) {
+        if (streamerList.fraktion == null) {
             holder.tvFraktion.visibility = View.GONE
         }
 
         /** befülle textview mit wert aus übergebener variable (aus API) */
         val fraktion = holder.tvFraktion
-        fraktion.text = streamer.fraktion
+        fraktion.text = streamerList.fraktion
 
         /** falls der string im textview zu lang ist, um in eine zeile zu passen,
          * kürze ihn am ende mit "..." ab */
@@ -79,22 +79,22 @@ class LiveAdapter(
         fraktion.maxLines = 1
         fraktion.isSingleLine = true
 
-        if (streamer.ic_name == null) {
-            streamer.ic_name = ""
+        if (streamerList.ic_name == null) {
+            holder.tvCharname.visibility = View.GONE
         }
 
         val icName = holder.tvCharname
-        icName.text = streamer.ic_name
+        icName.text = streamerList.ic_name
 
         icName.ellipsize = TextUtils.TruncateAt.END
         icName.maxLines = 1
         icName.isSingleLine = true
 
         /** Logo-URL Laden */
-        holder.ivStreamVorschau.load(streamer.logo_url)
+        holder.ivStreamVorschau.load(streamerList.logo_url)
 
         val streamerName = holder.tvStreamername
-        streamerName.text = streamer.name
+        streamerName.text = streamerList.name
 
         streamerName.ellipsize = TextUtils.TruncateAt.END
         streamerName.maxLines = 1
@@ -102,9 +102,14 @@ class LiveAdapter(
 
         /** Button-Click-Listener */
         holder.like.setOnClickListener {
-            streamer.favorisiert = !streamer.favorisiert
 
-            viewModel.updateStreamer(streamer)
+            val adapterPositionInRecyclerView = holder.getAdapterPositionInRecyclerView()
+            val streamerPosition = currentList[adapterPositionInRecyclerView]
+
+            streamerPosition.favorisiert = !streamerPosition.favorisiert
+            viewModel.updateStreamer(streamerPosition)
+
+            notifyItemChanged(position)
         }
     }
 }
