@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/app_background_light</item>
         <item name="colorPrimaryVariant">@color/luckyv_yellow</item>
-        <item name="colorOnPrimary">@color/luckyv_white</item>
+        <item name="colorOnPrimary">@color/luckyv_black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/luckyv_black</item>
 <!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->

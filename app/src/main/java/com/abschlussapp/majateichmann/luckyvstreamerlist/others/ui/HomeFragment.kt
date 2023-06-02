@@ -277,10 +277,6 @@ class HomeFragment : Fragment() {
      * der RecyclerViews zu speichern. */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        scrollPositionLive = (binding.rvStreamerOnline.layoutManager as LinearLayoutManager)
-            .findFirstVisibleItemPosition()
-        scrollPositionOffline = (binding.rvStreamerOffline.layoutManager as LinearLayoutManager)
-            .findFirstVisibleItemPosition()
     }
 
     /** Die Funktion onViewStateRestored wird überschrieben um den vorherigen Scroll-Zustand
@@ -291,5 +287,9 @@ class HomeFragment : Fragment() {
             scrollPositionLive = savedInstanceState.getInt("scrollPositionLive")
             scrollPositionOffline = savedInstanceState.getInt("scrollPositionOffline")
         }
+        scrollPositionLive = (binding.rvStreamerOnline.layoutManager as LinearLayoutManager)
+            .findFirstVisibleItemPosition()
+        scrollPositionOffline = (binding.rvStreamerOffline.layoutManager as LinearLayoutManager)
+            .findFirstVisibleItemPosition()
     }
 }

@@ -62,10 +62,10 @@ class FavoritesFragment : Fragment() {
             dataset = streamers
 
             /** favoritesAdapter mit gefilteter Liste initialisieren */
-            favoritesLiveAdapter = FavoritesLiveAdapter(viewModel)
+            favoritesLiveAdapter = FavoritesLiveAdapter(viewModel, recyclerViewLive)
             recyclerViewLive.adapter = favoritesLiveAdapter
 
-            favoritesOfflineAdapter = FavoritesOfflineAdapter(viewModel)
+            favoritesOfflineAdapter = FavoritesOfflineAdapter(viewModel, recyclerViewOffline)
             recyclerViewOffline.adapter = favoritesOfflineAdapter
         }
 
@@ -91,11 +91,11 @@ class FavoritesFragment : Fragment() {
         favoritesOffline.layoutManager = gridLayoutManagerOffline
 
         /** favoritesAdapter mit gefilteter Liste initialisieren */
-        favoritesLiveAdapter = FavoritesLiveAdapter(viewModel)
+        favoritesLiveAdapter = FavoritesLiveAdapter(viewModel, recyclerViewLive)
         recyclerViewLive.adapter = favoritesLiveAdapter
 
         /** favoritesAdapter mit gefilteter Liste initialisieren */
-        favoritesOfflineAdapter = FavoritesOfflineAdapter(viewModel)
+        favoritesOfflineAdapter = FavoritesOfflineAdapter(viewModel, recyclerViewOffline)
         recyclerViewOffline.adapter = favoritesOfflineAdapter
 
         /** Die Variable streamer wird beobachtet und bei einer Änderung wird der LiveAdapter der
@@ -148,10 +148,6 @@ class FavoritesFragment : Fragment() {
      * der RecyclerViews zu speichern. */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        scrollPositionLive = (binding.rvStreamerOnline.layoutManager as LinearLayoutManager)
-            .findFirstVisibleItemPosition()
-        scrollPositionOffline = (binding.rvStreamerOffline.layoutManager as LinearLayoutManager)
-            .findFirstVisibleItemPosition()
     }
 
     /** Die Funktion onViewStateRestored wird überschrieben um den vorherigen Scroll-Zustand
@@ -162,5 +158,9 @@ class FavoritesFragment : Fragment() {
             scrollPositionLive = savedInstanceState.getInt("scrollPositionLive")
             scrollPositionOffline = savedInstanceState.getInt("scrollPositionOffline")
         }
+        scrollPositionLive = (binding.rvStreamerOnline.layoutManager as LinearLayoutManager)
+            .findFirstVisibleItemPosition()
+        scrollPositionOffline = (binding.rvStreamerOffline.layoutManager as LinearLayoutManager)
+            .findFirstVisibleItemPosition()
     }
 }

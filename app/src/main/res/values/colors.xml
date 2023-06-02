@@ -2,7 +2,9 @@
 <resources>
     //for text
     <color name="txt_luckyv_yellow">#FFC107</color>
-    <color name="txt_luckyv_black">#000000</color>
+
+    <color name="day_txt_luckyv_black">#000000</color>
+    <color name="night_txt_luckyv_white">#FFFFFF</color>
 
     //for buttons
     <color name="btn_luckyv_white">#FFFFFF</color>

@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="StreamFragment"
-            android:textColor="@color/txt_luckyv_black"
+            android:textColor="@color/day_txt_luckyv_black"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
