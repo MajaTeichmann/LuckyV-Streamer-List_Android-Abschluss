@@ -120,8 +120,7 @@ class OfflineAdapter(
             streamer.favorisiert = !streamer.favorisiert
             viewModel.updateStreamer(streamer)
 
-            // Scrollen zur gewünschten Position
-            scrollToPositionCallback?.scrollToPosition(adapterPositionInRecyclerView)
+            notifyItemChanged(position)
         }
     }
 }
