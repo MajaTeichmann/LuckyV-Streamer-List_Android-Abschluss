@@ -1,6 +1,5 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter
 
-import android.service.autofill.Dataset
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +31,7 @@ class FavoritesLiveAdapter(
     }
 
     // ViewHolder für liveItem
-    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivStreamVorschau: ImageView = itemView.findViewById(R.id.iv_stream_vorschau)
         val tvStreamername: TextView = itemView.findViewById(R.id.tv_streamername)
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)

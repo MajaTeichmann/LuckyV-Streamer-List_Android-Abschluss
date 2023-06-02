@@ -12,12 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentFavoritesBinding
-import com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.FavoritesLiveAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter.FavoritesOfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
-
-private var dropdownPosition: Int = 0
 
 class FavoritesFragment : Fragment() {
 
