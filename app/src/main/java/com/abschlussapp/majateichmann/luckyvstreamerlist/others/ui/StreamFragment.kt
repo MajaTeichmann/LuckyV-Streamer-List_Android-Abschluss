@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.appcompat.widget.Toolbar
-import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentStreamBinding
 

@@ -16,8 +16,11 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
 class FavoritesOfflineAdapter(
-    private val viewModel: MainViewModel
+    private val viewModel: MainViewModel,
+    private val recyclerView: RecyclerView
 ) : ListAdapter<Streamer, FavoritesOfflineAdapter.ItemViewHolder>(StreamerDiffUtil()) {
+
+    private var currentPosition: Int = RecyclerView.NO_POSITION
 
     init {
         setHasStableIds(true)
@@ -35,10 +38,6 @@ class FavoritesOfflineAdapter(
         val tvCharname: TextView = itemView.findViewById(R.id.tv_charname)
         val tvFraktion: TextView = itemView.findViewById(R.id.tv_fraktion)
         val like: AppCompatImageButton = itemView.findViewById(R.id.btn_favorites)
-
-        fun getAdapterPositionInRecyclerView(): Int {
-            return bindingAdapterPosition
-        }
     }
 
     /** Funktion zum Erstellen des richtigen ViewHolders */
@@ -53,7 +52,7 @@ class FavoritesOfflineAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         /** streamer aus dem dataset holen */
-        val streamerList = currentList[position]
+        val streamerList = currentList[holder.adapterPosition]
 
         if (streamerList.favorisiert) {
             holder.like.setBackgroundResource(R.drawable.red_heart)
@@ -102,16 +101,21 @@ class FavoritesOfflineAdapter(
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
 
+        currentPosition = holder.adapterPosition
+
         /** Button-Click-Listener */
         holder.like.setOnClickListener {
-
-            val adapterPositionInRecyclerView = holder.getAdapterPositionInRecyclerView()
-            val streamerPosition = currentList[adapterPositionInRecyclerView]
+            val streamerPosition = currentList[holder.adapterPosition]
 
             streamerPosition.favorisiert = !streamerPosition.favorisiert
             viewModel.updateStreamer(streamerPosition)
 
-            notifyItemChanged(position)
+            notifyItemChanged(holder.adapterPosition)
+
+            // RecyclerView an der aktuellen Position halten
+            if (currentPosition != RecyclerView.NO_POSITION) {
+                recyclerView.scrollToPosition(currentPosition)
+            }
         }
     }
 }
