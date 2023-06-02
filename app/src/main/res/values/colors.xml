@@ -7,9 +7,11 @@
     <color name="night_txt_luckyv_white">#FFFFFF</color>
 
     //for buttons
-    <color name="btn_luckyv_white">#FFFFFF</color>
-    <color name="btn_luckyv_yellow">#FFC107</color>
-    <color name="btn_luckyv_green">#89C31D</color>
+    <color name="day_btn_luckyv_yellow">#FFC107</color>
+    <color name="day_btn_luckyv_black">#000000</color>
+
+    <color name="night_btn_luckyv_yellow">#FFC107</color>
+    <color name="night_btn_luckyv_grey">#5A5A5A</color>
 
     //background
     <color name="app_background_light">#FFFFFF</color>
