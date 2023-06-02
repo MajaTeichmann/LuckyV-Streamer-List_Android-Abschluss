@@ -24,12 +24,6 @@ class OfflineAdapter(
         setHasStableIds(true)
     }
 
-    interface ScrollToPositionCallback {
-        fun scrollToPosition(position: Int)
-    }
-
-    var scrollToPositionCallback: ScrollToPositionCallback? = null
-
     override fun getItemId(position: Int): Long {
         // Gib den Namen des Streamers als ID zurück
         return currentList[position].name.hashCode().toLong()
@@ -55,7 +49,6 @@ class OfflineAdapter(
 
         return ItemViewHolder(itemLayout)
     }
-
 
     /** hier findet der Recyclingprozess statt
      * Die vom ViewHolder bereitgestellten Parameter erhalten die Information des Listeneintrags */
