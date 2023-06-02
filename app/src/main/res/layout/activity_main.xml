@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,6 +39,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
+<!--            app:textColorDay="@{viewModel.isDayTheme ? @color/luckyv_black : @color/luckyv_white}"-->
 
             <ImageView
                 android:id="@+id/iv_luckyv_logo"

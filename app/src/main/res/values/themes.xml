@@ -12,5 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColorLink">@color/luckyv_black</item>
+        <item name="android:textColor">@color/luckyv_black</item>
     </style>
 </resources>
