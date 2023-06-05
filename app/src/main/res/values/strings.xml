@@ -1,17 +1,33 @@
 <resources>
-    <string name="app_name">LuckyV Streamer List</string>
-    <string name="header_favo">Favoriten</string>
-    <string name="header_settings">Einstellungen</string>
+    //deutsch
+    <string name="de_app_name">LuckyV Streamer List</string>
+    <string name="de_header_favo">Favoriten</string>
+    <string name="de_header_settings">Einstellungen</string>
 
-    <string name="app_description_line1">Bei dieser App handelt es sich um die App-Version einer <b>bereits existierenden Internetseite</b> https://luckyv-streamer.frozenpenguin.media/ (link), welche alle Spieler auflistet, die ihr LuckyV RP auf Twitch streamen. Erstellt wurde diese Internetseite, weil die Suchfunktion auf Twitch in 99% der Fälle nicht hilfreich ist, Streamer, die aktuell Content auf LuckyV streamen, zu finden.</string>
-    <string name="app_description_line2"><b><u>Warum dann noch eine App bauen, die genau das gleiche macht?</u></b></string>
+    <string name="de_app_description_line1">Bei dieser App handelt es sich um die App-Version einer <b>bereits existierenden Internetseite</b> https://luckyv-streamer.frozenpenguin.media/ (link), welche alle Spieler auflistet, die ihr LuckyV RP auf Twitch streamen. Erstellt wurde diese Internetseite, weil die Suchfunktion auf Twitch in 99% der Fälle nicht hilfreich ist, Streamer, die aktuell Content auf LuckyV streamen, zu finden.</string>
+    <string name="de_app_description_line2"><b><u>Warum dann noch eine App bauen, die genau das gleiche macht?</u></b></string>
 
-    <string name="app_description_line3">Ganz einfach: Die Internetseite ist zwar sehr hilfreich und nützlich, diese ist aber leider nicht für die Nutzung eines Smartphones/Tablets konzipiert. Und deshalb nehme ich das nun selbst in die Hand.</string>
+    <string name="de_app_description_line3">Ganz einfach: Die Internetseite ist zwar sehr hilfreich und nützlich, diese ist aber leider nicht für die Nutzung eines Smartphones/Tablets konzipiert. Und deshalb nehme ich das nun selbst in die Hand.</string>
+
+    <string name="de_suchbegriff">Suchbegriff</string>
+    <string name="de_sort_button">Sortieren</string>
+
+    //englisch
+    <string name="en_app_name">LuckyV Streamer List</string>
+    <string name="en_header_favo">Favorites</string>
+    <string name="en_header_settings">Settings</string>
+
+    <string name="en_app_description_line1">This app is the app version of an <b>already existing website</b> https://luckyv-streamer.frozenpenguin.media/ (link), which lists all players streaming their LuckyV RP on Twitch. This website was created because the search function on Twitch is not helpful in 99% of the cases to find streamers who are currently streaming content on LuckyV.</string>
+    <string name="en_app_description_line2"><b><u>Then why build another app that does exactly the same thing?</u></b></string>
+
+    <string name="en_app_description_line3">Quite simply, the website is very helpful and useful, but unfortunately this is not designed for smartphone/tablet use. And that\'s why I\'m now taking this into my own hands.</string>
+
+    <string name="en_suchbegriff">Search Keyword</string>
+    <string name="en_sort_button">Sort</string>
+
 
     <string name="players_live">live:</string>
     <string name="live_players_number">${players_online}</string>
-    <string name="suchbegriff">Suchbegriff</string>
-    <string name="sort_button">Sortieren</string>
 
     <string name="streamers_live">Streamers live</string>
     <string name="streamers_offline">Streamers offline</string>
