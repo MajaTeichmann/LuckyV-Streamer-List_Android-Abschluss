@@ -43,7 +43,8 @@
     <string name="settings_en_language_german">german</string>
     <string name="settings_en_language_english">english</string>
 
-    <string name="settings_mode">Mode</string>
+    <string name="de_settings_mode">Displaymodus</string>
+    <string name="en_settings_mode">Displaymode</string>
     <string name="settings_mode_light">lightmode</string>
     <string name="settings_mode_dark">darkmode</string>
 

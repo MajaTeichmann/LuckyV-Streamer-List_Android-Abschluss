@@ -16,6 +16,7 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.TAG
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.getDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.HomeFragment
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
