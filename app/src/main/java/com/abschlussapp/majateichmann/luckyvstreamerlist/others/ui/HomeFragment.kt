@@ -1,5 +1,6 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
 
+import android.content.Context
 import com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter
 import android.content.Intent
 import android.graphics.Typeface
@@ -15,11 +16,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
+import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
@@ -291,5 +294,25 @@ class HomeFragment : Fragment() {
             .findFirstVisibleItemPosition()
         scrollPositionOffline = (binding.rvStreamerOffline.layoutManager as LinearLayoutManager)
             .findFirstVisibleItemPosition()
+    }
+
+    fun updateLanguage() {
+        // Aktualisiere die Textfelder in diesem Fragment (SettingsFragment)
+        val sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val language = sharedPreferences.getString("language", "de")
+
+        val headerTextView = requireView().findViewById<TextView>(R.id.tv_header)
+        val displayModusTextView = requireView().findViewById<TextView>(R.id.tv_displayModus)
+        val languageTextView = requireView().findViewById<TextView>(R.id.tv_language)
+
+        if (language == "en") {
+            headerTextView.text = getString(R.string.en_header_settings)
+            displayModusTextView.text = getString(R.string.en_settings_mode)
+            languageTextView.text = getString(R.string.settings_en_language)
+        } else {
+            headerTextView.text = getString(R.string.de_header_settings)
+            displayModusTextView.text = getString(R.string.de_settings_mode)
+            languageTextView.text = getString(R.string.settings_de_language)
+        }
     }
 }
