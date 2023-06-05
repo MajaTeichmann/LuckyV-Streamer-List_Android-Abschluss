@@ -58,17 +58,6 @@ class FavoritesFragment : Fragment() {
         recyclerViewOffline = view.findViewById(R.id.rv_Streamer_offline)
         recyclerViewOffline.layoutManager = GridLayoutManager(context, 3)
 
-        viewModel.streamersOnline.observe(viewLifecycleOwner) { streamers ->
-            dataset = streamers
-
-            /** favoritesAdapter mit gefilteter Liste initialisieren */
-            favoritesLiveAdapter = FavoritesLiveAdapter(viewModel, recyclerViewLive)
-            recyclerViewLive.adapter = favoritesLiveAdapter
-
-            favoritesOfflineAdapter = FavoritesOfflineAdapter(viewModel, recyclerViewOffline)
-            recyclerViewOffline.adapter = favoritesOfflineAdapter
-        }
-
         return view
     }
 

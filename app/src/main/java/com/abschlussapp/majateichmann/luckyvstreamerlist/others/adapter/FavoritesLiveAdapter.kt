@@ -22,8 +22,6 @@ class FavoritesLiveAdapter(
     private val recyclerView: RecyclerView
 ) : ListAdapter<Streamer, FavoritesLiveAdapter.ItemViewHolder>(StreamerDiffUtil()) {
 
-    private var currentPosition: Int = RecyclerView.NO_POSITION
-
     init {
         setHasStableIds(true)
     }
@@ -55,27 +53,27 @@ class FavoritesLiveAdapter(
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         /** streamer aus dem dataset holen */
-        val streamerList = currentList[holder.adapterPosition]
+        val streamer = currentList[position]
 
-        if (streamerList.favorisiert) {
+        if (streamer.favorisiert) {
             holder.like.setBackgroundResource(R.drawable.red_heart)
         } else {
             holder.like.setBackgroundResource(R.drawable.grey_heart)
         }
 
-        if (!streamerList.live) {
-            holder.tvStreamername.text = streamerList.name
-            holder.tvCharname.text = streamerList.ic_name
+        if (!streamer.live) {
+            holder.tvStreamername.text = streamer.name
+            holder.tvCharname.text = streamer.ic_name
         }
 
         /** falls der wert im übergebenen Datensatz null ist, befülle ihn mit leerem string */
-        if (streamerList.fraktion == null) {
+        if (streamer.fraktion == null) {
             holder.tvFraktion.visibility = View.GONE
         }
 
         /** befülle textview mit wert aus übergebener variable (aus API) */
         val fraktion = holder.tvFraktion
-        fraktion.text = streamerList.fraktion
+        fraktion.text = streamer.fraktion
 
         /** falls der string im textview zu lang ist, um in eine zeile zu passen,
          * kürze ihn am ende mit "..." ab */
@@ -83,42 +81,34 @@ class FavoritesLiveAdapter(
         fraktion.maxLines = 1
         fraktion.isSingleLine = true
 
-        if (streamerList.ic_name == null) {
+        if (streamer.ic_name == null) {
             holder.tvCharname.visibility = View.GONE
         }
 
         val icName = holder.tvCharname
-        icName.text = streamerList.ic_name
+        icName.text = streamer.ic_name
 
         icName.ellipsize = TextUtils.TruncateAt.END
         icName.maxLines = 1
         icName.isSingleLine = true
 
         /** Logo-URL Laden */
-        holder.ivStreamVorschau.load(streamerList.logo_url)
+        holder.ivStreamVorschau.load(streamer.logo_url)
 
         val streamerName = holder.tvStreamername
-        streamerName.text = streamerList.name
+        streamerName.text = streamer.name
 
         streamerName.ellipsize = TextUtils.TruncateAt.END
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
 
-        currentPosition = holder.adapterPosition
-
         /** Button-Click-Listener */
         holder.like.setOnClickListener {
-            val streamerPosition = currentList[holder.adapterPosition]
 
-            streamerPosition.favorisiert = !streamerPosition.favorisiert
-            viewModel.updateStreamer(streamerPosition)
+            streamer.favorisiert = !streamer.favorisiert
+            viewModel.updateStreamer(streamer)
 
-            notifyItemChanged(holder.adapterPosition)
-
-            // RecyclerView an der aktuellen Position halten
-            if (currentPosition != RecyclerView.NO_POSITION) {
-                recyclerView.scrollToPosition(currentPosition)
-            }
+            notifyItemRemoved(holder.bindingAdapterPosition)
         }
     }
 }
