@@ -1,3 +1,5 @@
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
+
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +11,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.PreferenceManager
-import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.HomeFragment
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
@@ -75,13 +76,13 @@ class SettingsFragment : Fragment() {
             requireActivity().supportFragmentManager.findFragmentById(R.id.homeFragment) as HomeFragment?
         homeFragment?.updateLanguage()
 
-        // Aktualisiere die Textfelder in SettingsFragment (dieses Fragment)
+        // Aktualisiere die Textfelder in com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.SettingsFragment (dieses Fragment)
         updateLanguage()
     }
 
 
     private fun updateLanguage() {
-        // Aktualisiere die Textfelder in diesem Fragment (SettingsFragment)
+        // Aktualisiere die Textfelder in diesem Fragment (com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.SettingsFragment)
         val language = PreferenceManager.getLanguagePreference(requireContext())
 
         val headerTextView = requireView().findViewById<TextView>(R.id.tv_header)
