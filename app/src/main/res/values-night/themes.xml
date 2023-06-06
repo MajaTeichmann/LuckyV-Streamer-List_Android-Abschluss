@@ -14,5 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:textColorLink">@color/luckyv_white</item>
         <item name="android:textColor">@color/luckyv_white</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimaryDark</item>
     </style>
 </resources>
