@@ -25,9 +25,9 @@
     <string name="en_suchbegriff">Search Keyword</string>
     <string name="en_sort_button">Sort</string>
 
-
     <string name="players_live">live:</string>
     <string name="live_players_number">${players_online}</string>
+
 
     <string name="streamers_live">Streamers live</string>
     <string name="streamers_offline">Streamers offline</string>
@@ -45,8 +45,10 @@
 
     <string name="de_settings_mode">Displaymodus</string>
     <string name="en_settings_mode">Displaymode</string>
-    <string name="settings_mode_light">lightmode</string>
-    <string name="settings_mode_dark">darkmode</string>
+    <string name="de_settings_mode_light">hell</string>
+    <string name="en_settings_mode_light">lightmode</string>
+    <string name="de_settings_mode_dark">dunkel</string>
+    <string name="en_settings_mode_dark">darkmode</string>
 
 </resources>
 

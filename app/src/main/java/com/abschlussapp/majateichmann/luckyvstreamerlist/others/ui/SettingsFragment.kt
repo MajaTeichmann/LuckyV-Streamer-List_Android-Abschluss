@@ -25,6 +25,45 @@ class SettingsFragment : Fragment() {
     private lateinit var btnGerman: Button
     private lateinit var btnEnglish: Button
 
+    private lateinit var tvHeaderSettingsDe: String
+    private lateinit var tvHeaderSettingsEn: String
+
+    //settings_de_language
+    private lateinit var tvLanguageDe: String
+
+    //settings_en_language
+    private lateinit var tvLanguageEn: String
+
+    //settings_de_language_deutsch
+    private lateinit var tvDeutsch: String
+
+    //settings_de_language_englisch
+    private lateinit var tvEnglisch: String
+
+    //settings_en_language_german
+    private lateinit var tvGerman: String
+
+    //settings_en_language_english
+    private lateinit var tvEnglish: String
+
+    //de_settings_mode
+    private lateinit var tvModeDe: String
+
+    //en_settings_mode
+    private lateinit var tvModeEn: String
+
+    //de_settings_mode_light
+    private lateinit var tvModeHell: String
+
+    //en_settings_mode_light
+    private lateinit var tvModeLight: String
+
+    //de_settings_mode_dark
+    private lateinit var tvModeDunkel: String
+
+    //en_settings_mode_dark
+    private lateinit var tvModeDark: String
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,6 +86,22 @@ class SettingsFragment : Fragment() {
 
         btnLightMode = view.findViewById(R.id.btn_lightmode)
         btnDarkMode = view.findViewById(R.id.btn_darkmode)
+
+        tvHeaderSettingsDe = resources.getString(R.string.de_header_settings)
+        tvLanguageDe = resources.getString(R.string.settings_de_language)
+        tvDeutsch = resources.getString(R.string.settings_de_language_deutsch)
+        tvEnglisch = resources.getString(R.string.settings_de_language_englisch)
+        tvModeDe = resources.getString(R.string.de_settings_mode)
+        tvModeHell = resources.getString(R.string.de_settings_mode_light)
+        tvModeDunkel = resources.getString(R.string.de_settings_mode_dark)
+
+        tvHeaderSettingsEn = resources.getString(R.string.en_header_settings)
+        tvLanguageEn = resources.getString(R.string.settings_en_language)
+        tvGerman = resources.getString(R.string.settings_en_language_german)
+        tvEnglish = resources.getString(R.string.settings_en_language_english)
+        tvModeEn = resources.getString(R.string.en_settings_mode)
+        tvModeLight = resources.getString(R.string.en_settings_mode_light)
+        tvModeDark = resources.getString(R.string.en_settings_mode_dark)
 
         // Button click listeners
         btnLightMode.setOnClickListener {
@@ -84,13 +139,30 @@ class SettingsFragment : Fragment() {
         btnEnglish = view.findViewById(R.id.btn_english)
 
         btnGerman.setOnClickListener {
-            saveLanguagePreference("de")
-            updateAppLanguage("de")
+            binding.tvHeader.text = tvHeaderSettingsDe
+            binding.tvDisplayModus.text = tvModeDe
+            binding.btnLightmode.text = tvModeHell
+            binding.btnDarkmode.text = tvModeDunkel
+            binding.tvLanguage.text = tvLanguageDe
+            binding.btnGerman.text = tvDeutsch
+            binding.btnEnglish.text = tvEnglisch
+
+//            saveLanguagePreference("de")
+//            updateAppLanguage("de")
         }
 
         btnEnglish.setOnClickListener {
-            saveLanguagePreference("en")
-            updateAppLanguage("en")
+            binding.tvHeader.text = tvHeaderSettingsEn
+            binding.tvDisplayModus.text = tvModeEn
+            binding.btnLightmode.text = tvModeLight
+            binding.btnDarkmode.text = tvModeDark
+            binding.tvLanguage.text = tvLanguageEn
+            binding.btnGerman.text = tvGerman
+            binding.btnEnglish.text = tvEnglish
+
+//
+//            saveLanguagePreference("en")
+//            updateAppLanguage("en")
         }
     }
 
