@@ -147,8 +147,8 @@ class SettingsFragment : Fragment() {
             binding.btnGerman.text = tvDeutsch
             binding.btnEnglish.text = tvEnglisch
 
-//            saveLanguagePreference("de")
-//            updateAppLanguage("de")
+            saveLanguagePreference("de")
+            updateAppLanguage("de")
         }
 
         btnEnglish.setOnClickListener {
@@ -160,9 +160,9 @@ class SettingsFragment : Fragment() {
             binding.btnGerman.text = tvGerman
             binding.btnEnglish.text = tvEnglish
 
-//
-//            saveLanguagePreference("en")
-//            updateAppLanguage("en")
+
+            saveLanguagePreference("en")
+            updateAppLanguage("en")
         }
     }
 
