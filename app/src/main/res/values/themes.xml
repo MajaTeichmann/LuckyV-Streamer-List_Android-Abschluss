@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.LuckyVStreamerList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.LuckyVStreamerList.Day" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/app_background_light</item>
         <item name="colorPrimaryVariant">@color/luckyv_yellow</item>

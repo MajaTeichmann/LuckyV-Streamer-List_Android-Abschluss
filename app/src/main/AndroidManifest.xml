@@ -13,12 +13,12 @@
         android:label="@string/de_app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LuckyVStreamerList"
         tools:targetApi="31">
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.LuckyVStreamerList.Day">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

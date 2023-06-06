@@ -1,22 +1,19 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist
 
+
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ImageButton
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
+import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.AppRepository
-import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.TAG
-import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.getDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
-import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.HomeFragment
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
@@ -29,7 +26,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var repository: AppRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(theme)
         super.onCreate(savedInstanceState)
+
+        val isNightMode =
+            resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+        if (isNightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -100,5 +107,11 @@ class MainActivity : AppCompatActivity() {
     fun einblenden() {
         binding.tvHeader.visibility = View.VISIBLE
         binding.ivLuckyvLogo.alpha = 1F
+    }
+
+    private fun switchDayNightMode(isNightMode: Boolean) {
+        val mode = if (isNightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        AppCompatDelegate.setDefaultNightMode(mode)
+        recreate()
     }
 }

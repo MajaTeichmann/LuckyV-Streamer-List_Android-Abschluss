@@ -27,6 +27,18 @@ class SettingsFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
 
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            view.context.setTheme(R.style.Theme_LuckyVStreamerList_Night)
+        } else {
+            view.context.setTheme(R.style.Theme_LuckyVStreamerList_Day)
+        }
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         btnLightMode = view.findViewById(R.id.btn_lightmode)
         btnDarkMode = view.findViewById(R.id.btn_darkmode)
 
@@ -50,8 +62,6 @@ class SettingsFragment : Fragment() {
             saveLanguagePreference("en")
             updateAppLanguage("en")
         }
-
-        return view
     }
 
     private fun saveLanguagePreference(language: String) {
@@ -76,13 +86,13 @@ class SettingsFragment : Fragment() {
             requireActivity().supportFragmentManager.findFragmentById(R.id.homeFragment) as HomeFragment?
         homeFragment?.updateLanguage()
 
-        // Aktualisiere die Textfelder in com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.SettingsFragment (dieses Fragment)
+        // Aktualisiere die Textfelder in SettingsFragment (dieses Fragment)
         updateLanguage()
     }
 
 
     private fun updateLanguage() {
-        // Aktualisiere die Textfelder in diesem Fragment (com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.SettingsFragment)
+        // Aktualisiere die Textfelder in diesem Fragment (SettingsFragment)
         val language = PreferenceManager.getLanguagePreference(requireContext())
 
         val headerTextView = requireView().findViewById<TextView>(R.id.tv_header)
