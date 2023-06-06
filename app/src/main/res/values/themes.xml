@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.LuckyVStreamerList.Day" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/app_background_light</item>
+        <item name="colorPrimary">@color/app_background_day</item>
         <item name="colorPrimaryVariant">@color/luckyv_yellow</item>
         <item name="colorOnPrimary">@color/luckyv_black</item>
         <!-- Secondary brand color. -->
@@ -14,5 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:textColorLink">@color/luckyv_black</item>
         <item name="android:textColor">@color/luckyv_black</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimaryLight</item>
     </style>
 </resources>

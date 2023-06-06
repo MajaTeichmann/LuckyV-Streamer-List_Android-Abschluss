@@ -1,11 +1,15 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist
 
 
+import android.content.ContentProvider
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
 import androidx.lifecycle.lifecycleScope
@@ -26,19 +30,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var repository: AppRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(theme)
+        theme = theme
         super.onCreate(savedInstanceState)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val isNightMode =
             resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
         if (isNightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            val textColor = ContextCompat.getColor(this, R.color.night_txt_luckyv_white)
+            binding.tvHeader.setTextColor(textColor)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            val textColor = ContextCompat.getColor(this, R.color.day_txt_luckyv_black)
+            binding.tvHeader.setTextColor(textColor)
         }
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         /** Repository-Objekt erstellen und Context übergeben */
         repository = AppRepository(StreamerApi, getDatabase(applicationContext), applicationContext)
@@ -107,11 +115,5 @@ class MainActivity : AppCompatActivity() {
     fun einblenden() {
         binding.tvHeader.visibility = View.VISIBLE
         binding.ivLuckyvLogo.alpha = 1F
-    }
-
-    private fun switchDayNightMode(isNightMode: Boolean) {
-        val mode = if (isNightMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-        AppCompatDelegate.setDefaultNightMode(mode)
-        recreate()
     }
 }

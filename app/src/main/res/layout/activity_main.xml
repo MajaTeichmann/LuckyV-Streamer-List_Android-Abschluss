@@ -33,13 +33,15 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:visibility="visible"
-                android:textColor="?attr/colorOnPrimary"
+                style="@style/HeaderTextStyle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
+                app:layout_constraintVertical_bias="0.5"
+                android:textColor="?attr/colorOnPrimary" />
+
 
             <ImageView
                 android:id="@+id/iv_luckyv_logo"

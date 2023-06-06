@@ -8,12 +8,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
+import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
+import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentSettingsBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.PreferenceManager
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
+    private lateinit var binding: FragmentSettingsBinding
+
     private lateinit var btnLightMode: Button
     private lateinit var btnDarkMode: Button
 
@@ -25,7 +30,8 @@ class SettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        val view = binding.root
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             view.context.setTheme(R.style.Theme_LuckyVStreamerList_Night)
@@ -48,6 +54,30 @@ class SettingsFragment : Fragment() {
         }
         btnDarkMode.setOnClickListener {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            // Dark Mode aktiviert
+            binding.tvHeader.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.night_txt_luckyv_white)
+            )
+            binding.tvDisplayModus.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.night_txt_luckyv_white)
+            )
+            binding.tvLanguage.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.night_txt_luckyv_white)
+            )
+        } else {
+            // Light Mode aktiviert
+            binding.tvHeader.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.day_txt_luckyv_black)
+            )
+            binding.tvDisplayModus.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.day_txt_luckyv_black)
+            )
+            binding.tvLanguage.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.day_txt_luckyv_black)
+            )
         }
 
         btnGerman = view.findViewById(R.id.btn_german)
