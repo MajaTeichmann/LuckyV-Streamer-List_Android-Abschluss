@@ -32,7 +32,7 @@
                 android:text="@string/de_app_name"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,8 +40,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
-
-<!--            app:textColorDay="@{viewModel.isDayTheme ? @color/luckyv_black : @color/luckyv_white}"-->
 
             <ImageView
                 android:id="@+id/iv_luckyv_logo"

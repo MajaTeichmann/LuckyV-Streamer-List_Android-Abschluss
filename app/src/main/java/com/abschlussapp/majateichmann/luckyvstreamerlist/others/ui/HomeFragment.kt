@@ -297,7 +297,7 @@ class HomeFragment : Fragment() {
     }
 
     fun updateLanguage() {
-        // Aktualisiere die Textfelder in diesem Fragment (SettingsFragment)
+        // Aktualisiere die Textfelder in diesem Fragment (com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.SettingsFragment)
         val sharedPreferences = requireActivity().getPreferences(Context.MODE_PRIVATE)
         val language = sharedPreferences.getString("language", "de")
 

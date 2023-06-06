@@ -1,12 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.LuckyVStreamerList" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.LuckyVStreamerList.Night" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/app_background_dark</item>
         <item name="colorPrimaryVariant">@color/luckyv_yellow</item>
         <item name="colorOnPrimary">@color/luckyv_white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/luckyv_black</item>
+        <item name="colorSecondary">@color/luckyv_white</item>
 <!--        <item name="colorSecondaryVariant">@color/teal_200</item>-->
         <item name="colorOnSecondary">@color/luckyv_white</item>
         <!-- Status bar color. -->

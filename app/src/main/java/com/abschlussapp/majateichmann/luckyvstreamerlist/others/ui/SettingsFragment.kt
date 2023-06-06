@@ -1,3 +1,5 @@
+package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
+
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +11,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.PreferenceManager
-import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.HomeFragment
 import java.util.Locale
 
 class SettingsFragment : Fragment() {
@@ -25,6 +26,18 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            view.context.setTheme(R.style.Theme_LuckyVStreamerList_Night)
+        } else {
+            view.context.setTheme(R.style.Theme_LuckyVStreamerList_Day)
+        }
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         btnLightMode = view.findViewById(R.id.btn_lightmode)
         btnDarkMode = view.findViewById(R.id.btn_darkmode)
@@ -49,8 +62,6 @@ class SettingsFragment : Fragment() {
             saveLanguagePreference("en")
             updateAppLanguage("en")
         }
-
-        return view
     }
 
     private fun saveLanguagePreference(language: String) {
