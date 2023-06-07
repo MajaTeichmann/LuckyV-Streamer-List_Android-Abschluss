@@ -1,22 +1,22 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others
 
 import android.content.Context
+import android.preference.PreferenceManager
 
 class PreferenceManager {
     companion object {
-        private const val PREFERENCE_NAME = "app_preferences"
-        private const val KEY_LANGUAGE = "language"
+        private const val LANGUAGE_PREF_KEY = "language_pref"
 
-        fun saveLanguagePreference(context: Context, language: String) {
-            val sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putString(KEY_LANGUAGE, language)
+        fun setLanguagePreference(context: Context, language: String) {
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val editor = preferences.edit()
+            editor.putString(LANGUAGE_PREF_KEY, language)
             editor.apply()
         }
 
         fun getLanguagePreference(context: Context): String {
-            val sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME,Context.MODE_PRIVATE)
-            return sharedPreferences.getString(KEY_LANGUAGE, "de") ?: "de"
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getString(LANGUAGE_PREF_KEY, "en") ?: "en"
         }
     }
 }

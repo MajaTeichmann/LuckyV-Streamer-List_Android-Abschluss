@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.abschlussapp.majateichmann.luckyvstreamerlist.LanguageChangeListener
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
-import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentSettingsBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.PreferenceManager
 import java.util.Locale
@@ -25,44 +25,16 @@ class SettingsFragment : Fragment() {
     private lateinit var btnGerman: Button
     private lateinit var btnEnglish: Button
 
-    private lateinit var tvHeaderSettingsDe: String
-    private lateinit var tvHeaderSettingsEn: String
+    private lateinit var tvHeaderSettings: TextView
+    private lateinit var tvLanguage: TextView
+    private lateinit var tvMode: TextView
 
-    //settings_de_language
-    private lateinit var tvLanguageDe: String
-
-    //settings_en_language
-    private lateinit var tvLanguageEn: String
-
-    //settings_de_language_deutsch
-    private lateinit var tvDeutsch: String
-
-    //settings_de_language_englisch
-    private lateinit var tvEnglisch: String
-
-    //settings_en_language_german
-    private lateinit var tvGerman: String
-
-    //settings_en_language_english
-    private lateinit var tvEnglish: String
-
-    //de_settings_mode
-    private lateinit var tvModeDe: String
-
-    //en_settings_mode
-    private lateinit var tvModeEn: String
-
-    //de_settings_mode_light
-    private lateinit var tvModeHell: String
-
-    //en_settings_mode_light
     private lateinit var tvModeLight: String
-
-    //de_settings_mode_dark
-    private lateinit var tvModeDunkel: String
-
-    //en_settings_mode_dark
     private lateinit var tvModeDark: String
+    private lateinit var tvLanguageGerman: String
+    private lateinit var tvLanguageEnglish: String
+
+    var languageChangeListener: LanguageChangeListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,22 +58,17 @@ class SettingsFragment : Fragment() {
 
         btnLightMode = view.findViewById(R.id.btn_lightmode)
         btnDarkMode = view.findViewById(R.id.btn_darkmode)
+        btnGerman = view.findViewById(R.id.btn_german)
+        btnEnglish = view.findViewById(R.id.btn_english)
 
-        tvHeaderSettingsDe = resources.getString(R.string.de_header_settings)
-        tvLanguageDe = resources.getString(R.string.settings_de_language)
-        tvDeutsch = resources.getString(R.string.settings_de_language_deutsch)
-        tvEnglisch = resources.getString(R.string.settings_de_language_englisch)
-        tvModeDe = resources.getString(R.string.de_settings_mode)
-        tvModeHell = resources.getString(R.string.de_settings_mode_light)
-        tvModeDunkel = resources.getString(R.string.de_settings_mode_dark)
+        tvHeaderSettings = view.findViewById(R.id.tv_header)
+        tvLanguage = view.findViewById(R.id.tv_language)
+        tvMode = view.findViewById(R.id.tv_displayModus)
 
-        tvHeaderSettingsEn = resources.getString(R.string.en_header_settings)
-        tvLanguageEn = resources.getString(R.string.settings_en_language)
-        tvGerman = resources.getString(R.string.settings_en_language_german)
-        tvEnglish = resources.getString(R.string.settings_en_language_english)
-        tvModeEn = resources.getString(R.string.en_settings_mode)
-        tvModeLight = resources.getString(R.string.en_settings_mode_light)
-        tvModeDark = resources.getString(R.string.en_settings_mode_dark)
+        tvModeLight = resources.getString(R.string.de_settings_mode_light)
+        tvModeDark = resources.getString(R.string.de_settings_mode_dark)
+        tvLanguageGerman = resources.getString(R.string.settings_de_language_deutsch)
+        tvLanguageEnglish = resources.getString(R.string.settings_de_language_englisch)
 
         // Button click listeners
         btnLightMode.setOnClickListener {
@@ -135,80 +102,46 @@ class SettingsFragment : Fragment() {
             )
         }
 
-        btnGerman = view.findViewById(R.id.btn_german)
-        btnEnglish = view.findViewById(R.id.btn_english)
-
         btnGerman.setOnClickListener {
-            binding.tvHeader.text = tvHeaderSettingsDe
-            binding.tvDisplayModus.text = tvModeDe
-            binding.btnLightmode.text = tvModeHell
-            binding.btnDarkmode.text = tvModeDunkel
-            binding.tvLanguage.text = tvLanguageDe
-            binding.btnGerman.text = tvDeutsch
-            binding.btnEnglish.text = tvEnglisch
-
-            saveLanguagePreference("de")
-            updateAppLanguage("de")
+            updateLanguage("de")
         }
 
         btnEnglish.setOnClickListener {
-            binding.tvHeader.text = tvHeaderSettingsEn
-            binding.tvDisplayModus.text = tvModeEn
-            binding.btnLightmode.text = tvModeLight
-            binding.btnDarkmode.text = tvModeDark
-            binding.tvLanguage.text = tvLanguageEn
-            binding.btnGerman.text = tvGerman
-            binding.btnEnglish.text = tvEnglish
-
-
-            saveLanguagePreference("en")
-            updateAppLanguage("en")
+            updateLanguage("en")
         }
+
+        updateLanguage(PreferenceManager.getLanguagePreference(requireContext()))
     }
 
-    private fun saveLanguagePreference(language: String) {
-        PreferenceManager.saveLanguagePreference(requireContext(), language)
-    }
+    private fun updateLanguage(language: String) {
+        val isEnglish = language == "en"
 
-    private fun updateAppLanguage(language: String) {
-        // Aktualisiere die Sprache der Textfelder in der gesamten App basierend auf der Spracheinstellung
-        val newLocale = Locale(language)
-        Locale.setDefault(newLocale)
+        tvHeaderSettings.text =
+            getString(if (isEnglish) R.string.en_header_settings else R.string.de_header_settings)
+        tvLanguage.text =
+            getString(if (isEnglish) R.string.settings_en_language else R.string.settings_de_language)
+        tvMode.text =
+            getString(if (isEnglish) R.string.en_settings_mode else R.string.de_settings_mode)
+        btnLightMode.text =
+            getString(if (isEnglish) R.string.en_settings_mode_light else R.string.de_settings_mode_light)
+        btnDarkMode.text =
+            getString(if (isEnglish) R.string.en_settings_mode_dark else R.string.de_settings_mode_dark)
+        btnGerman.text =
+            getString(if (isEnglish) R.string.settings_en_language_german else R.string.settings_de_language_deutsch)
+        btnEnglish.text =
+            getString(if (isEnglish) R.string.settings_en_language_english else R.string.settings_de_language_englisch)
 
-        val configuration = Configuration()
-        configuration.setLocale(newLocale)
+        // Update the language preference
+        PreferenceManager.setLanguagePreference(requireContext(), language)
 
-        requireContext().resources.updateConfiguration(
-            configuration,
-            requireContext().resources.displayMetrics
-        )
+        // Update the app's locale
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
 
-        // Aktualisiere die Textfelder in HomeFragment
-        val homeFragment =
-            requireActivity().supportFragmentManager.findFragmentById(R.id.homeFragment) as HomeFragment?
-        homeFragment?.updateLanguage()
-
-        // Aktualisiere die Textfelder in SettingsFragment (dieses Fragment)
-        updateLanguage()
-    }
-
-
-    private fun updateLanguage() {
-        // Aktualisiere die Textfelder in diesem Fragment (SettingsFragment)
-        val language = PreferenceManager.getLanguagePreference(requireContext())
-
-        val headerTextView = requireView().findViewById<TextView>(R.id.tv_header)
-        val displayModusTextView = requireView().findViewById<TextView>(R.id.tv_displayModus)
-        val languageTextView = requireView().findViewById<TextView>(R.id.tv_language)
-
-        if (language == "en") {
-            headerTextView.text = getString(R.string.en_header_settings)
-            displayModusTextView.text = getString(R.string.en_settings_mode)
-            languageTextView.text = getString(R.string.settings_en_language)
-        } else {
-            headerTextView.text = getString(R.string.de_header_settings)
-            displayModusTextView.text = getString(R.string.de_settings_mode)
-            languageTextView.text = getString(R.string.settings_de_language)
-        }
+        // Notify the listener (HomeFragment) that the language has changed
+        languageChangeListener?.onLanguageChanged()
     }
 }
