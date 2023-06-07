@@ -159,7 +159,6 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="test"
                 android:background="@android:color/darker_gray"
-                android:contentDescription="Select Filter"
                 android:spinnerMode="dropdown"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/btn_sort"

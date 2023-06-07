@@ -110,8 +110,6 @@ class StartFragment : Fragment() {
                             recyclerViewLive?.adapter = LiveAdapter(viewModel)
                             val recyclerViewOffline: RecyclerView? =
                                 view.findViewById(R.id.rv_Streamer_offline)
-//                            recyclerViewOffline?.adapter =
-//                                OfflineAdapter(streamers.streamer, viewModel)
                         } catch (e: Exception) {
 
                             /** Wenn ein Fehler aufgetreten ist, wird der Fortschrittsbalken

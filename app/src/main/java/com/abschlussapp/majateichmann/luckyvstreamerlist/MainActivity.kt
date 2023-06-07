@@ -18,16 +18,20 @@ import androidx.navigation.fragment.NavHostFragment
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.AppRepository
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.getDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.HomeFragment
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 /** Main Activity, dient als Einstiegspunkt für die App */
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LanguageChangeListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var viewModel: MainViewModel
     private lateinit var repository: AppRepository
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         theme = theme
@@ -35,6 +39,18 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Erstellen des SettingsFragments und HomeFragments
+        val settingsFragment = SettingsFragment()
+
+        // Füge den LanguageChangeListener zum HomeFragment hinzu
+        val homeFragment = HomeFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.cl_description, homeFragment)
+            .commit()
+
+        // Setzen des SettingsFragment als LanguageChangeListener für das HomeFragment
+        settingsFragment.languageChangeListener = homeFragment
 
         val isNightMode =
             resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
@@ -103,6 +119,22 @@ class MainActivity : AppCompatActivity() {
         /** Mittels Coroutine Streamerdaten aus der API laden */
         lifecycleScope.launch {
             repository.getStreamer()
+        }
+    }
+
+    override fun onLanguageChanged() {
+        val currentLanguage = Locale.getDefault().language
+
+        when (currentLanguage) {
+            "de" -> {
+                val homeFragment = supportFragmentManager.findFragmentById(R.id.cl_description) as? HomeFragment
+                homeFragment?.updateTextViewsForGerman()
+            }
+            "en" -> {
+                val homeFragment = supportFragmentManager.findFragmentById(R.id.cl_description) as? HomeFragment
+                homeFragment?.updateTextViewsForEnglish()
+            }
+            // Weitere Sprachen hinzufügen...
         }
     }
 
