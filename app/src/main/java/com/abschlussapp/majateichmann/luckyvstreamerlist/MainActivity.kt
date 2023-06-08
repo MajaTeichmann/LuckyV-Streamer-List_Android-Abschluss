@@ -1,14 +1,12 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist
 
 
-import android.content.ContentProvider
-import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -129,12 +127,13 @@ class MainActivity : AppCompatActivity(), LanguageChangeListener {
             "de" -> {
                 val homeFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? HomeFragment
                 homeFragment?.updateTextViewsForGerman()
+                Log.e("SPRACHE",currentLanguage)
             }
             "en" -> {
                 val homeFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? HomeFragment
                 homeFragment?.updateTextViewsForEnglish()
+                Log.e("SPRACHE",currentLanguage)
             }
-            // Weitere Sprachen hinzufügen...
         }
     }
 

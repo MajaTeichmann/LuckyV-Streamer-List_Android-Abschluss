@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.abschlussapp.majateichmann.luckyvstreamerlist.LanguageChangeListener
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentSettingsBinding
@@ -18,6 +19,9 @@ import java.util.Locale
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
+
+    //todo: SPRACHE
+    private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var btnLightMode: Button
     private lateinit var btnDarkMode: Button
@@ -131,8 +135,14 @@ class SettingsFragment : Fragment() {
         btnEnglish.text =
             getString(if (isEnglish) R.string.settings_en_language_english else R.string.settings_de_language_englisch)
 
+
         // Update the language preference
         PreferenceManager.setLanguagePreference(requireContext(), language)
+
+        //TODO: SPRACHE
+        // Update the language LiveData using postValue
+        viewModel.setLanguage(language)
+
 
         // Update the app's locale
         val locale = Locale(language)
