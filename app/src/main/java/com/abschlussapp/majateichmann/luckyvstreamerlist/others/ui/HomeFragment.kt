@@ -12,6 +12,7 @@ import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,8 +56,7 @@ class HomeFragment : Fragment(), LanguageChangeListener {
     private lateinit var tvDescription1: TextView
     private lateinit var tvDescription2: TextView
     private lateinit var tvDescription3: TextView
-    private lateinit var tvSortBtn: TextView
-
+    private lateinit var tvSortBtn: Button
     /** Lifecycle Funktion onCreateView
      * Hier wird das binding initialisiert und das Layout gebaut */
     override fun onCreateView(
@@ -66,6 +66,12 @@ class HomeFragment : Fragment(), LanguageChangeListener {
     ): View {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        tvDescription1 = binding.tvDescription1
+        tvDescription2 = binding.tvDescription2
+        tvDescription3 = binding.tvDescription3
+        tvSortBtn = binding.btnSort
+
         return binding.root
     }
 
@@ -74,6 +80,19 @@ class HomeFragment : Fragment(), LanguageChangeListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //TODO: SPRACHE
+//        viewModel.language.observe(
+//            viewLifecycleOwner
+//        ){
+//            Log.e("FTGBHJN","de oder en")
+//            if(it == "de"){
+//                updateTextViewsForGerman()
+//
+//            }else{
+//                updateTextViewsForEnglish()
+//            }
+//        }
 
         val streamerListLive = binding.rvStreamerOnline
         val streamerListOffline = binding.rvStreamerOffline
@@ -282,6 +301,8 @@ class HomeFragment : Fragment(), LanguageChangeListener {
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
+
+
     }
 
     /** Die Funktion onSaveInstanceState wird überschrieben um den aktuellen Scroll-Zustand
@@ -304,20 +325,31 @@ class HomeFragment : Fragment(), LanguageChangeListener {
             .findFirstVisibleItemPosition()
     }
 
+    //TODO: SPRACHE
+
 //    override fun onLanguageChanged() {
-//        val mainActivity = requireActivity() as MainActivity
-//        mainActivity.onLanguageChanged()
+////        val mainActivity = requireActivity() as MainActivity
+////        mainActivity.onLanguageChanged()
+//
+//        val language = PreferenceManager.getLanguagePreference(requireContext())
+//
+//        if (language == "de") {
+//            updateTextViewsForGerman()
+//            Log.e("SPRACHE",language)
+//        } else {
+//            updateTextViewsForEnglish()
+//            Log.e("SPRACHE",language)
+//        }
 //    }
 
-    override fun onLanguageChanged() {
-        val language = PreferenceManager.getLanguagePreference(requireContext())
 
-        if (language == "de") {
-            updateTextViewsForGerman()
-        } else {
-            updateTextViewsForEnglish()
-        }
-    }
+
+
+
+
+
+
+
 
     fun updateTextViewsForGerman() {
         tvDescription1.text = resources.getString(R.string.de_app_description_line1)

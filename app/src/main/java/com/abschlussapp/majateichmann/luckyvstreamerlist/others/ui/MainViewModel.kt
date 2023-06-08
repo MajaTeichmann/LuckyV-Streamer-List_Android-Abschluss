@@ -34,30 +34,41 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return homeFragment
     }
 
-    /** hier wird eine AppRepository Instanz erstellt, mit dem Parameter StreamerApi */
-    private val database = getDatabase(application)
-    private val repository = AppRepository(StreamerApi, database, context)
+    //TODO: SPRACHE
+//    private val _language = MutableLiveData<String>()
+//    val language: LiveData<String>
+//        get() = _language
 
-    /**
-     * Diese Funktion ruft die Repository-Funktion zum Laden der Streamer
-     * innerhalb einer Coroutine auf
-     */
+    //TODO: SPRACHE
+//    // Public method to set the language value
+//    fun setLanguage(language: String) {
+//        _language.value = language
+//    }
+
     private val _loading = MutableLiveData<ApiStatus>()
     val loading: LiveData<ApiStatus>
         get() = _loading
 
-    /** hier werden die Streamer aus dem repository in einer eigenen Variablen gespeichert */
+    //TODO: SPRACHE
+//    private fun getPreferences() {
+//        _language.postValue(PreferenceManager.getLanguagePreference(context))
+//    }
+
+    private val database = getDatabase(application)
+    private val repository = AppRepository(StreamerApi, database, context)
+
     val streamer = repository.streamerList
     val streamersOnline = repository.streamersOnline
     val streamersOffline = repository.streamersOffline
 
     init {
         loadData()
+        //TODO: SPRACHE
+//        getPreferences()
     }
 
     fun loadData() {
         viewModelScope.launch {
-            /** Streamer aus API in die Datenbank laden */
             _loading.value = ApiStatus.LOADING
             try {
                 repository.getStreamer()
