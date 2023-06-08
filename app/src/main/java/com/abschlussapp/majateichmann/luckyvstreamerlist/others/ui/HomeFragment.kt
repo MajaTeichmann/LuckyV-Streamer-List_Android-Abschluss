@@ -304,9 +304,19 @@ class HomeFragment : Fragment(), LanguageChangeListener {
             .findFirstVisibleItemPosition()
     }
 
+//    override fun onLanguageChanged() {
+//        val mainActivity = requireActivity() as MainActivity
+//        mainActivity.onLanguageChanged()
+//    }
+
     override fun onLanguageChanged() {
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.onLanguageChanged()
+        val language = PreferenceManager.getLanguagePreference(requireContext())
+
+        if (language == "de") {
+            updateTextViewsForGerman()
+        } else {
+            updateTextViewsForEnglish()
+        }
     }
 
     fun updateTextViewsForGerman() {

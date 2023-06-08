@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.ActivityMainBinding
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.AppRepository
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.getDatabase
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.remote.StreamerApi
@@ -45,9 +45,9 @@ class MainActivity : AppCompatActivity(), LanguageChangeListener {
 
         // Füge den LanguageChangeListener zum HomeFragment hinzu
         val homeFragment = HomeFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.cl_description, homeFragment)
-            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.nav_host_fragment, homeFragment)
+//            .commit()
 
         // Setzen des SettingsFragment als LanguageChangeListener für das HomeFragment
         settingsFragment.languageChangeListener = homeFragment
@@ -127,11 +127,11 @@ class MainActivity : AppCompatActivity(), LanguageChangeListener {
 
         when (currentLanguage) {
             "de" -> {
-                val homeFragment = supportFragmentManager.findFragmentById(R.id.cl_description) as? HomeFragment
+                val homeFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? HomeFragment
                 homeFragment?.updateTextViewsForGerman()
             }
             "en" -> {
-                val homeFragment = supportFragmentManager.findFragmentById(R.id.cl_description) as? HomeFragment
+                val homeFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? HomeFragment
                 homeFragment?.updateTextViewsForEnglish()
             }
             // Weitere Sprachen hinzufügen...
