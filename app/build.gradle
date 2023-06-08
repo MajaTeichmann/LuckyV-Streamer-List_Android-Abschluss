@@ -74,4 +74,7 @@ dependencies {
 
     //Für Themewechsel (von Day- zu Darkmode & umgekehrt)
     implementation "androidx.preference:preference-ktx:1.2.0"
+
+    //Flaggen-Buttons
+    implementation 'com.google.android.material:material:1.9.0'
 }

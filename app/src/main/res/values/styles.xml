@@ -2,6 +2,5 @@
 <resources>
     <style name="HeaderTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/textColorPrimaryDark</item>
-        <!-- Füge hier weitere Attribute hinzu, die du ändern möchtest -->
     </style>
 </resources>

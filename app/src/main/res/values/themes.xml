@@ -16,5 +16,7 @@
         <item name="android:textColor">@color/luckyv_black</item>
 
         <item name="android:textColorPrimary">@color/textColorPrimaryLight</item>
+
+        <item name="colorButtonNormal">@color/day_btn_luckyv_black</item>
     </style>
 </resources>
