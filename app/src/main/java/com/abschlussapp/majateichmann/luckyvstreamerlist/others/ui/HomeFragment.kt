@@ -82,17 +82,17 @@ class HomeFragment : Fragment(), LanguageChangeListener {
         super.onViewCreated(view, savedInstanceState)
 
         //TODO: SPRACHE
-//        viewModel.language.observe(
-//            viewLifecycleOwner
-//        ){
-//            Log.e("FTGBHJN","de oder en")
-//            if(it == "de"){
-//                updateTextViewsForGerman()
-//
-//            }else{
-//                updateTextViewsForEnglish()
-//            }
-//        }
+        viewModel.language.observe(
+            viewLifecycleOwner
+        ){
+            Log.e("FTGBHJN","de oder en")
+            if(it == "de"){
+                updateTextViewsForGerman()
+
+            }else{
+                updateTextViewsForEnglish()
+            }
+        }
 
         val streamerListLive = binding.rvStreamerOnline
         val streamerListOffline = binding.rvStreamerOffline
@@ -327,29 +327,20 @@ class HomeFragment : Fragment(), LanguageChangeListener {
 
     //TODO: SPRACHE
 
-//    override fun onLanguageChanged() {
-////        val mainActivity = requireActivity() as MainActivity
-////        mainActivity.onLanguageChanged()
-//
-//        val language = PreferenceManager.getLanguagePreference(requireContext())
-//
-//        if (language == "de") {
-//            updateTextViewsForGerman()
-//            Log.e("SPRACHE",language)
-//        } else {
-//            updateTextViewsForEnglish()
-//            Log.e("SPRACHE",language)
-//        }
-//    }
+    override fun onLanguageChanged() {
+//        val mainActivity = requireActivity() as MainActivity
+//        mainActivity.onLanguageChanged()
 
+        val language = PreferenceManager.getLanguagePreference(requireContext())
 
-
-
-
-
-
-
-
+        if (language == "de") {
+            updateTextViewsForGerman()
+            Log.e("SPRACHE",language)
+        } else {
+            updateTextViewsForEnglish()
+            Log.e("SPRACHE",language)
+        }
+    }
 
     fun updateTextViewsForGerman() {
         tvDescription1.text = resources.getString(R.string.de_app_description_line1)

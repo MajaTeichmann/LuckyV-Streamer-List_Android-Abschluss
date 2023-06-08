@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.abschlussapp.majateichmann.luckyvstreamerlist.others.PreferenceManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.AppRepository
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.local.getDatabase
@@ -35,24 +36,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     //TODO: SPRACHE
-//    private val _language = MutableLiveData<String>()
-//    val language: LiveData<String>
-//        get() = _language
+    private val _language = MutableLiveData<String>()
+    val language: LiveData<String>
+        get() = _language
 
     //TODO: SPRACHE
-//    // Public method to set the language value
-//    fun setLanguage(language: String) {
-//        _language.value = language
-//    }
+    // Public method to set the language value
+    fun setLanguage(language: String) {
+        _language.value = language
+    }
 
     private val _loading = MutableLiveData<ApiStatus>()
     val loading: LiveData<ApiStatus>
         get() = _loading
 
     //TODO: SPRACHE
-//    private fun getPreferences() {
-//        _language.postValue(PreferenceManager.getLanguagePreference(context))
-//    }
+    private fun getPreferences() {
+        _language.postValue(PreferenceManager.getLanguagePreference(context))
+    }
 
     private val database = getDatabase(application)
     private val repository = AppRepository(StreamerApi, database, context)
