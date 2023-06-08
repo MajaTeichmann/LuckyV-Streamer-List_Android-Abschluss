@@ -21,18 +21,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val context = application.applicationContext
 
-    // Variable zur Speicherung der Referenz zum HomeFragment
-    private var homeFragment: HomeFragment? = null
-
     fun updateStreamer(streamer: Streamer) {
         viewModelScope.launch {
             repository.updateStreamer(streamer)
         }
-    }
-
-    // Methode zum Abrufen der Referenz zum HomeFragment
-    fun getHomeFragment(): HomeFragment? {
-        return homeFragment
     }
 
     //TODO: SPRACHE
@@ -50,11 +42,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val loading: LiveData<ApiStatus>
         get() = _loading
 
-    //TODO: SPRACHE
-    private fun getPreferences() {
-        _language.postValue(PreferenceManager.getLanguagePreference(context))
-    }
-
     private val database = getDatabase(application)
     private val repository = AppRepository(StreamerApi, database, context)
 
@@ -65,7 +52,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     init {
         loadData()
         //TODO: SPRACHE
-//        getPreferences()
     }
 
     fun loadData() {

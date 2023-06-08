@@ -34,7 +34,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"/>
-<!--            android:textColor="?attr/colorOnPrimary"-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -100,13 +99,14 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_german"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_german" />
+                app:layout_constraintTop_toTopOf="@+id/btn_german"
+                app:layout_constraintVertical_bias="1.0" />
 
             <Button
                 android:id="@+id/btn_german"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/day_btn_luckyv_yellow"
                 android:text="@string/settings_de_language_deutsch"
                 android:textColor="@color/day_txt_luckyv_black"

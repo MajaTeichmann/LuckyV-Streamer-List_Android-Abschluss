@@ -7,7 +7,7 @@
         <item name="colorOnPrimary">@color/luckyv_white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/luckyv_white</item>
-<!--        <item name="colorSecondaryVariant">@color/teal_200</item>-->
+        <!--        <item name="colorSecondaryVariant">@color/teal_200</item>-->
         <item name="colorOnSecondary">@color/luckyv_white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
@@ -16,5 +16,7 @@
         <item name="android:textColor">@color/luckyv_white</item>
 
         <item name="android:textColorPrimary">@color/textColorPrimaryDark</item>
+
+        <item name="colorButtonNormal">@color/night_btn_luckyv_grey</item>
     </style>
 </resources>

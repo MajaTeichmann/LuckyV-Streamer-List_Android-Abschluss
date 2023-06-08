@@ -1,9 +1,6 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
 
-import android.content.Context
-import com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +9,7 @@ import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +18,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,11 +25,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.LanguageChangeListener
 import com.abschlussapp.majateichmann.luckyvstreamerlist.MainActivity
 import com.abschlussapp.majateichmann.luckyvstreamerlist.R
-import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.databinding.FragmentHomeBinding
+import com.abschlussapp.majateichmann.luckyvstreamerlist.live.LiveAdapter
+import com.abschlussapp.majateichmann.luckyvstreamerlist.offline.OfflineAdapter
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.PreferenceManager
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.Streamer
-import java.util.Locale
 
 private var dropdownPosition: Int = 0
 
@@ -57,6 +54,7 @@ class HomeFragment : Fragment(), LanguageChangeListener {
     private lateinit var tvDescription2: TextView
     private lateinit var tvDescription3: TextView
     private lateinit var tvSortBtn: Button
+
     /** Lifecycle Funktion onCreateView
      * Hier wird das binding initialisiert und das Layout gebaut */
     override fun onCreateView(
@@ -84,12 +82,12 @@ class HomeFragment : Fragment(), LanguageChangeListener {
         //TODO: SPRACHE
         viewModel.language.observe(
             viewLifecycleOwner
-        ){
-            Log.e("FTGBHJN","de oder en")
-            if(it == "de"){
+        ) {
+            Log.e("FTGBHJN", "de oder en")
+            if (it == "de") {
                 updateTextViewsForGerman()
 
-            }else{
+            } else {
                 updateTextViewsForEnglish()
             }
         }
@@ -162,60 +160,162 @@ class HomeFragment : Fragment(), LanguageChangeListener {
             updateRecyclerViews(false)
         }
 
-
         /** Verbesserte Performance bei fixer Listengröße */
         streamerListLive.setHasFixedSize(true)
         streamerListOffline.setHasFixedSize(true)
 
-        /** Link in den Fließtext hinzufügen */
-        val fullText = "Bei dieser App handelt es sich um die App-Version einer bereits " +
-                "existierenden Internetseite, welche alle Spieler auflistet, die ihr LuckyV RP auf " +
-                "Twitch streamen."
-        val linkText = "Internetseite"
-        val spannableString = SpannableString(fullText)
+        fun germanStringModification() {
+            /** Link in den Fließtext hinzufügen */
+            val fullText = "Bei dieser App handelt es sich um die App-Version einer bereits " +
+                    "existierenden Internetseite, welche alle Spieler auflistet, die ihr LuckyV RP auf " +
+                    "Twitch streamen."
+            val linkText = "Internetseite"
+            val spannableString = SpannableString(fullText)
 
-        /** Klickbarer Bereich für Link festlegen */
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(view: View) {
+            /** Klickbarer Bereich für Link festlegen */
+            val clickableSpan = object : ClickableSpan() {
+                override fun onClick(view: View) {
 
-                /** URL meiner Zieladresse */
-                val url = "https://luckyv-streamer.frozenpenguin.media/"
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                startActivity(intent)
+                    /** URL meiner Zieladresse */
+                    val url = "https://luckyv-streamer.frozenpenguin.media/"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(intent)
+                }
             }
+
+            /** Position des Links im Text festlegen */
+            val startIndex = fullText.indexOf(linkText)
+            val endIndex = startIndex + linkText.length
+
+            /** Link zum SpannableString hinzufügen */
+            spannableString.setSpan(
+                clickableSpan,
+                startIndex,
+                endIndex,
+                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            binding.tvDescription1.text = spannableString
+            binding.tvDescription1.movementMethod = LinkMovementMethod.getInstance()
+
+            /** Instanz der StyleSpan-Klasse für den fettgedruckten Text */
+            val boldSpan = StyleSpan(Typeface.BOLD)
+
+            /** Position des fettgedruckten Textabschnitts im Text festlegen */
+            val stringAbschnittStartIndex = fullText.indexOf("bereits existierenden")
+            val stringAbschnittEndIndex = stringAbschnittStartIndex + "bereits existierenden".length
+
+            /** StyleSpan zum SpannableString hinzufügen, um den Text fettgedruckt darzustellen */
+            spannableString.setSpan(
+                boldSpan,
+                stringAbschnittStartIndex,
+                stringAbschnittEndIndex,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            /** formatierten SpannableString als Text für die TextView setzen*/
+            binding.tvDescription1.text = spannableString
+
+            // Den String-Ressourcenwert für "de_app_description_line2" abrufen
+            val descriptionLine2 = resources.getString(R.string.de_app_description_line2)
+
+            // Erstelle eine SpannableString mit demselben Inhalt wie der ursprüngliche Text
+            val spannableStringDescription2 = SpannableString(descriptionLine2)
+
+            // Unterstreichungsstil auf den SpannableString anwenden
+            spannableStringDescription2.setSpan(
+                UnderlineSpan(),
+                0,
+                descriptionLine2.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            // Fettdruckstil auf den SpannableString anwenden
+            spannableStringDescription2.setSpan(
+                StyleSpan(Typeface.BOLD),
+                0,
+                descriptionLine2.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            // Setze den modifizierten SpannableString als Text für das TextView
+            tvDescription2.text = spannableStringDescription2
         }
 
-        /** Position des Links im Text festlegen */
-        val startIndex = fullText.indexOf(linkText)
-        val endIndex = startIndex + linkText.length
+        fun englishStringModification() {
+            /** Link in den Fließtext hinzufügen */
+            val fullText = "This app is the app version of an already existing website, " +
+                    "which lists all players streaming their LuckyV RP on Twitch."
+            val linkText = "website"
+            val spannableString = SpannableString(fullText)
 
-        /** Link zum SpannableString hinzufügen */
-        spannableString.setSpan(
-            clickableSpan,
-            startIndex,
-            endIndex,
-            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        binding.tvDescription1.text = spannableString
-        binding.tvDescription1.movementMethod = LinkMovementMethod.getInstance()
+            /** Klickbarer Bereich für Link festlegen */
+            val clickableSpan = object : ClickableSpan() {
+                override fun onClick(view: View) {
 
-        /** Instanz der StyleSpan-Klasse für den fettgedruckten Text */
-        val boldSpan = StyleSpan(Typeface.BOLD)
+                    /** URL meiner Zieladresse */
+                    val url = "https://luckyv-streamer.frozenpenguin.media/"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(intent)
+                }
+            }
 
-        /** Position des fettgedruckten Textabschnitts im Text festlegen */
-        val stringAbschnittStartIndex = fullText.indexOf("bereits existierenden")
-        val stringAbschnittEndIndex = stringAbschnittStartIndex + "bereits existierenden".length
+            /** Position des Links im Text festlegen */
+            val startIndex = fullText.indexOf(linkText)
+            val endIndex = startIndex + linkText.length
 
-        /** StyleSpan zum SpannableString hinzufügen, um den Text fettgedruckt darzustellen */
-        spannableString.setSpan(
-            boldSpan,
-            stringAbschnittStartIndex,
-            stringAbschnittEndIndex,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
+            /** Link zum SpannableString hinzufügen */
+            spannableString.setSpan(
+                clickableSpan,
+                startIndex,
+                endIndex,
+                SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+            binding.tvDescription1.text = spannableString
+            binding.tvDescription1.movementMethod = LinkMovementMethod.getInstance()
 
-        /** formatierten SpannableString als Text für die TextView setzen*/
-        binding.tvDescription1.text = spannableString
+            /** Instanz der StyleSpan-Klasse für den fettgedruckten Text */
+            val boldSpan = StyleSpan(Typeface.BOLD)
+
+            /** Position des fettgedruckten Textabschnitts im Text festlegen */
+            val stringAbschnittStartIndex = fullText.indexOf("already existing")
+            val stringAbschnittEndIndex = stringAbschnittStartIndex + "already existing".length
+
+            /** StyleSpan zum SpannableString hinzufügen, um den Text fettgedruckt darzustellen */
+            spannableString.setSpan(
+                boldSpan,
+                stringAbschnittStartIndex,
+                stringAbschnittEndIndex,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            /** formatierten SpannableString als Text für die TextView setzen*/
+            binding.tvDescription1.text = spannableString
+
+            // Den String-Ressourcenwert für "de_app_description_line2" abrufen
+            val descriptionLine2 = resources.getString(R.string.en_app_description_line2)
+
+            // Erstelle eine SpannableString mit demselben Inhalt wie der ursprüngliche Text
+            val spannableStringDescription2 = SpannableString(descriptionLine2)
+
+            // Unterstreichungsstil auf den SpannableString anwenden
+            spannableStringDescription2.setSpan(
+                UnderlineSpan(),
+                0,
+                descriptionLine2.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            // Fettdruckstil auf den SpannableString anwenden
+            spannableStringDescription2.setSpan(
+                StyleSpan(Typeface.BOLD),
+                0,
+                descriptionLine2.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+
+            // Setze den modifizierten SpannableString als Text für das TextView
+            tvDescription2.text = spannableStringDescription2
+        }
 
         /** Referenz zur MainActivity erhalten */
         val mainActivity = requireActivity() as MainActivity
@@ -299,16 +399,31 @@ class HomeFragment : Fragment(), LanguageChangeListener {
                     binding.rvStreamerOffline.scrollToPosition(position)
                 }
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
-
+        viewModel.language.observe(
+            viewLifecycleOwner
+        ) { language ->
+            if (language == "de") {
+                updateTextViewsForGerman()
+                germanStringModification()
+            } else {
+                updateTextViewsForEnglish()
+                englishStringModification()
+            }
+        }
     }
 
     /** Die Funktion onSaveInstanceState wird überschrieben um den aktuellen Scroll-Zustand
      * der RecyclerViews zu speichern. */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+
+        //todo
+        outState.putInt("scrollPositionLive", scrollPositionLive)
+        outState.putInt("scrollPositionOffline", scrollPositionOffline)
     }
 
     /** Die Funktion onViewStateRestored wird überschrieben um den vorherigen Scroll-Zustand
@@ -335,10 +450,8 @@ class HomeFragment : Fragment(), LanguageChangeListener {
 
         if (language == "de") {
             updateTextViewsForGerman()
-            Log.e("SPRACHE",language)
         } else {
             updateTextViewsForEnglish()
-            Log.e("SPRACHE",language)
         }
     }
 
