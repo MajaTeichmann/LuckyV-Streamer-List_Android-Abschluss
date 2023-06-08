@@ -304,9 +304,19 @@ class HomeFragment : Fragment(), LanguageChangeListener {
             .findFirstVisibleItemPosition()
     }
 
+//    override fun onLanguageChanged() {
+//        val mainActivity = requireActivity() as MainActivity
+//        mainActivity.onLanguageChanged()
+//    }
+
     override fun onLanguageChanged() {
-        val mainActivity = requireActivity() as MainActivity
-        mainActivity.onLanguageChanged()
+        val language = PreferenceManager.getLanguagePreference(requireContext())
+
+        if (language == "de") {
+            updateTextViewsForGerman()
+        } else {
+            updateTextViewsForEnglish()
+        }
     }
 
     fun updateTextViewsForGerman() {
@@ -314,7 +324,6 @@ class HomeFragment : Fragment(), LanguageChangeListener {
         tvDescription2.text = resources.getString(R.string.de_app_description_line2)
         tvDescription3.text = resources.getString(R.string.de_app_description_line3)
         tvSortBtn.text = resources.getString(R.string.de_sort_button)
-        // Weitere TextViews aktualisieren...
     }
 
     fun updateTextViewsForEnglish() {
