@@ -324,7 +324,6 @@ class HomeFragment : Fragment(), LanguageChangeListener {
         tvDescription2.text = resources.getString(R.string.de_app_description_line2)
         tvDescription3.text = resources.getString(R.string.de_app_description_line3)
         tvSortBtn.text = resources.getString(R.string.de_sort_button)
-        // Weitere TextViews aktualisieren...
     }
 
     fun updateTextViewsForEnglish() {
