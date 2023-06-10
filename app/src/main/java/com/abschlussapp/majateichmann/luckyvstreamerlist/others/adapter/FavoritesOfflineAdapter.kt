@@ -1,6 +1,7 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.adapter
 
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,12 +101,23 @@ class FavoritesOfflineAdapter(
         streamerName.isSingleLine = true
 
         /** Button-Click-Listener */
-        holder.like.setOnClickListener {
 
+        holder.like.setOnClickListener {
             streamer.favorisiert = !streamer.favorisiert
             viewModel.updateStreamer(streamer)
-
-            notifyItemRemoved(holder.bindingAdapterPosition)
+            notifyDataSetChanged() // Refresh the entire dataset
         }
+
+
+//            Log.e("Position Streamer","${currentList.get(position)}")
+
+//            try{
+//                notifyItemRemoved(holder.bindingAdapterPosition)
+//            }
+//            catch(e: Exception){
+//                Log.e("FGHJLKLKJHHHGHJHKGJ","notify ja")
+//            }
+
+        notifyItemRemoved(holder.bindingAdapterPosition)
     }
 }
