@@ -420,7 +420,6 @@ class HomeFragment : Fragment(), LanguageChangeListener {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        //todo
         outState.putInt("scrollPositionLive", scrollPositionLive)
         outState.putInt("scrollPositionOffline", scrollPositionOffline)
     }
@@ -438,8 +437,6 @@ class HomeFragment : Fragment(), LanguageChangeListener {
         scrollPositionOffline = (binding.rvStreamerOffline.layoutManager as LinearLayoutManager)
             .findFirstVisibleItemPosition()
     }
-
-    //TODO: SPRACHE
 
     override fun onLanguageChanged() {
 //        val mainActivity = requireActivity() as MainActivity

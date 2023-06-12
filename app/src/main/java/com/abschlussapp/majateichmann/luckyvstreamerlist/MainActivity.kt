@@ -43,9 +43,6 @@ class MainActivity : AppCompatActivity(), LanguageChangeListener {
 
         // Füge den LanguageChangeListener zum HomeFragment hinzu
         val homeFragment = HomeFragment()
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.nav_host_fragment, homeFragment)
-//            .commit()
 
         // Setzen des SettingsFragment als LanguageChangeListener für das HomeFragment
         settingsFragment.languageChangeListener = homeFragment
@@ -125,14 +122,14 @@ class MainActivity : AppCompatActivity(), LanguageChangeListener {
 
         when (currentLanguage) {
             "de" -> {
-                val homeFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? HomeFragment
+                val homeFragment =
+                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? HomeFragment
                 homeFragment?.updateTextViewsForGerman()
-                Log.e("SPRACHE",currentLanguage)
             }
             "en" -> {
-                val homeFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? HomeFragment
+                val homeFragment =
+                    supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as? HomeFragment
                 homeFragment?.updateTextViewsForEnglish()
-                Log.e("SPRACHE",currentLanguage)
             }
         }
     }
