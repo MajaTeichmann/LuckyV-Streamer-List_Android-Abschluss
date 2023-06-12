@@ -1,6 +1,8 @@
 package com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui
 
+import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +40,10 @@ class SettingsFragment : Fragment() {
     private lateinit var tvLanguageGerman: String
     private lateinit var tvLanguageEnglish: String
 
+    private lateinit var btnLuckyV: Button
+    private lateinit var btnStreamerList: Button
+    private lateinit var tvQuellen: TextView
+
     var languageChangeListener: LanguageChangeListener? = null
 
     override fun onCreateView(
@@ -73,6 +79,10 @@ class SettingsFragment : Fragment() {
         tvModeDark = resources.getString(R.string.de_settings_mode_dark)
         tvLanguageGerman = resources.getString(R.string.settings_de_language_deutsch)
         tvLanguageEnglish = resources.getString(R.string.settings_de_language_englisch)
+
+        btnLuckyV = view.findViewById(R.id.btn_luckyv)
+        btnStreamerList = view.findViewById(R.id.btn_streamerList)
+        tvQuellen = view.findViewById(R.id.tv_quellen)
 
         // Button click listeners
         btnLightMode.setOnClickListener {
@@ -135,6 +145,9 @@ class SettingsFragment : Fragment() {
         btnEnglish.text =
             getString(if (isEnglish) R.string.settings_en_language_english else R.string.settings_de_language_englisch)
 
+        tvQuellen.text =
+            getString(if (isEnglish) R.string.en_settings_quellen else R.string.de_settings_quellen)
+
 
         // Update the language preference
         PreferenceManager.setLanguagePreference(requireContext(), language)
@@ -153,5 +166,18 @@ class SettingsFragment : Fragment() {
 
         // Notify the listener (HomeFragment) that the language has changed
         languageChangeListener?.onLanguageChanged()
+
+        // Button click listeners
+        btnLuckyV.setOnClickListener {
+            val url = "https://www.luckyv.de/"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
+        }
+
+        btnStreamerList.setOnClickListener {
+            val url = "https://luckyv-streamer.frozenpenguin.media/"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
+        }
     }
 }

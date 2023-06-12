@@ -12,6 +12,16 @@
     <string name="de_suchbegriff">Suchbegriff</string>
     <string name="de_sort_button">Sortieren</string>
 
+    <string name="settings_de_language">Sprache</string>
+    <string name="settings_de_language_deutsch">deutsch</string>
+    <string name="settings_de_language_englisch">englisch</string>
+
+    <string name="de_settings_mode">Displaymodus</string>
+    <string name="de_settings_mode_light">hell</string>
+    <string name="de_settings_mode_dark">dunkel</string>
+
+    <string name="de_settings_quellen">Quellen</string>
+
     //englisch
     <string name="en_app_name">LuckyV Streamer List</string>
     <string name="en_header_favo">Favorites</string>
@@ -25,29 +35,25 @@
     <string name="en_suchbegriff">Search Keyword</string>
     <string name="en_sort_button">Sort</string>
 
-    <string name="players_live">live:</string>
-    <string name="live_players_number">${players_online}</string>
-
-
-    <string name="streamers_live">Streamers live</string>
-    <string name="streamers_offline">Streamers offline</string>
-
-    <string name="platzhalter">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
-    <string name="favorites">Favorites</string>
-
-    <string name="settings_de_language">Sprache</string>
-    <string name="settings_de_language_deutsch">deutsch</string>
-    <string name="settings_de_language_englisch">englisch</string>
-
     <string name="settings_en_language">Language</string>
     <string name="settings_en_language_german">german</string>
     <string name="settings_en_language_english">english</string>
 
-    <string name="de_settings_mode">Displaymodus</string>
     <string name="en_settings_mode">Displaymode</string>
-    <string name="de_settings_mode_light">hell</string>
     <string name="en_settings_mode_light">lightmode</string>
-    <string name="de_settings_mode_dark">dunkel</string>
     <string name="en_settings_mode_dark">darkmode</string>
+
+    <string name="en_settings_quellen">Sources</string>
+
+
+
+
+    <string name="players_live">live:</string>
+    <string name="live_players_number">${players_online}</string>
+
+    <string name="streamers_live">Streamers live</string>
+    <string name="streamers_offline">Streamers offline</string>
+
+    <string name="favorites">Favorites</string>
 
 </resources>

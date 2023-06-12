@@ -40,7 +40,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_settings"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
@@ -49,86 +49,141 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_app_header">
 
+
             <TextView
                 android:id="@+id/tv_displayModus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
                 android:text="@string/de_settings_mode"
                 android:textColor="?attr/colorSecondary"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_lightmode"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_lightmode" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btn_lightmode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/day_btn_luckyv_yellow"
+                android:gravity="center"
                 android:text="@string/de_settings_mode_light"
                 android:textColor="@color/day_txt_luckyv_black"
                 android:textSize="11sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/btn_darkmode"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/btn_luckyv"
+                app:layout_constraintStart_toStartOf="@+id/btn_luckyv"
+                app:layout_constraintTop_toBottomOf="@+id/tv_displayModus" />
 
             <Button
                 android:id="@+id/btn_darkmode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/day_btn_luckyv_black"
+                android:gravity="center"
                 android:text="@string/de_settings_mode_dark"
                 android:textColor="@color/txt_luckyv_yellow"
                 android:textSize="11sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintEnd_toEndOf="@+id/btn_streamerList"
+                app:layout_constraintStart_toStartOf="@+id/btn_streamerList"
+                app:layout_constraintTop_toBottomOf="@+id/tv_displayModus" />
 
             <TextView
                 android:id="@+id/tv_language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="21dp"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
                 android:text="@string/settings_de_language"
                 android:textColor="?attr/colorSecondary"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_german"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_german"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_darkmode" />
 
             <Button
                 android:id="@+id/btn_german"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="@color/day_btn_luckyv_yellow"
+                android:gravity="center"
                 android:text="@string/settings_de_language_deutsch"
                 android:textColor="@color/day_txt_luckyv_black"
                 android:textSize="11sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/btn_lightmode"
-                app:layout_constraintTop_toBottomOf="@+id/btn_lightmode" />
+                app:layout_constraintEnd_toEndOf="@+id/btn_luckyv"
+                app:layout_constraintStart_toStartOf="@+id/btn_luckyv"
+                app:layout_constraintTop_toBottomOf="@+id/tv_language" />
 
             <Button
                 android:id="@+id/btn_english"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="5dp"
-                android:backgroundTint="@color/day_btn_luckyv_black"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/day_btn_luckyv_yellow"
+                android:gravity="center"
                 android:text="@string/settings_de_language_englisch"
-                android:textColor="@color/txt_luckyv_yellow"
+                android:textColor="@color/day_txt_luckyv_black"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/btn_streamerList"
+                app:layout_constraintStart_toStartOf="@+id/btn_streamerList"
+                app:layout_constraintTop_toBottomOf="@+id/tv_language" />
+
+            <TextView
+                android:id="@+id/tv_quellen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:text="@string/de_settings_quellen"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_english" />
+
+            <Button
+                android:id="@+id/btn_luckyv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/day_btn_luckyv_yellow"
+                android:gravity="center"
+                android:text="LuckyV"
+                android:textColor="@color/day_txt_luckyv_black"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_quellen" />
+
+            <Button
+                android:id="@+id/btn_streamerList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="@color/day_btn_luckyv_yellow"
+                android:gravity="center"
+                android:text="Streamerlist"
+                android:textColor="@color/day_txt_luckyv_black"
                 android:textSize="11sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/btn_darkmode"
-                app:layout_constraintTop_toBottomOf="@+id/btn_darkmode" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_quellen" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
