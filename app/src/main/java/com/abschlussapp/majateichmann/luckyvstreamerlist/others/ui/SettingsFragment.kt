@@ -103,6 +103,9 @@ class SettingsFragment : Fragment() {
             binding.tvLanguage.setTextColor(
                 ContextCompat.getColor(requireContext(), R.color.night_txt_luckyv_white)
             )
+            binding.tvQuellen.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.night_txt_luckyv_white)
+            )
         } else {
             // Light Mode aktiviert
             binding.tvHeader.setTextColor(
@@ -112,6 +115,9 @@ class SettingsFragment : Fragment() {
                 ContextCompat.getColor(requireContext(), R.color.day_txt_luckyv_black)
             )
             binding.tvLanguage.setTextColor(
+                ContextCompat.getColor(requireContext(), R.color.day_txt_luckyv_black)
+            )
+            binding.tvQuellen.setTextColor(
                 ContextCompat.getColor(requireContext(), R.color.day_txt_luckyv_black)
             )
         }
