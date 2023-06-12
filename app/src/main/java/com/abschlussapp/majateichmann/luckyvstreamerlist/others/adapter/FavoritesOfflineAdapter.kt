@@ -90,7 +90,7 @@ class FavoritesOfflineAdapter(
         icName.maxLines = 1
         icName.isSingleLine = true
 
-        /** Logo-URL Laden */
+        /** Logo-URL laden */
         holder.ivStreamVorschau.load(streamer.logo_url)
 
         val streamerName = holder.tvStreamername
@@ -100,24 +100,12 @@ class FavoritesOfflineAdapter(
         streamerName.maxLines = 1
         streamerName.isSingleLine = true
 
-        /** Button-Click-Listener */
-
+        // Button-Click-Listener
         holder.like.setOnClickListener {
             streamer.favorisiert = !streamer.favorisiert
             viewModel.updateStreamer(streamer)
-            notifyDataSetChanged() // Refresh the entire dataset
+            // Refresh the entire dataset
+            notifyDataSetChanged()
         }
-
-
-//            Log.e("Position Streamer","${currentList.get(position)}")
-
-//            try{
-//                notifyItemRemoved(holder.bindingAdapterPosition)
-//            }
-//            catch(e: Exception){
-//                Log.e("FGHJLKLKJHHHGHJHKGJ","notify ja")
-//            }
-
-        notifyItemRemoved(holder.bindingAdapterPosition)
     }
 }
