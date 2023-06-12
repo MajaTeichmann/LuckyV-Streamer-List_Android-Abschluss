@@ -83,7 +83,6 @@ class HomeFragment : Fragment(), LanguageChangeListener {
         viewModel.language.observe(
             viewLifecycleOwner
         ) {
-            Log.e("FTGBHJN", "de oder en")
             if (it == "de") {
                 updateTextViewsForGerman()
 
