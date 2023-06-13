@@ -121,6 +121,7 @@ class HomeFragment : Fragment(), LanguageChangeListener {
             binding.tvNumberPlayersOnline.text = streamers.size.toString()
             adapterLive.submitList(datasetLive)
         }
+        var streamerLive = datasetLive
 
         val adapterOffline = OfflineAdapter(viewModel)
         streamerListOffline.adapter = adapterOffline
@@ -133,6 +134,7 @@ class HomeFragment : Fragment(), LanguageChangeListener {
             datasetOffline = streamers
             adapterOffline.submitList(datasetOffline)
         }
+        var streamerOffline = datasetOffline
 
         fun updateRecyclerViews(isLive: Boolean) {
             if (isLive) {
@@ -391,10 +393,13 @@ class HomeFragment : Fragment(), LanguageChangeListener {
 
                         filterOptionsFilter[6] -> {
                             sortedStreamersLive = datasetLive.sortedByDescending { it.fraktion }
-                            sortedStreamersOffline =
-                                datasetOffline.sortedByDescending { it.fraktion }
+                            sortedStreamersOffline = datasetOffline.sortedByDescending { it.fraktion }
                         }
                     }
+
+                    adapterLive.submitList(sortedStreamersLive)
+                    adapterOffline.submitList(sortedStreamersOffline)
+
                     binding.rvStreamerOnline.scrollToPosition(position)
                     binding.rvStreamerOffline.scrollToPosition(position)
                 }
