@@ -463,4 +463,3 @@ class HomeFragment : Fragment(), LanguageChangeListener {
         tvSortBtn.text = resources.getString(R.string.en_sort_button)
     }
 }
-
