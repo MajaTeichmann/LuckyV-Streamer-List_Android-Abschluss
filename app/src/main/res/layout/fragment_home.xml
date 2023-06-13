@@ -8,10 +8,6 @@
 
     </data>
 
-    <!--    todo: wenn tastatur eingeblendet, blende navBar aus-->
-    <!--    todo: AutoCompleteTextView überarbeiten-->
-    <!--    todo: com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.SettingsFragment erstellen-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/homeFragment"
         android:layout_width="match_parent"

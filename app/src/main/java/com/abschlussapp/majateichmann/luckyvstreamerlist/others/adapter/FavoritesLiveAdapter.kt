@@ -15,11 +15,8 @@ import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.data.datamodels.StreamerDiffUtil
 import com.abschlussapp.majateichmann.luckyvstreamerlist.others.ui.MainViewModel
 
-//TODO: Kommentare bearbeitet ❌
-
 class FavoritesLiveAdapter(
-    private val viewModel: MainViewModel,
-    private val recyclerView: RecyclerView
+    private val viewModel: MainViewModel
 ) : ListAdapter<Streamer, FavoritesLiveAdapter.ItemViewHolder>(StreamerDiffUtil()) {
 
     init {
@@ -27,7 +24,7 @@ class FavoritesLiveAdapter(
     }
 
     override fun getItemId(position: Int): Long {
-        // Gib den Namen des Streamers als ID zurück
+        /** Gib den Namen des Streamers als ID zurück */
         return currentList[position].name.hashCode().toLong()
     }
 

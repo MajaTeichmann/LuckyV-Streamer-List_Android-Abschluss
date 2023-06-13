@@ -22,7 +22,6 @@ import java.util.Locale
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
 
-    //todo: SPRACHE
     private val viewModel: MainViewModel by activityViewModels()
 
     private lateinit var btnLightMode: Button
@@ -158,22 +157,27 @@ class SettingsFragment : Fragment() {
         // Update the language preference
         PreferenceManager.setLanguagePreference(requireContext(), language)
 
-        //TODO: SPRACHE
-        // Update the language LiveData using postValue
+        // Sprach-LiveData mit postValue aktualisieren
         viewModel.setLanguage(language)
 
 
-        // Update the app's locale
+        // Spracheinstellung der App aktualisieren
+
+        //neues Locale-Objekt mit der angegebenen Sprache erstellen & als Standardsprache setzen
         val locale = Locale(language)
         Locale.setDefault(locale)
+
+        //neue Configuration-Instanz erstellen & mit dem neuen Locale konfigurieren
         val config = Configuration()
         config.setLocale(locale)
+
+        //Configuration auf App anwenden
         resources.updateConfiguration(config, resources.displayMetrics)
 
-        // Notify the listener (HomeFragment) that the language has changed
+        // HomeFragment über Änderung der Sprache infomieren
         languageChangeListener?.onLanguageChanged()
 
-        // Button click listeners
+        // setOnClickListener
         btnLuckyV.setOnClickListener {
             val url = "https://www.luckyv.de/"
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
