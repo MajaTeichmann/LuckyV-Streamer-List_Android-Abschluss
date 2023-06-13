@@ -79,7 +79,8 @@ class HomeFragment : Fragment(), LanguageChangeListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //TODO: SPRACHE
+        //Hier wird das Viewmodel beobachtet und je nachdem, ob als Sprache "de" oder "en" aktiv ist,
+        // werden die TextViews die deutschen oder englischen String-Versionen anzeigen
         viewModel.language.observe(
             viewLifecycleOwner
         ) {
@@ -290,7 +291,7 @@ class HomeFragment : Fragment(), LanguageChangeListener {
             /** formatierten SpannableString als Text für die TextView setzen*/
             binding.tvDescription1.text = spannableString
 
-            // Den String-Ressourcenwert für "de_app_description_line2" abrufen
+            // Den String-Ressourcenwert für "en_app_description_line2" abrufen
             val descriptionLine2 = resources.getString(R.string.en_app_description_line2)
 
             // Erstelle eine SpannableString mit demselben Inhalt wie der ursprüngliche Text
@@ -320,7 +321,6 @@ class HomeFragment : Fragment(), LanguageChangeListener {
         val mainActivity = requireActivity() as MainActivity
         mainActivity.einblenden()
 
-        //todo: beschreibung
         val dropdownSort = binding.dropDownSort
 
         binding.btnSort.setOnClickListener {
@@ -331,6 +331,7 @@ class HomeFragment : Fragment(), LanguageChangeListener {
             binding.dropDownSort.visibility = if (isVisible) View.GONE else View.VISIBLE
         }
 
+        //Dropdown Auswahlmöglichkeiten
         val filterOptionsFilter =
             listOf<String>(
                 "Sortieren nach:",
@@ -439,9 +440,6 @@ class HomeFragment : Fragment(), LanguageChangeListener {
     }
 
     override fun onLanguageChanged() {
-//        val mainActivity = requireActivity() as MainActivity
-//        mainActivity.onLanguageChanged()
-
         val language = PreferenceManager.getLanguagePreference(requireContext())
 
         if (language == "de") {

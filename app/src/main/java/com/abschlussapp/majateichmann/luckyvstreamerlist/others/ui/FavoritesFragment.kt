@@ -80,7 +80,7 @@ class FavoritesFragment : Fragment() {
         favoritesOffline.layoutManager = gridLayoutManagerOffline
 
         /** favoritesAdapter mit gefilteter Liste initialisieren */
-        favoritesLiveAdapter = FavoritesLiveAdapter(viewModel, recyclerViewLive)
+        favoritesLiveAdapter = FavoritesLiveAdapter(viewModel)
         recyclerViewLive.adapter = favoritesLiveAdapter
 
         /** favoritesAdapter mit gefilteter Liste initialisieren */

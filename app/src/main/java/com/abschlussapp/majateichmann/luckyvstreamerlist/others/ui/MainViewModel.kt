@@ -27,13 +27,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    //TODO: SPRACHE
     private val _language = MutableLiveData<String>()
     val language: LiveData<String>
         get() = _language
 
-    //TODO: SPRACHE
-    // Public method to set the language value
+    //öffentliche Methode zum Festlegen des Sprachwerts
     fun setLanguage(language: String) {
         _language.value = language
     }
@@ -51,7 +49,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         loadData()
-        //TODO: SPRACHE
     }
 
     fun loadData() {
